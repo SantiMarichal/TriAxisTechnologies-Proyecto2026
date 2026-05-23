@@ -96,20 +96,37 @@ body {
     font-size: 27px;
 }
 
-.satisfaccion {
+.opiniones{
     grid-column: 1;
+
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
+
+    gap: 30px;
+}
+
+.satisfaccion {
+    background-color: rgb(176, 206, 247);
+    color:#0061fd;
+    border-radius: 30px;
+    width: 300px;
+    height:auto;
+    padding:0 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .completadas {
-    grid-column: 1;
+    background-color: rgb(88, 243, 83);
+    color:#0061fd;
+    border-radius: 30px;
+    width: 300px;
+    height:auto;
+    padding:0 30px;
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin-top: 20px;
+    gap: 10px;
 }
 
 .Encuesta {
@@ -121,7 +138,7 @@ body {
     width: 300px;
     margin: 0 auto;
     padding: 30px;
-    gap: 30px;
+    gap: 10px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -175,4 +192,9 @@ select {
     transition: 0.2s;
     text-align: center;
     padding: 10px;
+}
+
+.enviar:hover {
+    background-color: #ffffff;
+    color:black;
 }
