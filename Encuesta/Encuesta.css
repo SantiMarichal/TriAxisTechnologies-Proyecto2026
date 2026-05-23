@@ -1,0 +1,160 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
+}
+
+.header {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    align-items: center;
+    background-color: #bfdbfe;
+    padding: 30px 40px;
+    min-height: 220px;
+}
+
+.logo-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 25px;
+}
+
+.logo {
+    width: 220px;
+}
+
+.buttons {
+    display: flex;
+    gap: 20px;
+}
+
+.btnPaciente {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(29, 107, 252);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btnEncuesta {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: white;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btnPaciente:hover {
+    background-color: #1e293b;
+    color: white;
+}
+
+.btnEncuesta:hover {
+    background-color: #1e293b;
+    color: white;
+}
+
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.titulo h1 {
+    font-size: 52px;
+    font-weight: 700;
+}
+
+.main-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+.h2Titulo {
+    grid-column: 1;
+    font-size: 27px;
+}
+
+.h3Titulo {
+    grid-column: 1;
+    font-size: 27px;
+}
+
+.Encuesta {
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(217, 217, 217);
+    border-radius: 30px;
+    width: 300px;
+    padding: 25px;
+    gap: 30px;
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
+}
+
+.imgEncuesta {
+    width: 80px;
+    height: auto;
+}
+
+select {
+    width: 250px;
+    padding: 12px 15px;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    background-color: white;
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
+    cursor: pointer;
+    outline: none;
+}
+
+.calificacion {
+    display: flex;
+    gap: 10px;
+}
+
+.calificacion button {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    border: none;
+    background-color: #e2e8f0;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.calificacion  button:hover {
+    background-color: #3b82f6;
+    color: white;
+}
+
+.enviar{
+    width: 250px;
+    height: 40px;
+    border-radius: 25px;
+    border: none;
+    background-color: #363232;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.2s;
+    text-align: center;
+    padding: 10px;
+}

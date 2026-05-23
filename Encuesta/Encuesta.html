@@ -1,12 +1,56 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Encuesta</title>
     <link rel="stylesheet" href="Encuesta.css">
 </head>
+
 <body>
-    
+    <header class="header">
+
+        <div class="logo-container">
+            <img src="/TriAxisTechnologies-Proyecto2026/Imagenes/HospitalDeClinicas.png" alt="Logo" class="logo">
+
+            <div class="buttons">
+                <button class="btnPaciente">Vista paciente</button>
+                <button class="btnEncuesta">Encuestas</button>
+            </div>
+        </div>
+
+        <div class="titulo">
+            <h1>Encuestas</h1>
+        </div>
+
+    </header>
+
+    <main class="main-container">
+        <h2 class="h2Titulo">Encuesta de satisfaccion</h2>
+        <h3 class="h3Titulo">Ayúdenos a mejorar nuestros servicios con su opinión</h3>
+        <div class="Encuesta">
+            <img src="/TriAxisTechnologies-Proyecto2026/Imagenes/Encuesta.png" alt="Encuesta" class="imgEncuesta">
+            <h2>Nueva Encuesta</h2>
+            <h3>Servicio utilizado:</h3>
+            <select id="servicio">
+                <option>Odontologia</option>
+                <option>Pediatría</option>
+                <option>Cardiología</option>
+                <option>Ginecología</option>
+                <option>Traumatología</option>
+            </select>
+            <div class="calificacion">
+                <button>😡</button>
+                <button>😕</button>
+                <button>😐</button>
+                <button>🙂</button>
+                <button>😄</button>
+            </div>
+            <btn class="enviar">ENVIAR ENCUESTA</btn>
+        </div>
+    </main>
+
 </body>
+
 </html>

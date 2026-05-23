@@ -36,7 +36,18 @@ body {
     gap: 20px;
 }
 
-.buttons button {
+.btnPanel {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(29, 107, 252);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btnAmbulancias{
     padding: 14px 28px;
     border: none;
     border-radius: 30px;
@@ -44,10 +55,15 @@ body {
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.buttons button:hover {
+.btnPanel:hover {
+    background-color: #1e293b;
+    color: white;
+}
+
+.btnAmbulancias:hover {
     background-color: #1e293b;
     color: white;
 }
@@ -82,18 +98,18 @@ h3 {
 
 .search-bar {
     grid-column: 1;
-    height:100px;
+    height: 100px;
     width: 420px;
 }
 
 .search-bar input {
-    height:auto;
+    height: auto;
     width: 420px;
     padding: 14px 20px;
     border-radius: 30px;
     border: none;
     font-size: 16px;
-    box-shadow: 0px 3px 10px rgba(0,0,0,0.08);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.08);
 }
 
 .search-bar input:focus {
@@ -109,7 +125,7 @@ h3 {
     display: flex;
     flex-direction: column;
     gap: 30px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
 }
 
 .chofer {
@@ -135,6 +151,7 @@ h3 {
     flex-direction: column;
     gap: 12px;
 }
+
 .info2 {
     display: flex;
     flex-direction: column;
@@ -145,6 +162,7 @@ h3 {
     font-size: 16px;
     font-weight: 500;
 }
+
 .chofer p {
     font-size: 16px;
     font-weight: 500;
@@ -152,10 +170,10 @@ h3 {
 
 .estadoAmbulancias {
     background-color: rgb(217, 217, 217);
-    width:300px;
+    width: 300px;
     border-radius: 30px;
     padding: 30px;
-    box-shadow: 0px 5px 15px rgba(0,0,0,0.08);
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -165,4 +183,3 @@ h3 {
     font-size: 18px;
     font-weight: 600;
 }
-
