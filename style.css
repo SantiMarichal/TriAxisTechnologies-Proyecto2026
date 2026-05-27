@@ -25,7 +25,7 @@ body{
     gap:15px;
 
 }
-.title{
+.login-title{
     display: flex;
     justify-content: center;
     color: #000000;
@@ -37,7 +37,7 @@ input{
     border-color:gainsboro;
 }
 .login-button{
-    background-color: #ff6a3b;
+    background-color: #0055ff;
     border:none;
     color:white;
     border-radius: 5px;
@@ -58,6 +58,11 @@ input{
 .linkA{
     color: white;
 }
+body {
+    background-color: #F4F1E9;
+    font-family: "Fraunces", serif;
+    margin: 0;
+}
 
 .coso-azul {
     width: 100%;
@@ -65,120 +70,8 @@ input{
     background-color: #0055ff;
     top: 0;
 }
+
 .logo {
     width: 200px;
     margin-left: 10px;
-}
-.estorecienarranca {
-    background-color: #efd8d8;
-    color: white;
-    margin-left: 100px;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    position: relative;
-    top: -50px;
-}
-.carlitosmiamor {
-    background-color: #efd8d8;
-    color: white;
-    margin-left: 50px;
-    width: 150px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    position: relative;
-    top: -50px;
-}
-.h3 {margin-left: 50px;
-    margin-top: 20px;
-}
-.c1 {
-    background-color: #0055ff;
-    color: white;
-    margin-left: 100px;
-    margin-top: 10px;
-    width: 60px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.c2 {
-    background-color: #0055ff;
-    color: white;
-    margin-left: 25px;
-    width: 60px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.c3 {
-    background-color: #0055ff;
-    color: white;
-    margin-left: 25px;
-    width: 65px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.c4 {
-    background-color: #0055ff;
-    color: white;
-    margin-left: 25px;
-    width: 60px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.c5 {
-    background-color: #0055ff;
-    color: white;
-    margin-left: 25px;
-    width: 60px;
-    height: 40px;
-    border: none;
-    border-radius: 8px;
-    font-size: 10px;
-    font-weight: bold;
-    cursor: pointer;
-}
-.pess {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-}
-.pes1 {
-    background-color: #d9d9d9;
-    width: 350px;
-    height: 250px;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px;
-}
-.pes2 {
-    background-color: #d9d9d9;
-    width: 350px;
-    height: 250px;
-    border-radius: 15px;
-    padding: 20px;
-    margin: 20px;
 }
