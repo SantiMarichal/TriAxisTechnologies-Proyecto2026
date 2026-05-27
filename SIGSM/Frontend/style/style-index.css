@@ -1,0 +1,80 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Poppins', sans-serif;
+}
+
+/* contenedor principal */
+.container {
+    width: 100%;
+    min-height: 100vh;
+}
+
+/* parte azul superior */
+.top-bar {
+    background-color: #4b79d8;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.logo {
+    width: 110px;
+}
+
+/* titulo */
+.title-area h1 {
+    color: black;
+    font-size: 40px;
+    line-height: 1.1;
+}
+
+/* caja gris */
+.login-box {
+    width: 90%;
+    max-width: 500px;
+    background-color: #d9d9d9;
+    margin: 30px auto;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+/* texto arriba */
+.ruta {
+    margin-bottom: 20px;
+    font-size: 14px;
+}
+
+/* formulario */
+.login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.login-form label {
+    font-weight: bold;
+}
+
+.login-form input {
+    padding: 10px;
+    border: none;
+    background-color: #b5b5b5;
+}
+
+/* botón */
+.login-button {
+    margin-top: 20px;
+    background-color: #2f2f2f;
+    color: white;
+    border: none;
+    padding: 12px;
+    font-weight: bold;
+    cursor: pointer;
+}
