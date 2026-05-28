@@ -12,7 +12,6 @@
 
 <body>
     <header class="header">
-
         <div class="logo-container">
             <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/HospitalDeClinicas.png" alt="Logo"
                 class="logo">
@@ -22,57 +21,71 @@
                 <button class="btnAmbulancias">Ambulancias</button>
             </div>
         </div>
-
         <div class="titulo">
             <h1>Transporte de Vehículos</h1>
         </div>
-
     </header>
+    <div class="layout">
+        <aside class="sidebar">
+            <ul class="menu">
+                <li class="menu-item-dashboard">
+                    Dashboard
+                </li>
+                <li class="menu-item">
+                    Formularios
+                </li>
+                <li class="menu-item">
+                    Reportes
+                </li>
+            </ul>
+        </aside>
 
-    <main class="main-container">
-        <h2>Control y Seguimiento</h2>
-        <br>
-        <h3>Traslados</h3>
-        <h3>Programación</h3>
-        <div class="search-bar">
-            <input type="text" placeholder="Buscar por paciente, conductor o destino...">
-        </div>
-        <div class="ambulancia">
-            <div class="chofer">
-                <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/ambulancia.png" alt="Ambulancia"
-                    class="imgAmbulancia">
-                <p>Chofer: Juan Pérez</p>
-                <p>Cedula: 123456789</p>
-                <p>Estado: en curso</p>
+
+        <main class="main-container">
+            <h2>Control y Seguimiento</h2>
+            <br>
+            <h3>Traslados</h3>
+            <h3>Programación</h3>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar por paciente, conductor o destino...">
             </div>
-            <div class="info">
-                <div class="info1">
-                    <p>Origen: Hospital de Clinicas</p>
-                    <p>Destino: Hospital Maciel</p>
-                    <p>Conductor: Pepe</p>
+            <div class="ambulancia">
+                <div class="chofer">
+                    <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/ambulancia.png"
+                        alt="Ambulancia" class="imgAmbulancia">
+                    <p>Chofer: Juan Pérez</p>
+                    <p>Cedula: 123456789</p>
+                    <p>Estado: en curso</p>
                 </div>
-                <div class="info2">
-                    <p>Enfermero: Maria</p>
-                    <p>Salida: 8:30</p>
-                    <p>Llegada estimada: 9:15</p>
+                <div class="info">
+                    <div class="info1">
+                        <p>Origen: Hospital de Clinicas</p>
+                        <p>Destino: Hospital Maciel</p>
+                        <p>Conductor: Pepe</p>
+                    </div>
+                    <div class="info2">
+                        <p>Enfermero: Maria</p>
+                        <p>Salida: 8:30</p>
+                        <p>Llegada estimada: 9:15</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="estadoAmbulancias">
-            <div class="encurso">
-                <p>En curso: 3</p>
+            <div class="estadoAmbulancias">
+                <div class="encurso">
+                    <p>En curso: 3</p>
+                </div>
+                <div class="pendientes">
+                    <p>Pendientes: 2</p>
+                </div>
+                <div class="completados">
+                    <p>Completados hoy: 9</p>
+                </div>
             </div>
-            <div class="pendientes">
-                <p>Pendientes: 2</p>
-            </div>
-            <div class="completados">
-                <p>Completados hoy: 9</p>
-            </div>
-        </div>
-    </main>
-    <footer class="footer">
-        <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
-    </footer>
+        </main>
+</div>
+        <footer class="footer">
+            <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
+        </footer>
 </body>
 
 </html>

@@ -16,15 +16,13 @@ body {
     grid-template-columns: 350px 1fr;
     align-items: center;
     background-color: #bfdbfe;
-    padding: 30px 40px;
-    min-height: 220px;
+    height: 200px;
 }
 
 .logo-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 25px;
 }
 
 .logo {
@@ -34,6 +32,7 @@ body {
 .buttons {
     display: flex;
     gap: 20px;
+    margin-left: 20px;
 }
 
 .btnPanel {
@@ -84,6 +83,40 @@ body {
     grid-template-columns: 2fr 1fr;
     gap: 50px;
     padding: 40px;
+}
+
+.layout {
+    display:grid;
+    grid-template-columns: 200px 1fr;/*fr es una unidad de grid fr=fraccion*/
+    grid-template-rows: auto 1fr auto; /*con auto el tamaño de la fila se ajusta al tamaño del contenido*/
+}
+.sidebar {
+    min-width: 200px; /* ¿Diferencia entre width y min-width? Antes teníamos: width: 200px; entonces necesitamos flex: 1; pero con min-width no necesitamos flex: 1    */
+    background-color: #bfdbfe;
+    color: rgb(0, 0, 0);
+}
+.menu {
+    list-style: none;
+    padding:0;
+    margin:0;
+}
+.menu-item {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+.menu-item-dashboard{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+.menu-item:hover {
+    background-color: rgb(29, 107, 252);
+    cursor: pointer;
+}
+.menu-item:active {
+    color: black;
 }
 
 h2 {
