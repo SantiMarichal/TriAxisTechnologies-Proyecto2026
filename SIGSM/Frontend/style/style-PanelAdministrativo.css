@@ -12,82 +12,123 @@ body {
 /* estructura principal */
 .contenedor {
     min-height: 100vh;
-
     display: grid;
-
     grid-template-rows: auto 1fr auto;
 }
 
-/* encabezado */
-header {
-    background: #4b79d8;
+.header {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    align-items: center;
+    background-color: #bfdbfe;
+    padding: 30px 40px;
+    min-height: 220px;
+}
 
-    padding: 20px;
-
+.logo-container {
     display: flex;
     flex-direction: column;
-
-    gap: 15px;
-}
-
-img {
-    width: 120px;
-}
-
-/* botones */
-.botones {
-    display: flex;
-
+    align-items: center;
     gap: 10px;
 }
 
-.botones button {
-    padding: 10px;
+.logo {
+    width: 220px;
+}
 
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    color: rgb(0, 0, 0);
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin-left: 100px;
+}
+
+.btnPanel {
+    padding: 14px 28px;
     border: none;
-
-    border-radius: 20px;
-
+    border-radius: 30px;
+    background-color: white;
+    font-size: 15px;
+    font-weight: 600;
     cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-/* botón azul */
-.ambulancia {
-    background: #2196f3;
+.btnAmbulancias {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(29, 107, 252);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
 
+.btnUsuario {
+    padding: 14px 28px;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(29, 107, 252);
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.btnPaciente:hover {
+    background-color: #1e293b;
     color: white;
-
-    transition: 0.3s;
 }
 
-/* hover = cuando pasás el mouse */
-.ambulancia:hover {
-    background: #1565c0;
+.btnEncuesta:hover {
+    background-color: #1e293b;
+    color: white;
+}
+
+.btnUsuario:hover {
+    background-color: #1e293b;
+    color: white;
+}
+
+.titulo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 100px;
+}
+
+.titulo h1 {
+    font-size: 52px;
+    font-weight: 700;
 }
 
 /* contenido */
 main {
     width: 95%;
     max-width: 800px;
-
     margin: 20px auto;
-
     display: grid;
-
     gap: 20px;
 }
 
 /* cajas grises */
 section {
     background: #d9d9d9;
-
     padding: 20px;
-
     border-radius: 15px;
-
     display: flex;
     flex-direction: column;
-
     gap: 15px;
 }
 
@@ -95,7 +136,6 @@ section {
 form {
     display: flex;
     flex-direction: column;
-
     gap: 10px;
 }
 
@@ -103,63 +143,47 @@ input,
 textarea,
 select {
     padding: 10px;
-
     border: none;
-
     background: #b5b5b5;
 }
 
 /* tamaño del textarea */
 textarea {
     height: 100px;
-
     resize: none;
 }
 
 /* botón subir */
 .subir {
     background: #2196f3;
-
     color: white;
-
     border: none;
-
     padding: 10px;
-
     border-radius: 10px;
-
     cursor: pointer;
 }
 
 /* tarjeta negra */
 .card {
     background: black;
-
     color: white;
-
     padding: 15px;
-
     border-radius: 15px;
-
     display: flex;
     flex-direction: column;
-
     gap: 10px;
 }
 
 /* etiquetas */
 .etiquetas {
     display: flex;
-
     gap: 10px;
 }
 
 .azul,
 .verde {
     padding: 5px 10px;
-
     border-radius: 10px;
-
     font-size: 12px;
 }
 
@@ -174,8 +198,6 @@ textarea {
 /* pie */
 footer {
     background: #4b79d8;
-
     padding: 15px;
-
     text-align: center;
 }

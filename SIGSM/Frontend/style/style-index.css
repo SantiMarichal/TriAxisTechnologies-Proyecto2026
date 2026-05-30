@@ -25,7 +25,8 @@ body {
 }
 
 .logo {
-    width: 110px;
+    width: 300px;
+    height: auto;
 }
 
 /* titulo */
@@ -69,7 +70,12 @@ body {
 }
 
 /* botón */
+a {
+    text-decoration: none;
+}
+
 .login-button {
+    text-align: center;
     margin-top: 20px;
     background-color: #2f2f2f;
     color: white;

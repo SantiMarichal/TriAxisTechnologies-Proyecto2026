@@ -10,109 +10,77 @@
 </head>
 
 <body>
-
     <!-- contenedor principal -->
     <div class="contenedor">
+        <header class="header">
 
-        <!-- encabezado -->
-        <header>
+            <div class="logo-container">
+                <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/HospitalDeClinicas.png" alt="Logo"
+                    class="logo">
 
-            <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/HospitalDeClinicas.png" alt="logo">
+                <div class="buttons">
+                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/PanelAdministrativo.html"
+                        class="btnPanel">Panel administrativo</a>
+                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/TransportedeVehiculos.html"
+                        class="btnAmbulancias">Gestion de ambulancias</a>
+                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/CreacionDeUsuarioAdministrativo.html"
+                        class="btnUsuario">Crear usuario administrativo</a>
+                </div>
+            </div>
 
-            <h1>Hospital de Clínicas</h1>
-
-            <!-- botones -->
-            <div class="botones">
-
-                <button>Panel Admin</button>
-
-                <button class="ambulancia">
-                    Ambulancias
-                </button>
-
+            <div class="titulo">
+                <h1>Creación de Usuario Administrativo</h1>
             </div>
 
         </header>
-
-        <!-- contenido -->
         <main>
-
             <!-- caja del formulario -->
             <section class="carga">
-
                 <h2>Panel Administrativo</h2>
-
                 <p>
                     Gestión de documentación del Hospital de Clínicas.
                 </p>
-
                 <h3>Cargar nuevo documento</h3>
-
                 <form>
-
                     <label>Nombre del documento</label>
                     <input type="text">
-
                     <label>Descripción</label>
-
                     <!-- textarea para textos largos -->
                     <textarea></textarea>
-
                     <label>Categoría</label>
-
                     <select>
                         <option>Laboratorio</option>
                         <option>Emergencia</option>
                     </select>
-
                     <button class="subir">
                         Cargar documento
                     </button>
-
                 </form>
-
             </section>
-
             <!-- documentos -->
             <section class="documentos">
-
                 <h3>Documentos cargados</h3>
-
                 <div class="card">
-
                     <h4>protocolo</h4>
-
                     <p>Proyecto descripción</p>
-
                     <div class="etiquetas">
-
                         <span class="azul">
                             Categoría
                         </span>
-
                         <span class="verde">
                             Aprobado
                         </span>
-
                     </div>
-
                 </div>
-
             </section>
-
         </main>
-
         <!-- pie -->
         <footer>
-
             <p>
                 Hospital de Clínicas - Sistema de Documentación Digital
             </p>
-
         </footer>
-
     </div>
-
 </body>
 
 </html>
