@@ -1,5 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,100..900;1,9..144,100..900&display=swap');
-
 * {
     box-sizing: border-box;
     margin: 0;
@@ -8,8 +6,8 @@
 
 body {
     background-color: #F4F1E9;
-    font-family: "Fraunces", serif;
-    height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
 }
 
 .form-container {
@@ -21,6 +19,7 @@ body {
 }
 
 .header {
+    font-family: 'Poppins', sans-serif;
     display: grid;
     grid-template-columns: 350px 1fr;
     align-items: center;
@@ -49,60 +48,40 @@ a:visited {
     color: rgb(0, 0, 0);
 }
 
-.buttons {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-left: 100px;
+.layout {
+    font-family: 'Poppins', sans-serif;
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    /*fr es una unidad de grid fr=fraccion*/
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
 }
 
-.btnPanel {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
+.sidebar {
+    min-width: 200px;
+    /* ¿Diferencia entre width y min-width? Antes teníamos: width: 200px; entonces necesitamos flex: 1; pero con min-width no necesitamos flex: 1    */
+    background-color: #bfdbfe;
+    color: rgb(0, 0, 0);
+}
+
+.menu {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-item {
+    padding: 15px;
+    border-bottom: 1px solid #444;
+}
+
+.menu-item:hover {
     background-color: rgb(29, 107, 252);
-    font-size: 15px;
-    font-weight: 600;
     cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.btnAmbulancias {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
-    background-color: rgb(29, 107, 252);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btnUsuario {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
-    background-color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btnPaciente:hover {
-    background-color: #1e293b;
-    color: white;
-}
-
-.btnEncuesta:hover {
-    background-color: #1e293b;
-    color: white;
-}
-
-.btnUsuario:hover {
-    background-color: #1e293b;
-    color: white;
+.menu-item:active {
+    color: black;
 }
 
 .titulo {

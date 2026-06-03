@@ -11,21 +11,11 @@
 
 <body>
     <!-- contenedor principal -->
-    <div class="contenedor">
         <header class="header">
 
             <div class="logo-container">
                 <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/HospitalDeClinicas.png" alt="Logo"
                     class="logo">
-
-                <div class="buttons">
-                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/PanelAdministrativo.html"
-                        class="btnPanel">Panel administrativo</a>
-                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/TransportedeVehiculos.html"
-                        class="btnAmbulancias">Gestion de ambulancias</a>
-                    <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/CreacionDeUsuarioAdministrativo.html"
-                        class="btnUsuario">Crear usuario administrativo</a>
-                </div>
             </div>
 
             <div class="titulo">
@@ -33,6 +23,28 @@
             </div>
 
         </header>
+<div class="layout">
+         <aside class="sidebar">
+            <ul class="menu">
+                <li class="menu-item">
+                    Formularios
+                </li>
+                <li class="menu-item">
+                    Reportes
+                </li>
+                <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/TransportedeVehiculos.html">
+                <li class="menu-item">
+                    Gestión de ambulancias
+                </li>
+                </a>
+                <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/CreacionDeUsuarioAdministrativo.html">
+                <li class="menu-item">
+                    Gestión de usuarios
+                </li>
+                </a>
+            </ul>
+        </aside>
+
         <main>
             <!-- caja del formulario -->
             <section class="carga">
@@ -61,7 +73,7 @@
             <section class="documentos">
                 <h3>Documentos cargados</h3>
                 <div class="card">
-                    <h4>protocolo</h4>
+                    <h4>Protocolo</h4>
                     <p>Proyecto descripción</p>
                     <div class="etiquetas">
                         <span class="azul">
@@ -74,13 +86,12 @@
                 </div>
             </section>
         </main>
-        <!-- pie -->
-        <footer>
+    </div>
+    <footer>
             <p>
                 Hospital de Clínicas - Sistema de Documentación Digital
             </p>
         </footer>
-    </div>
 </body>
 
 </html>
