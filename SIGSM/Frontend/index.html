@@ -1,37 +1,46 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Inicio de sesión</title>
-    <link rel="stylesheet" href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/style/style-index.css">
+    <link rel="icon" href="assets/icons/HospitalDeClinicas.ico">
+    <link rel="stylesheet" href="style/style-index.css">
 </head>
+
 <body>
     <div class="container">
         <!-- Encabezado azul -->
-        <header class="top-bar">
-            <div class="logo-area">
-                <img src="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/assets/img/HospitalDeClinicas.png" alt="Logo"
-                    class="logo">
+        <header class="header">
+            <div class="logo-container">
+                <img src="assets/img/HospitalDeClinicas.png" alt="Logo" class="logo">
             </div>
-            <div class="title-area">
+            <div class="titulo">
                 <h1>Inicio de sesión</h1>
             </div>
         </header>
         <!-- Caja del formulario -->
         <div class="login-box">
-            <p class="ruta">Inicio de sesión</p>
             <form class="login-form">
-                <label>Cédula</label>
-                <input type="text" placeholder="12345678">
-                <label>Contraseña</label>
-                <input type="password" placeholder="********">
-                <a href="/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModulo.html"
-                    class="login-button">
+                <label for="" class="login-label">Cédula</label>
+                <input type="number" class="login-label" placeholder="1234567">
+
+                <label for="" class="login-label">Nombre</label>
+                <input type="text" class="login-user" placeholder="Juan Pereira">
+
+                <label for="" class="login-label">Contraseña</label>
+                <input type="password" class="login-password" placeholder="******">
+
+                <a href="html/EleccionDeModulo.html" class="login-button">
                     INICIAR SESIÓN
                 </a>
             </form>
+            <div class="invitado">
+                <h4> ¿No es un funcionario?</h4>
+                <a href="html/DocumentacionParaPacientes.html" class="link">Iniciar sesión como invitado</a>
+            </div>
         </div>
-    </div>
 </body>
+
 </html>
