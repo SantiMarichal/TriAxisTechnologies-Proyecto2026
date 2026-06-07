@@ -47,32 +47,54 @@ a:visited {
     color: rgb(0, 0, 0);
 }
 
+.main-container {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+
+.layout {
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    min-height: 100vh;
+}
+
 .sidebar {
-    min-width: 200px;
-    /* ¿Diferencia entre width y min-width? Antes teníamos: width: 200px; entonces necesitamos flex: 1; pero con min-width no necesitamos flex: 1    */
-    background-color: #bfdbfe;
-    color: rgb(0, 0, 0);
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    box-shadow: 2px 0 10px rgba(0,0,0,.05);
+    position: sticky;
+    top: 0;
+    height: 100vh;
 }
 
 .menu {
     list-style: none;
-    padding: 0;
-    margin: 0;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .menu-item {
-    padding: 15px;
-    border-bottom: 1px solid #444;
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: .2s;
+    font-weight: 500;
 }
 
 .menu-item:hover {
-    background-color: rgb(29, 107, 252);
+    background-color: #dbeafe;
+    color: #2563eb;
     cursor: pointer;
 }
 
 .menu-item:active {
-    color: black;
+    background-color: #2563eb;
+    color: white;
 }
+
 
 .titulo {
     display: flex;
@@ -169,8 +191,10 @@ textarea {
 }
 
 /* pie */
-footer {
-    background: #4b79d8;
-    padding: 15px;
+.footer {
+    background: white;
+    border-top: 1px solid #e2e8f0;
+    padding: 20px;
     text-align: center;
+    color: #64748b;
 }
