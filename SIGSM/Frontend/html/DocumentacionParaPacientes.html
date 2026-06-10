@@ -11,47 +11,57 @@
 
 <body>
     <header class="header">
-
         <div class="logo-container">
             <img src="../assets/img/HospitalDeClinicas.png" alt="Logo" class="logo">
-
-            <div class="buttons">
-                <a href="../html/DocumentacionParaPacientes.html" class="btnPaciente">Vista paciente</a>
-                <a href="../html/Encuesta.html" class="btnEncuesta">Encuestas</a>
-            </div>
         </div>
-
         <div class="titulo">
             <h1>Documentación para Pacientes</h1>
         </div>
-
     </header>
-    <h2 class="title">Acceda a la información del Hospital de Clínicas de forma digital</h2>
-    <h3 class="h3"> Filtrar por Categoría:</h3>
 
-    <button class="c1">Todos</button>
-    <button class="c2">Protocolos</button>
-    <button class="c3">Informacion General</button>
-    <button class="c4">Servicios</button>
-    <button class="c5">Educacion</button>
+ <div class="layout">
+        <aside class="sidebar">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="../html/DocumentacionParaPacientes.html">Gestión de documentos</a>
+                </li>
+                <li class="menu-item">
+                    <a href="../html/Encuesta.html">Encuestas</a>
+                </li>
+            </ul>
+        </aside>
 
-    <div class="pess">
+        <main class="main-container">
+            <h2 class="title">Acceda a la información del Hospital de Clínicas de forma digital</h2>
+            <h3 class="h3">Filtrar por Categoría:</h3>
 
-        <div class="pes1">
+            <div class="filter-buttons">
+                <button class="btn">Todos</button>
+                <button class="btn">Protocolos</button>
+                <button class="btn">Información General</button>
+                <button class="btn">Servicios</button>
+                <button class="btn">Educación</button>
+            </div>
 
-            <h2>Protocolo de Atencion</h2>
-            <p>Guia completa de atencion para casos COVID-19</p>
-            <p>Protocolos</p>
-            <p>2026-05-10</p>
-        </div>
-        <div class="pes2">
-
-            <h2>Protocolo de atencion</h2>
-            <p>Protocolos</p>
-            <p>2026-05-10</p>
-
-        </div>
+            <div class="pess">
+                <div class="pes1">
+                    <h2>Protocolo de Atención</h2>
+                    <p>Guía completa de atención para casos COVID-19</p>
+                    <p>Protocolos</p>
+                    <p>2026-05-10</p>
+                </div>
+                <div class="pes2">
+                    <h2>Protocolo de atención</h2>
+                    <p>Protocolos</p>
+                    <p>2026-05-10</p>
+                </div>
+            </div>
+        </main>
     </div>
+
+    <footer class="footer">
+        <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
+    </footer>
 </body>
 
 </html>

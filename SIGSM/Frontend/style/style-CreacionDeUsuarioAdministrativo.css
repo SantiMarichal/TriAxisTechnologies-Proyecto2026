@@ -5,9 +5,12 @@
 }
 
 body {
-    background-color: #F4F1E9;
-    font-family: 'Poppins', sans-serif;
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8fafc;
+    color: #1e293b;
 }
 
 .form-container {
@@ -54,7 +57,7 @@ a:visited {
     grid-template-columns: 200px 1fr;
     /*fr es una unidad de grid fr=fraccion*/
     grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
+    flex:1;
 }
 
 .sidebar {
@@ -62,8 +65,9 @@ a:visited {
     border-right: 1px solid #e2e8f0;
     box-shadow: 2px 0 10px rgba(0,0,0,.05);
     position: sticky;
-    top: 0;
     height: 100vh;
+    top: 0;
+
 }
 
 .menu {

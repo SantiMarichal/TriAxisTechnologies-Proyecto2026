@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,62 +7,72 @@
     <link rel="stylesheet" href="../style/style-Encuesta.css">
     <link rel="icon" href="../assets/icons/HospitalDeClinicas.ico">
 </head>
-
 <body>
     <header class="header">
-
         <div class="logo-container">
             <img src="../assets/img/HospitalDeClinicas.png" alt="Logo" class="logo">
-
-            <div class="buttons">
-                <a href="../html/DocumentacionParaPacientes.html" class="btnPaciente">Vista paciente</a>
-                <a href="../html/Encuesta.html" class="btnEncuesta">Encuestas</a>
-            </div>
         </div>
-
         <div class="titulo">
             <h1>Encuestas</h1>
         </div>
-
     </header>
 
-    <main class="main-container">
-        <h2 class="h2Titulo">Encuesta de satisfaccion</h2>
-        <h3 class="h3Titulo">Ayúdenos a mejorar nuestros servicios con su opinión</h3>
-        <div class="opiniones">
-            <div class="satisfaccion">
-                <h2>Satisfacción general</h2>
-                <p>4/5</p>
+    <div class="layout">
+        <aside class="sidebar">
+            <ul class="menu">
+                <li class="menu-item">
+                    <a href="../html/DocumentacionParaPacientes.html">Gestión de documentos</a>
+                </li>
+                <li class="menu-item">
+                    <a href="../html/Encuesta.html">Encuestas</a>
+                </li>
+            </ul>
+        </aside>
+
+        <main class="main-container">
+            <h2 class="h2Titulo">Encuesta de satisfacción</h2>
+            <h3 class="h3Titulo">Ayúdenos a mejorar nuestros servicios con su opinión</h3>
+
+            <div class="content-grid">
+
+                <div class="opiniones">
+                    <div class="satisfaccion">
+                        <h2>Satisfacción general</h2>
+                        <p>4/5</p>
+                    </div>
+                    <div class="completadas">
+                        <h2>Encuestas completadas</h2>
+                        <p>12</p>
+                    </div>
+                </div>
+
+                <div class="Encuesta">
+                    <img src="../assets/img/Encuesta.png" alt="Encuesta" class="imgEncuesta">
+                    <h2>Nueva Encuesta</h2>
+                    <h3>Servicio utilizado:</h3>
+                    <select id="servicio">
+                        <option>Odontología</option>
+                        <option>Pediatría</option>
+                        <option>Cardiología</option>
+                        <option>Ginecología</option>
+                        <option>Traumatología</option>
+                    </select>
+                    <div class="calificacion">
+                        <button>😡</button>
+                        <button>😕</button>
+                        <button>😐</button>
+                        <button>🙂</button>
+                        <button>😄</button>
+                    </div>
+                    <button class="enviar">ENVIAR ENCUESTA</button>
+                </div>
+
             </div>
-            <div class="completadas">
-                <h2>Encuestas completadas</h2>
-                <p>12</p>
-            </div>
-        </div>
-        <div class="Encuesta">
-            <img src="../assets/img/Encuesta.png" alt="Encuesta" class="imgEncuesta">
-            <h2>Nueva Encuesta</h2>
-            <h3>Servicio utilizado:</h3>
-            <select id="servicio">
-                <option>Odontologia</option>
-                <option>Pediatría</option>
-                <option>Cardiología</option>
-                <option>Ginecología</option>
-                <option>Traumatología</option>
-            </select>
-            <div class="calificacion">
-                <button>😡</button>
-                <button>😕</button>
-                <button>😐</button>
-                <button>🙂</button>
-                <button>😄</button>
-            </div>
-            <btn class="enviar">ENVIAR ENCUESTA</btn>
-        </div>
-    </main>
+        </main>
+    </div>
+
     <footer class="footer">
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
 </body>
-
 </html>

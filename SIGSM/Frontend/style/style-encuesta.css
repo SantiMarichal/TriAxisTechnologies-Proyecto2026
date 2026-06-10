@@ -6,6 +6,8 @@
 
 body {
     min-height: 100vh;
+    display: flex;
+    flex-direction: column;
     font-family: 'Poppins', sans-serif;
     background-color: #f8fafc;
     color: #1e293b;
@@ -40,38 +42,6 @@ a:visited {
     color: rgb(0, 0, 0);
 }
 
-.btnPaciente {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
-    background-color: rgb(29, 107, 252);
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btnEncuesta {
-    padding: 14px 28px;
-    border: none;
-    border-radius: 30px;
-    background-color: white;
-    font-size: 15px;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.btnPaciente:hover {
-    background-color: #1e293b;
-    color: white;
-}
-
-.btnEncuesta:hover {
-    background-color: #1e293b;
-    color: white;
-}
-
 .titulo {
     display: flex;
     justify-content: center;
@@ -83,67 +53,128 @@ a:visited {
     font-weight: 700;
 }
 
-.main-container {
+.layout {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 40px;
-    padding: 40px;
+    grid-template-columns: 200px 1fr;
+    flex:1;
+}
+
+.sidebar {
+    background: white;
+    border-right: 1px solid #e2e8f0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
+    position: sticky;
+    top: 0;
+    height: fit-content;
+}
+
+.menu {
+    list-style: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: .2s;
+    font-weight: 500;
+}
+
+.menu-item a {
+    text-decoration: none;
+    color: #000000;
+    display: block;
+}
+
+.menu-item:hover {
+    background-color: #dbeafe;
+    cursor: pointer;
+}
+
+.menu-item:hover a {
+    color: #2563eb;
+}
+
+.menu-item:active {
+    background-color: #2563eb;
+}
+
+.menu-item:active a {
+    color: white;
+}
+
+.main-container {
+    padding: 30px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .h2Titulo {
-    grid-column: 1;
     font-size: 27px;
+    font-weight: 700;
 }
 
 .h3Titulo {
-    grid-column: 1;
-    font-size: 27px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #475569;
+}
+
+.content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: start;
 }
 
 .opiniones {
-    grid-column: 1;
-
     display: flex;
     flex-direction: column;
+    gap: 20px;
+}
 
-    gap: 30px;
+.satisfaccion,
+.completadas {
+    border-radius: 20px;
+    width: 100%;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
 .satisfaccion {
     background-color: rgb(176, 206, 247);
     color: #0061fd;
-    border-radius: 30px;
-    width: 300px;
-    height: auto;
-    padding: 0 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
 }
 
 .completadas {
     background-color: rgb(88, 243, 83);
-    color: #0061fd;
-    border-radius: 30px;
-    width: 300px;
-    height: auto;
-    padding: 0 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+    color: #1a7a18;
+}
+
+.satisfaccion h2,
+.completadas h2 {
+    font-size: 18px;
+}
+
+.satisfaccion p,
+.completadas p {
+    font-size: 32px;
+    font-weight: 700;
 }
 
 .Encuesta {
-    grid-column: 2;
     display: flex;
     flex-direction: column;
     background-color: rgb(217, 217, 217);
-    border-radius: 30px;
-    width: 300px;
-    margin: 0 auto;
-    margin-top: -70px;
-    padding: 15px;
-    gap: 10px;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 14px;
     box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.08);
 }
 
@@ -153,7 +184,7 @@ a:visited {
 }
 
 select {
-    width: 250px;
+    width: 100%;
     padding: 12px 15px;
     border: none;
     border-radius: 25px;
@@ -186,30 +217,26 @@ select {
 }
 
 .enviar {
-    width: 250px;
-    height: 40px;
+    width: 100%;
+    height: 45px;
     border-radius: 25px;
     border: none;
     background-color: #363232;
     color: white;
-    font-size: 18px;
+    font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
     transition: 0.2s;
-    text-align: center;
-    padding: 10px;
 }
 
 .enviar:hover {
-    background-color: #ffffff;
-    color: black;
+    background-color: #1e1b1b;
 }
 
 .footer {
     background-color: #bfdbfe;
     padding: 20px 40px;
-    margin-top: 175px;
+    display: flex;
     justify-content: center;
     align-items: center;
-    display: flex;
-    gap: 10px;
 }

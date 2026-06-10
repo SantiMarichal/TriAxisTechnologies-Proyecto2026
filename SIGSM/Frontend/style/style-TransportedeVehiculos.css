@@ -133,7 +133,7 @@ h3 {
     background: white;
     border-radius: 24px;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     padding: 25px;
     display: flex;
     flex-direction: column;
@@ -148,7 +148,7 @@ h3 {
 }
 
 .imgAmbulancia {
-    width: 140px;
+    width: 100px;
     height: auto;
 }
 
@@ -184,7 +184,7 @@ h3 {
     background: white;
     border-radius: 24px;
     border: 1px solid #e2e8f0;
-    box-shadow: 0 10px 25px rgba(0,0,0,.05);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
     padding: 25px;
     display: flex;
     flex-direction: column;
