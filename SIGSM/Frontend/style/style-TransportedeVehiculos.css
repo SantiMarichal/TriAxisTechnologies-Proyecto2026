@@ -64,9 +64,11 @@ a:visited {
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
     background: white;
     border-right: 1px solid #e2e8f0;
-    box-shadow: 2px 0 10px rgba(0,0,0,.05);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
     position: sticky;
     top: 0;
     height: 100vh;
@@ -98,9 +100,61 @@ a:visited {
     color: white;
 }
 
-h2 {
+.usuario {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-admin {
+    font-size: 12px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+
+.crear {
     grid-column: 1;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 20px;
+}
+
+h2 {
     font-size: 38px;
+}
+
+.btn {
+    width: 250px;
+    height: 50px;
+    margin-left: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+    margin-top: 15px;
+    background: #2563eb;
+    color: white;
+    padding: 14px;
+    border-radius: 12px;
+    font-weight: 600;
+    transition: .2s;
 }
 
 h3 {
@@ -126,7 +180,7 @@ h3 {
 .search-bar input:focus {
     outline: none;
     border-color: #3b82f6;
-    box-shadow: 0 0 0 4px rgba(59,130,246,.15);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, .15);
 }
 
 .ambulancia {
@@ -197,9 +251,9 @@ h3 {
 }
 
 .footer {
-    background: white;
+    background-color: #bfdbfe;
     border-top: 1px solid #e2e8f0;
     padding: 20px;
     text-align: center;
-    color: #64748b;
+    color: #1e293b;
 }

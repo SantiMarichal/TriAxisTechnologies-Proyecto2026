@@ -54,20 +54,21 @@ a:visited {
 .layout {
     font-family: 'Poppins', sans-serif;
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 250px 1fr;
     /*fr es una unidad de grid fr=fraccion*/
     grid-template-rows: auto 1fr auto;
     flex:1;
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
     background: white;
     border-right: 1px solid #e2e8f0;
-    box-shadow: 2px 0 10px rgba(0,0,0,.05);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
     position: sticky;
-    height: 100vh;
     top: 0;
-
+    height: 100vh;
 }
 
 .menu {
@@ -94,6 +95,35 @@ a:visited {
 .menu-item:active {
     background-color: #2563eb;
     color: white;
+}
+
+.usuario {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-admin {
+    font-size: 12px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
 
 .titulo {
@@ -158,22 +188,10 @@ input {
     color: white;
 }
 
-body {
-    background-color: #F4F1E9;
-    font-family: "Fraunces", serif;
-    margin: 0;
-}
-
-.logo {
-    width: 200px;
-    margin-left: 10px;
-}
-
 .footer {
     background-color: #bfdbfe;
-    padding: 20px 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
+    border-top: 1px solid #e2e8f0;
+    padding: 20px;
+    text-align: center;
+    color: #1e293b;
 }

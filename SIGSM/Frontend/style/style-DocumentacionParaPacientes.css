@@ -170,10 +170,10 @@ body {
     gap: 8px;
 }
 
-
 .footer {
     background-color: #bfdbfe;
-    text-align: center;
+    border-top: 1px solid #e2e8f0;
     padding: 20px;
-    font-size: 14px;
+    text-align: center;
+    color: #1e293b;
 }

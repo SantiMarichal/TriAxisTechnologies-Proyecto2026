@@ -128,3 +128,11 @@ a {
     background: #1d4ed8;
     transform: translateY(-2px);
 }
+
+.footer {
+    background-color: #bfdbfe;
+    border-top: 1px solid #e2e8f0;
+    padding: 20px;
+    text-align: center;
+    color: #1e293b;
+}

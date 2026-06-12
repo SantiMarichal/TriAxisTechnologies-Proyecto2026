@@ -61,9 +61,11 @@ a:visited {
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
     background: white;
     border-right: 1px solid #e2e8f0;
-    box-shadow: 2px 0 10px rgba(0,0,0,.05);
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
     position: sticky;
     top: 0;
     height: 100vh;
@@ -95,6 +97,35 @@ a:visited {
     color: white;
 }
 
+.usuario {
+    margin-top: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 15px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.user {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.user-admin {
+    font-size: 12px;
+}
+
+.user-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
 
 .titulo {
     display: flex;
@@ -108,7 +139,6 @@ a:visited {
     font-weight: 700;
 }
 
-/* contenido */
 main {
     width: 95%;
     max-width: 800px;
@@ -117,8 +147,7 @@ main {
     gap: 20px;
 }
 
-/* cajas grises */
-section {
+.carga, .documentos {
     background: #d9d9d9;
     padding: 20px;
     border-radius: 15px;
@@ -127,7 +156,6 @@ section {
     gap: 15px;
 }
 
-/* formulario */
 form {
     display: flex;
     flex-direction: column;
@@ -142,13 +170,11 @@ select {
     background: #b5b5b5;
 }
 
-/* tamaño del textarea */
 textarea {
     height: 100px;
     resize: none;
 }
 
-/* botón subir */
 .subir {
     background: #2196f3;
     color: white;
@@ -158,7 +184,6 @@ textarea {
     cursor: pointer;
 }
 
-/* tarjeta negra */
 .card {
     background: black;
     color: white;
@@ -169,7 +194,6 @@ textarea {
     gap: 10px;
 }
 
-/* etiquetas */
 .etiquetas {
     display: flex;
     gap: 10px;
@@ -190,11 +214,10 @@ textarea {
     background: #3dbb5d;
 }
 
-/* pie */
 .footer {
-    background: white;
+    background-color: #bfdbfe;
     border-top: 1px solid #e2e8f0;
     padding: 20px;
     text-align: center;
-    color: #64748b;
+    color: #1e293b;
 }
