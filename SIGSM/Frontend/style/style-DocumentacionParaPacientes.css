@@ -157,6 +157,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+
+}
+
+.pes1-text{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
 }
 
 .pes2 {
@@ -168,6 +175,13 @@ body {
     display: flex;
     flex-direction: column;
     gap: 8px;
+    justify-content: space-between;
+}
+
+.pes2-text{
+    display: flex;
+    flex-direction: column;
+    gap:12px;
 }
 
 .footer {
@@ -176,4 +190,12 @@ body {
     padding: 20px;
     text-align: center;
     color: #1e293b;
+}
+
+.btn-vdc {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap:10px;
 }
