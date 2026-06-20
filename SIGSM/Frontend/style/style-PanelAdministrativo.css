@@ -200,7 +200,8 @@ textarea {
 }
 
 .azul,
-.verde {
+.verde,
+.rojo {
     padding: 5px 10px;
     border-radius: 10px;
     font-size: 12px;
@@ -212,6 +213,10 @@ textarea {
 
 .verde {
     background: #3dbb5d;
+}
+    
+.rojo {
+    background: #f44336;
 }
 
 .footer {
