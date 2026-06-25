@@ -16,6 +16,7 @@ body {
 .header {
     display: grid;
     grid-template-columns: 350px 1fr;
+    grid-template-areas: "logo titulo";
     align-items: center;
     background-color: #bfdbfe;
     padding: 30px 40px;
@@ -23,6 +24,7 @@ body {
 }
 
 .logo-container {
+    grid-area: logo;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,6 +33,7 @@ body {
 
 .logo {
     width: 220px;
+    max-width: 100%;
 }
 
 a {
@@ -43,6 +46,7 @@ a:visited {
 }
 
 .titulo {
+    grid-area: titulo;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -51,15 +55,18 @@ a:visited {
 .titulo h1 {
     font-size: 52px;
     font-weight: 700;
+    text-align: center;
 }
 
 .layout {
     display: grid;
     grid-template-columns: 200px 1fr;
-    flex:1;
+    grid-template-areas: "sidebar main";
+    flex: 1;
 }
 
 .sidebar {
+    grid-area: sidebar;
     background: white;
     border-right: 1px solid #e2e8f0;
     box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
@@ -107,6 +114,7 @@ a:visited {
 }
 
 .main-container {
+    grid-area: main;
     padding: 30px 40px;
     display: flex;
     flex-direction: column;
@@ -124,14 +132,16 @@ a:visited {
     color: #475569;
 }
 
-.content-grid {
+.grid-encuesta {
     display: grid;
     grid-template-columns: 1fr 1fr;
+    grid-template-areas: "opiniones encuesta";
     gap: 30px;
     align-items: start;
 }
 
 .opiniones {
+    grid-area: opiniones;
     display: flex;
     flex-direction: column;
     gap: 20px;
@@ -169,6 +179,7 @@ a:visited {
 }
 
 .Encuesta {
+    grid-area: encuesta;
     display: flex;
     flex-direction: column;
     background-color: rgb(217, 217, 217);
@@ -198,6 +209,7 @@ select {
 .calificacion {
     display: flex;
     gap: 10px;
+    flex-wrap: wrap;
 }
 
 .calificacion button {
@@ -239,4 +251,75 @@ select {
     padding: 20px;
     text-align: center;
     color: #1e293b;
+}
+
+
+/*media para celulares (hasta 768px)*/
+@media (max-width: 768px) {
+    .header {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "logo"
+            "titulo";
+        padding: 20px;
+        min-height: auto;
+        gap: 15px;
+    }
+
+    .logo {
+        width: 140px;
+    }
+
+    .titulo h1 {
+        font-size: 28px;
+    }
+
+    .layout {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "sidebar"
+            "main";
+    }
+
+    .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .menu {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .menu-item {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+
+    .main-container {
+        padding: 20px;
+    }
+
+    .h2Titulo {
+        font-size: 22px;
+    }
+
+    .h3Titulo {
+        font-size: 14px;
+    }
+
+    .satisfaccion p,
+    .completadas p {
+        font-size: 26px;
+    }
+
+    .calificacion {
+        justify-content: center;
+    }
 }
