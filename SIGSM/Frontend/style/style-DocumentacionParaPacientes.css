@@ -13,9 +13,6 @@ body {
     color: #1e293b;
 }
 
-/* ============================= */
-/* HEADER con grid-template-areas */
-/* ============================= */
 .header {
     display: grid;
     grid-template-columns: 350px 1fr;
@@ -52,9 +49,6 @@ body {
     text-align: center;
 }
 
-/* ============================= */
-/* LAYOUT con grid-template-areas */
-/* ============================= */
 .layout {
     display: grid;
     grid-template-columns: 200px 1fr;
