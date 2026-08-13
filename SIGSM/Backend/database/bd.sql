@@ -1,3 +1,8 @@
+CREATE DATABASE Proyecto;
+
+USE Proyecto;
+
+
 -- Módulo Ambulancias
 Traslado(ID_Traslado, Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen, Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
 FK1: Cedula_Chofer → Chofer(Cedula_Chofer)
@@ -29,33 +34,6 @@ FK2: ID_Trasladable → Trasladable(ID_Trasladable)
 
 
 -- Módulo Documentación
---Administrativo(Cedula_Administrativo, Nombre Administrativo, Apellido_Administrativo, Contraseña, Cargo)
-
---Documentos(ID_Documento, Titulo, Descripcion, ID_Categoria, Cedula_Administrativo, Hora, Fecha)
-
-FK1: ID_Categoria → Categorias(ID_Categoria)
-FK2: Hora → Carga(Hora)
-FK3: Fecha → Carga(Fecha)
---FK4: Cedula_Administrativo → Administrativo(Cedula_Administrativo)
-
---Categorias(ID_Categoria, Nombre)
-
---Encuesta(ID_Encuesta, Preguntas, Titulo, Descripción, ID_Categoria)
-FK1: ID_Categoria → Categorias(ID_Categoria)
-
-Paciente(NombreDelUsuario)
-
-Preguntas(ID_Pregunta)
-
---Completa(ID_Encuesta, ID_Pregunta, NombreDelUsuario)
-FK1: ID_Encuesta → Encuesta(ID_Encuesta)
-FK2: ID_Pregunta → Pregunta(ID_Pregunta)
-FK3: Cedula_Paciente → Paciente(Cedula_Paciente)
-
-Visualiza(ID_Documento, NombreDeUsuario)
-FK1: ID_Documento →Documento(ID_Documento)
-FK2: Cedula_Paciente → Paciente(Cedula_Paciente)
-
 create table administrativo (
     Cedula_Administrativo varchar (10) primary key,
     Nombre_Administrativo varchar, 
@@ -68,8 +46,8 @@ create table Documentos (
     ID_Documento varchar (10) primary key,
     Titulo varchar,
     Descripcion varchar,
-    ID_Categoria varchar,
-    foreign key Cedula_Administrativo references,
+    foreign key  (ID_Categoria) references Categorias (ID_Categoria),
+    foreign key (Cedula_Administrativo) references administrativo (Cedula_Administrativo),
     Hora date,
     Fecha date
 );
@@ -80,13 +58,17 @@ create table Categorias (
 );
 
 create table Encuesta (
-    ID_Categoria varchar (10) primary key,
-    Nombre varchar
+    ID_Encuesta varchar (10) primary key,
+    ID_Pregunta varchar,
+    Titulo varchar,
+    Descripcion varchar,
+    foreign key ID_Categoria references Categorias (ID_Categoria)
 );
-Encuesta(ID_Encuesta, Preguntas, Titulo, Descripción, ID_Categoria)
 
-create table Categorias (
-    ID_Categoria varchar (10) primary key,
-    Nombre varchar
+create table Preguntas (
+    ID_Pregunta varchar (10) primary key
 );
-Completa(ID_Encuesta, ID_Pregunta, NombreDelUsuario)
+
+
+
+
