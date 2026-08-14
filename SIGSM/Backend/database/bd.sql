@@ -1,73 +1,128 @@
 CREATE DATABASE Proyecto;
-
 USE Proyecto;
 
-
 -- Módulo Ambulancias
-Traslado(ID_Traslado, Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen, Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
-FK1: Cedula_Chofer → Chofer(Cedula_Chofer)
-FK2: Cedula_Enfermero → Enfermero(Cedula_Enfermero)
-FK3: Matricula → Vehiculo(Matricula)
-FK4: ID_Destino → Destino(ID_Destino)
 
-Enfermero(Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero)
+--DDL:
+CREATE TABLE Enfermero(
+    Cedula_Enfermero VARCHAR (10) PRIMARY KEY,
+    Nombre_Enfermero VARCHAR (20),
+    Apellido_Enfermero VARCHAR (20)
+);
 
-Chofer(Cedula_Chofer, Nombre_Chofer, Apellido_Chofer, Telefono)
+CREATE TABLE Chofer(
+    Cedula_Chofer VARCHAR (10) PRIMARY KEY,
+    Nombre_Chofer VARCHAR (20),
+    Apellido_Chofer VARCHAR (20),
+    Telefono VARCHAR (10)
+);
 
-Vehiculo(Matricula, Modelo, Capacidad, Tipo_Vehiculo)
+CREATE TABLE Vehiculo(
+    Matricula VARCHAR (10) PRIMARY KEY,
+    Modelo VARCHAR (10),
+    Capacidad INT,
+    Tipo_Vehiculo VARCHAR (10)
+);
 
-Destino(ID_Destino, Nombre, Direccion, Ruta)
+CREATE TABLE Destino(
+    ID_Destino VARCHAR (10) PRIMARY KEY,
+    Nombre VARCHAR (20),
+    Direccion VARCHAR (100),
+    Ruta VARCHAR (100)
+);
 
-Trasladable(ID_Trasladable, Piso_Retiro, Habitacion_Retiro)
+CREATE TABLE Trasladable(
+    ID_Trasladable VARCHAR (10) PRIMARY KEY,
+    Piso_Retiro INT,
+    Habitacion_Retiro INT
+);
 
-Paciente(ID_Trasladable, CI, Nombre, Accesorio, Camilla, Oxigeno)
-FK1: ID_Trasladable → Trasladable(ID_Trasladable)
+CREATE TABLE Traslado(
+    ID_Traslado VARCHAR (10) PRIMARY KEY,
+    Fecha DATE,
+    Hora_Salida TIME,
+    Hora_Llegada TIME,
+    Estado VARCHAR (10),
+    Lugar_Origen VARCHAR (100),
+    Cedula_Chofer VARCHAR (10),
+    Cedula_Enfermero VARCHAR (10),
+    Matricula VARCHAR (10),
+    ID_Destino VARCHAR (10),
+    FOREIGN KEY (Cedula_Chofer) REFERENCES Chofer(Cedula_Chofer),
+    FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero),
+    FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
+    FOREIGN KEY (ID_Destino) REFERENCES Destino(ID_Destino)
+);
 
-Elemento(ID_Trasladable, Nombre, Descripcion, Tipo_Elemento)
-FK1: ID_Trasladable → Trasladable(ID_Trasladable)
+CREATE TABLE Paciente(
+    ID_Trasladable VARCHAR (10) PRIMARY KEY,
+    CI VARCHAR(10)UNIQUE,
+    Nombre VARCHAR (20),
+    Accesorio VARCHAR (100),
+    Camilla VARCHAR (100), --Boolean?
+    Oxigeno VARCHAR (100), --Boolean?
+    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
+);
 
-Transporta(ID_Traslado, ID_Trasladable)
-FK1: ID_Traslado → Traslado(ID_Traslado)
-FK2: ID_Trasladable → Trasladable(ID_Trasladable)
+CREATE TABLE Elemento(
+    ID_Trasladable VARCHAR (10) PRIMARY KEY,
+    Nombre VARCHAR (20),
+    Descripcion VARCHAR (200),
+    Tipo_Elemento VARCHAR (50),
+    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
+);
 
+CREATE TABLE Transporta(
+    ID_Traslado VARCHAR (10),
+    ID_Trasladable VARCHAR (10),
+    PRIMARY KEY (ID_Traslado, ID_Trasladable),
+    FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado),
+    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
+);
 
-
+--DML:
 
 -- Módulo Documentación
-create table administrativo (
-    Cedula_Administrativo varchar (10) primary key,
-    Nombre_Administrativo varchar, 
-    Apellido_Administrativo varchar,
-    Contraseña integer,
-    Cargo varchar
+
+--DDL:
+CREATE TABLE Administrativo (
+    Cedula_Administrativo VARCHAR (10) PRIMARY KEY,
+    Nombre_Administrativo VARCHAR (20), 
+    Apellido_Administrativo VARCHAR (20),
+    Contrasena VARCHAR (20),
+    Cargo VARCHAR (10)
 );
 
-create table Documentos (
-    ID_Documento varchar (10) primary key,
-    Titulo varchar,
-    Descripcion varchar,
-    foreign key  (ID_Categoria) references Categorias (ID_Categoria),
-    foreign key (Cedula_Administrativo) references administrativo (Cedula_Administrativo),
-    Hora date,
-    Fecha date
+CREATE TABLE Categorias (
+    ID_Categoria VARCHAR (10) PRIMARY KEY,
+    Nombre VARCHAR (20)
 );
 
-create table Categorias (
-    ID_Categoria varchar (10) primary key,
-    Nombre varchar
+CREATE TABLE Encuesta (
+    ID_Encuesta VARCHAR (10) PRIMARY KEY,
+    ID_Pregunta VARCHAR (10),
+    Titulo VARCHAR (100),
+    Descripcion VARCHAR (200),
+    ID_Categoria VARCHAR (10),
+    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
-create table Encuesta (
-    ID_Encuesta varchar (10) primary key,
-    ID_Pregunta varchar,
-    Titulo varchar,
-    Descripcion varchar,
-    foreign key ID_Categoria references Categorias (ID_Categoria)
+CREATE TABLE Documentos (
+    ID_Documento VARCHAR (10) PRIMARY KEY,
+    Titulo VARCHAR (100),
+    Descripcion VARCHAR (200),
+    ID_Categoria VARCHAR (10),
+    Cedula_Administrativo VARCHAR (10),
+    FOREIGN KEY  (ID_Categoria) REFERENCES Categorias(ID_Categoria),
+    FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo),
+    HorayFecha datetime
 );
 
-create table Preguntas (
-    ID_Pregunta varchar (10) primary key
+CREATE TABLE Preguntas (
+    ID_Pregunta VARCHAR (10) PRIMARY KEY
 );
+
+--DML:
 
 
 
