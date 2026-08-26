@@ -1,9 +1,9 @@
-CREATE DATABASE Proyecto;
-USE Proyecto;
+CREATE DATABASE IF NOT EXISTS Proyecto2026;
+USE Proyecto2026;
 
 -- Módulo Documentación
 
---DDL:
+-- DDL:
 CREATE TABLE Administrativo (
     Cedula_Administrativo VARCHAR (10) PRIMARY KEY,
     Nombre_Administrativo VARCHAR (20), 
@@ -42,7 +42,7 @@ CREATE TABLE Documentos (
     HorayFecha datetime
 );
 
---DML:
+-- DML:
 INSERT INTO Administrativo
 (Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo)
 VALUES
@@ -90,7 +90,7 @@ VALUES
 
 -- Módulo Ambulancias
 
---DDL:
+-- DDL:
 CREATE TABLE Enfermero(
     Cedula_Enfermero VARCHAR (10) PRIMARY KEY,
     Nombre_Enfermero VARCHAR (20),
@@ -167,7 +167,7 @@ CREATE TABLE Transporta(
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
---DML:
+-- DML:
 INSERT INTO Enfermero
 (Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero)
 VALUES
