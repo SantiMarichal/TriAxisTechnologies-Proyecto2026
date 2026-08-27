@@ -64,7 +64,14 @@ class Administrativo
     }
 
     // LOGIN
-    public function login(string $user, string $pass): ?array {
-        
+    public function login(string $ci, string $nombre, string $pass): ?array {
+        $sql = 'SELECT * FROM Administrativo WHERE Cedula_Administrativo=:ci AND Nombre_Administrativo=:nombre AND Contrasena=:pass';
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
+        $sentencia->bindParam(":nombre", $nombre);
+        $sentencia->bindParam(":pass", $pass);
+        $sentencia->execute();
+        $administrativo = ($sentencia->fetch(PDO::FETCH_ASSOC)) ?: null;
+        return $administrativo ?: null;
     }
 }

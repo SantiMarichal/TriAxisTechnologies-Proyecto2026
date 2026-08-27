@@ -74,7 +74,7 @@ INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
 ('ENC004', 'Personal', 'Evaluacion del trato recibido por el personal.', 'CAT004'),
 ('ENC005', 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 'CAT005');
 
-INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta) VALUES
+INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta, Texto) VALUES
 ('P001', 'ENC001', '¿Que opinas de la limpieza?'),
 ('P002', 'ENC001', '¿Que opinas de la atención al cliente?'),
 ('P003', 'ENC002', '¿Que opinas de la instalación?'),

@@ -7,10 +7,7 @@ $Administrativo = new Administrativo();
 try {
 
     switch ($metodo) {
-        // GET /api/usuarios/
-        // GET /api/usuarios/12345678
         case 'GET':
-        // GET /api/usuarios/
         if($id === null){
             $administrativos= $Administrativo->obtenerTodos();
             echo json_encode($administrativos);
@@ -29,13 +26,12 @@ try {
         exit;
 
         case 'POST':
-            //POST /api/usuarios/
             $datos = json_decode(file_get_contents('php://input'), true);
 
             $ci = $datos['ci'];
             $nombre = $datos['nombre'];
             $apellido = $datos['apellido'];
-            $password = $datos['password'];
+            $pass = $datos['pass'];
             $cargo = $datos['cargo'];
 
             $resultado = $Administrativo->crear(
@@ -45,6 +41,13 @@ try {
                 $password,
                 $cargo
             );
+            if ($resultado){
+                http_response_code(201);
+                echo json_encode(['mensaje' => 'Usuario creado correctamente']);
+            }else{
+                http_response_code(500);
+                echo json_encode(['error' => 'No se pudo crear el usuario']);
+            }
             exit;
         case 'PUT':
             
