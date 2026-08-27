@@ -17,18 +17,28 @@ CREATE TABLE Categorias (
     Nombre VARCHAR (20)
 );
 
-CREATE TABLE Preguntas (
-    ID_Pregunta VARCHAR (10) PRIMARY KEY
-);
-
 CREATE TABLE Encuesta (
     ID_Encuesta VARCHAR (10) PRIMARY KEY,
-    ID_Pregunta VARCHAR (10),
     Titulo VARCHAR (100),
     Descripcion VARCHAR (200),
     ID_Categoria VARCHAR (10),
-    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria),
-    FOREIGN KEY (ID_Pregunta) REFERENCES Preguntas(ID_Pregunta)
+    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
+);
+
+CREATE TABLE Preguntas (
+    ID_Pregunta VARCHAR (10),
+    ID_Encuesta VARCHAR (10),
+    Texto VARCHAR (200),
+    PRIMARY KEY (ID_Encuesta, ID_Pregunta),
+    FOREIGN KEY (ID_Encuesta) REFERENCES Encuesta(ID_Encuesta)
+);
+
+CREATE TABLE Respuestas (
+    ID_Respuesta VARCHAR(10) PRIMARY KEY,
+    ID_Pregunta VARCHAR(10),
+    ID_Encuesta VARCHAR(10),
+    Texto VARCHAR(200),
+    FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
 );
 
 CREATE TABLE Documentos (
@@ -43,50 +53,48 @@ CREATE TABLE Documentos (
 );
 
 -- DML:
-INSERT INTO Administrativo
-(Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo)
-VALUES
+INSERT INTO Administrativo (Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo) VALUES
 ('12345678', 'Juan', 'Perez', '123456', 'Admin'),
 ('23456789', 'Ana', 'Gomez', '234567', 'Admin'),
 ('34567890', 'Carlos', 'Rodriguez', '345678', 'Admin'),
 ('45678901', 'Maria', 'Fernandez', '456789', 'Admin'),
 ('56789012', 'Luis', 'Martinez', '567890', 'Admin');
 
-INSERT INTO Categorias
-(ID_Categoria, Nombre)
-VALUES
+INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
 ('CAT001', 'Atencion'),
 ('CAT002', 'Limpieza'),
 ('CAT003', 'Instalaciones'),
 ('CAT004', 'Personal'),
 ('CAT005', 'Servicios');
 
-INSERT INTO Preguntas
-(ID_Pregunta)
-VALUES
-('P001'),
-('P002'),
-('P003'),
-('P004'),
-('P005');
+INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
+('ENC001', 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 'CAT001'),
+('ENC002', 'Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 'CAT002'),
+('ENC003', 'Instalaciones', 'Evaluacion del estado de las instalaciones.', 'CAT003'),
+('ENC004', 'Personal', 'Evaluacion del trato recibido por el personal.', 'CAT004'),
+('ENC005', 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 'CAT005');
 
-INSERT INTO Encuesta
-(ID_Encuesta, ID_Pregunta, Titulo, Descripcion, ID_Categoria)
-VALUES
-('ENC001', 'P001', 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 'CAT001'),
-('ENC002', 'P002', 'Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 'CAT002'),
-('ENC003', 'P003', 'Instalaciones', 'Evaluacion del estado de las instalaciones.', 'CAT003'),
-('ENC004', 'P004', 'Personal', 'Evaluacion del trato recibido por el personal.', 'CAT004'),
-('ENC005', 'P005', 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 'CAT005');
+INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta) VALUES
+('P001', 'ENC001', '¿Que opinas de la limpieza?'),
+('P002', 'ENC001', '¿Que opinas de la atención al cliente?'),
+('P003', 'ENC002', '¿Que opinas de la instalación?'),
+('P004', 'ENC002', '¿Que opinas de la documentación digital?'),
+('P005', 'ENC002', '¿Que opinas de los enfermeros?');
 
-INSERT INTO Documentos
-(ID_Documento, Titulo, Descripcion, ID_Categoria, Cedula_Administrativo, HorayFecha)
-VALUES
+INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
+('R001', 'P001', 'ENC001', 'Muy Bueno'),
+('R002', 'P002', 'ENC001', 'Bueno'),
+('R003', 'P003', 'ENC002', 'Regular'),
+('R004', 'P004', 'ENC002', 'Malo'),
+('R005', 'P005', 'ENC002', 'Muy Bueno');
+
+INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria, Cedula_Administrativo, HorayFecha) VALUES
 ('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001', '12345678', '2026-08-01 08:30:00'),
 ('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002', '23456789', '2026-08-05 09:15:00'),
 ('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003', '34567890', '2026-08-10 10:00:00'),
 ('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004', '45678901', '2026-08-15 11:30:00'),
 ('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005', '56789012', '2026-08-20 12:00:00');
+
 
 -- Módulo Ambulancias
 
@@ -145,10 +153,11 @@ CREATE TABLE Paciente(
     ID_Trasladable VARCHAR (10) PRIMARY KEY,
     CI VARCHAR(10)UNIQUE,
     Nombre VARCHAR (20),
-    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro'),
+    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno'),
     Camilla ENUM('De emergencia', 'Normal'), 
-    Oxigeno BOOLEAN,
-    Aislamiento BOOLEAN,
+    Oxigeno BOOLEAN DEFAULT FALSE,
+    Aislamiento BOOLEAN DEFAULT FALSE,
+    -- DEFAULT FALSE asigna automaticamente el valor false a una columna cuando se inserta un nuevo registro y no se especifica un valor
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
