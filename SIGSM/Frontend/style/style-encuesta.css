@@ -19,8 +19,8 @@ body {
     grid-template-areas: "logo titulo";
     align-items: center;
     background-color: #bfdbfe;
-    padding: 30px 40px;
-    min-height: 220px;
+    padding: 0px;
+    min-height: 170px;
 }
 
 .logo-container {

@@ -16,7 +16,8 @@ body {
     grid-template-columns: 350px 1fr;
     align-items: center;
     background-color: #bfdbfe;
-    height: 200px;
+    padding: 0px;
+    min-height: 170px;
 }
 
 .logo-container {

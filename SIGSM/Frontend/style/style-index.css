@@ -8,6 +8,7 @@ body {
     background-color: #F4F1E9;
     font-family: 'Poppins', sans-serif;
     min-height: 100vh;
+    color: #1e293b;
 }
 
 .header {
@@ -15,8 +16,8 @@ body {
     grid-template-columns: 350px 1fr;
     align-items: center;
     background-color: #bfdbfe;
-    padding: 30px 40px;
-    min-height: 220px;
+    padding: 0px;
+    min-height: 170px;
 }
 
 .logo-container {
@@ -25,8 +26,7 @@ body {
 }
 
 .logo {
-    width: 180px;
-    height: auto;
+    width: 220px;
 }
 
 .titulo {
@@ -37,21 +37,8 @@ body {
 }
 
 .titulo h1 {
-    font-size: 42px;
-    color: #0f172a;
+    font-size: 52px;
     font-weight: 700;
-}
-
-.logo {
-    width: 300px;
-    height: auto;
-}
-
-/* titulo */
-.title-area h1 {
-    color: black;
-    font-size: 40px;
-    line-height: 1.1;
 }
 
 /* caja gris */
