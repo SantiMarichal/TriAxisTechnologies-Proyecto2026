@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../backend/models/Administrativo.php';
+require_once __DIR__ . '/../backend/models/Enfermero.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -22,20 +23,35 @@ if (!isset($datos['ci']) || !isset($datos['nombre']) || !isset($datos['pass'])) 
     exit;
 }
 
+$ci = $datos['ci'];
+$nombre = $datos['nombre'];
+$pass = $datos['pass'];
+
 $Administrativo = new Administrativo();
+$usuario = $Administrativo->login($ci, $nombre, $pass);
 
-$resultado = $Administrativo->login($datos['ci'], $datos['nombre'], $datos['pass']
-);
+if ($usuario !== null) {
 
-if ($resultado === null) {
-    http_response_code(401);
-    echo json_encode(['error' => 'Usuario o contraseña incorrectos']);
-    exit;
+    $_SESSION['usuario'] = $usuario;
+    echo json_encode([
+        'mensaje' => 'Login correcto',
+        'usuario' => $usuario
+    ]);
+    exit; 
 }
 
-// Guardamos el usuario en la sesión
-$_SESSION['usuario'] = $resultado;
-echo json_encode([
-    'mensaje' => 'Login correcto',
-    'usuario' => $resultado
-]);
+$Enfermero = new Enfermero();
+$usuario = $Enfermero->login($ci, $nombre, $pass);
+
+if ($usuario !== null) {
+    $_SESSION['usuario'] = $usuario;
+    echo json_encode([
+        'mensaje' => 'Login correcto',
+        'usuario' => $usuario
+    ]);
+    exit; 
+}
+
+http_response_code(401);
+echo json_encode(['error' => 'Usuario o contraseña incorrectos']);
+exit;

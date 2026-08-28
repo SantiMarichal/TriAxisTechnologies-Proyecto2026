@@ -11,18 +11,18 @@ formulario.addEventListener('submit', async (e) => {
 
     try {
         const response = await fetch('../API/login.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    ci: ci,
-                    nombre: nombre,
-                    pass: pass
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ci: ci,
+                nombre: nombre,
+                pass: pass
 
 
-                })
-            }
+            })
+        }
         );
 
         const datos = await response.json();
@@ -34,8 +34,11 @@ formulario.addEventListener('submit', async (e) => {
 
 
         console.log('Usuario:', datos.usuario);
-
-        window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModulo.html';    
+        if (datos.usuario.Cargo === 'Admin') {
+            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloAdmin.html';
+        } else if (datos.usuario.Cargo === 'Enfermero') {
+            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloEnfermero.html';
+        }
     } catch (error) {
         console.error(error);
         mensaje.textContent = 'Error de conexión';

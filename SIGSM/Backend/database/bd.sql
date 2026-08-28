@@ -9,7 +9,7 @@ CREATE TABLE Administrativo (
     Nombre_Administrativo VARCHAR (20), 
     Apellido_Administrativo VARCHAR (20),
     Contrasena VARCHAR (20),
-    Cargo VARCHAR (10)
+    Cargo VARCHAR (20)
 );
 
 CREATE TABLE Categorias (
@@ -102,7 +102,9 @@ INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria, Cedula_
 CREATE TABLE Enfermero(
     Cedula_Enfermero VARCHAR (10) PRIMARY KEY,
     Nombre_Enfermero VARCHAR (20),
-    Apellido_Enfermero VARCHAR (20)
+    Apellido_Enfermero VARCHAR (20),
+    Contrasena VARCHAR (20),
+    Cargo VARCHAR (20)
 );
 
 CREATE TABLE Chofer(
@@ -178,13 +180,13 @@ CREATE TABLE Transporta(
 
 -- DML:
 INSERT INTO Enfermero
-(Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero)
+(Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero, Contrasena, Cargo)
 VALUES
-('11111111', 'Pedro', 'Gonzalez'),
-('22222222', 'Laura', 'Martinez'),
-('33333333', 'Sofia', 'Rodriguez'),
-('44444444', 'Diego', 'Fernandez'),
-('55555555', 'Valentina', 'Lopez');
+('11111111', 'Pedro', 'Gonzalez', '123455', 'Enfermero'),
+('22222222', 'Laura', 'Martinez', '123458', 'Enfermero'),
+('33333333', 'Sofia', 'Rodriguez', '1234346', 'Enfermero'),
+('44444444', 'Diego', 'Fernandez', '123453', 'Enfermero'),
+('55555555', 'Valentina', 'Lopez', '123455', 'Enfermero');
 
 INSERT INTO Chofer
 (Cedula_Chofer, Nombre_Chofer, Apellido_Chofer, Telefono)
