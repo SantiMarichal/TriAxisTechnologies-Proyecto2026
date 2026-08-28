@@ -22,25 +22,26 @@
         </header>
         <!-- Caja del formulario -->
         <div class="login-box">
-            <form class="login-form">
+            <form id="loginForm" class="login-form">
                 <label for="" class="login-label">Cédula</label>
-                <input type="number" class="login-label" placeholder="1234567">
+                <input type="number" id="ci" class="login-label" placeholder="1234567">
 
                 <label for="" class="login-label">Nombre</label>
-                <input type="text" class="login-user" placeholder="Juan Pereira">
+                <input type="text" id="nombre" class="login-user" placeholder="Juan Pereira">
 
                 <label for="" class="login-label">Contraseña</label>
-                <input type="password" class="login-password" placeholder="******">
+                <input type="password" id="password" class="login-password" placeholder="******">
 
-                <a href="html/EleccionDeModulo.html" class="login-button">
-                    INICIAR SESIÓN
-                </a>
+                <p id="mensaje" class="mensaje-error"></p>
+
+                <button type="submit" class="login-button">INICIAR SESIÓN</button>
             </form>
             <div class="invitado">
                 <h4> ¿No es un funcionario?</h4>
                 <a href="html/DocumentacionParaPacientes.html" class="link">Iniciar sesión como invitado</a>
             </div>
         </div>
+        <script src="js/login.js"></script>
 </body>
 
 </html>
