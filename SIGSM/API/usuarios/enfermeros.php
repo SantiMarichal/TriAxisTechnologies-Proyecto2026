@@ -32,12 +32,14 @@ try {
             $nombre = $datos['nombre'];
             $apellido = $datos['apellido'];
             $pass = $datos['pass'];
+            $cargo = $datos['cargo'];
 
             $resultado = $Enfermero->crear(
                 $ci,
                 $nombre,
                 $apellido,
                 $password,
+                $cargo
             );
             if ($resultado){
                 http_response_code(201);

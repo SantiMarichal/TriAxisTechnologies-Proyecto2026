@@ -54,8 +54,6 @@ try {
     }
     if ($metodo === 'DELETE') {
         $ci = $resource2;
-
-        // Intenta borrar en Administrativo, si no borra ninguna fila, intenta en Enfermero
         if ($Administrativo->eliminar($ci) || $Enfermero->eliminar($ci)) {
             echo json_encode(['mensaje' => 'Usuario eliminado correctamente']);
         } else {
