@@ -1,8 +1,5 @@
 let usuarioActual = null;
 
-/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API
-/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend
-
 document.addEventListener('DOMContentLoaded', cargarSesion);
 
 async function cargarSesion() {
@@ -20,13 +17,13 @@ async function cargarSesion() {
 
         document.getElementById('nombreUsuario').textContent = usuarioActual.nombre;
 
-        document.getElementById('rolUsuario').textContent = usuarioActual.rol;
+        document.getElementById('rolUsuario').textContent = usuarioActual.Cargo;
 
 
-        if (usuarioActual.rol !== 'admin') {
+        /*if (usuarioActual.Cargo !== 'admin') {
             document.getElementById('administracion').style.display = 'none';
             return;
-        }
+        }*/
 
         // Si es admin puede obtener usuarios
         cargarUsuarios();
@@ -58,10 +55,6 @@ async function cargarUsuarios() {
             const celdaApellido = document.createElement('td');
             celdaApellido.textContent = usuario.apellido;
             fila.appendChild(celdaApellido);
-
-            const celdaUsuario = document.createElement('td');
-            celdaUsuario.textContent = usuario.user_name;
-            fila.appendChild(celdaUsuario);
 
             const celdaRol = document.createElement('td');
             celdaRol.textContent = usuario.rol;

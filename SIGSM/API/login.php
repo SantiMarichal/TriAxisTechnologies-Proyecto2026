@@ -27,6 +27,30 @@ $ci = $datos['ci'];
 $nombre = $datos['nombre'];
 $pass = $datos['pass'];
 
+
+//Usuario administrador (Acceso total)
+
+$adminCI = '00000000';
+$adminPass = 'admin123'; 
+
+if ($ci === $adminCI && $pass === $adminPass) {
+    $usuarioAdmin = [
+        'ci' => $adminCI,
+        'nombre' => 'Administrador General',
+        'Cargo' => 'admin'
+    ];
+
+    $_SESSION['usuario'] = $usuarioAdmin;
+
+    echo json_encode([
+        'mensaje' => 'Login correcto como Administrador',
+        'usuario' => $usuarioAdmin
+    ]);
+    exit; 
+}
+
+
+
 $Administrativo = new Administrativo();
 $usuario = $Administrativo->login($ci, $nombre, $pass);
 

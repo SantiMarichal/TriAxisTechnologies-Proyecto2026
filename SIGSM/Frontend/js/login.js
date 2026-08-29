@@ -34,7 +34,9 @@ formulario.addEventListener('submit', async (e) => {
 
 
         console.log('Usuario:', datos.usuario);
-        if (datos.usuario.Cargo === 'Admin') {
+        if (datos.usuario.Cargo === 'admin'){
+            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModulo.html';
+        }else if (datos.usuario.Cargo === 'Admin') {
             window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloAdmin.html';
         } else if (datos.usuario.Cargo === 'Enfermero') {
             window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloEnfermero.html';
