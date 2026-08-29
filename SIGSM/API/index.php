@@ -22,6 +22,9 @@ if (isset($segments[0]) && $segments[0] === 'SIGSM') {
 if (isset($segments[0]) && $segments[0] === 'API') {
     array_shift($segments);
 }
+if (isset($segments[0]) && $segments[0] === 'index.php') {
+    array_shift($segments);
+}
 
 $resource = $segments[0] ?? '';
 $resource2 = $segments[1] ?? null;

@@ -103,6 +103,10 @@ a {
     transition: .2s;
 }
 
+.mensaje-error{
+    text-align: center;
+}
+
 .invitado {
     display: flex;
     margin-top: 20px;

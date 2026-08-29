@@ -56,9 +56,9 @@ async function cargarUsuarios() {
             celdaApellido.textContent = usuario.apellido;
             fila.appendChild(celdaApellido);
 
-            const celdaRol = document.createElement('td');
-            celdaRol.textContent = usuario.rol;
-            fila.appendChild(celdaRol);
+            const celdaCargo = document.createElement('td');
+            celdaCargo.textContent = usuario.cargo;
+            fila.appendChild(celdaCargo);
 
             const celdaAcciones = document.createElement('td');
 
@@ -159,13 +159,12 @@ async function crearUsuario(event) {
         ci: document.getElementById('ci').value,
         nombre: document.getElementById('nombre').value,
         apellido: document.getElementById('apellido').value,
-        user: document.getElementById('user').value,
         pass: document.getElementById('pass').value,
-        rol: document.getElementById('rol').value
+        cargo: document.getElementById('cargo').value
     };
 
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios', {
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

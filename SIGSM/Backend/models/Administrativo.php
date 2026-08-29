@@ -23,6 +23,16 @@ class Administrativo
         return $sentencia -> execute();
     }
 
+    public function crear2(array $datos): bool {
+    return $this->crear(
+        $datos['ci'],
+        $datos['nombre'],
+        $datos['apellido'],
+        $datos['pass'],
+        $datos['cargo']
+    );
+}
+
     // Obtener todos los usuarios
     public function obtenerTodos(): array {
     // Escribimos como texto literal la consulta SQL    
@@ -60,7 +70,19 @@ class Administrativo
 
     // Eliminar usuario
     public function eliminar(string $ci): bool {
-        
+        $sqlDocs = "DELETE FROM documentos WHERE Cedula_Administrativo = :ci";
+    $sentenciaDocs = $this->conexion->prepare($sqlDocs);
+    $sentenciaDocs->bindParam(":ci", $ci);
+    $sentenciaDocs->execute();
+
+    $sql = "DELETE FROM Administrativo WHERE Cedula_Administrativo = :ci";
+    $sentencia = $this->conexion->prepare($sql);
+    $sentencia->bindParam(":ci", $ci);
+    
+    if ($sentencia->execute()) {
+        return $sentencia->rowCount() > 0;
+    }
+    return false;
     }
 
     // LOGIN

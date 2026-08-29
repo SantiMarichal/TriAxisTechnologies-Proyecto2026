@@ -22,6 +22,16 @@ class Enfermero
         return $sentencia -> execute();
     }
 
+    public function crear2(array $datos): bool {
+    return $this->crear(
+        $datos['ci'],
+        $datos['nombre'],
+        $datos['apellido'],
+        $datos['pass'],
+        $datos['cargo']
+    );
+}
+
     // Obtener todos los usuarios
     public function obtenerTodos(): array {
     // Escribimos como texto literal la consulta SQL    
@@ -59,7 +69,13 @@ class Enfermero
 
     // Eliminar usuario
     public function eliminar(string $ci): bool {
-        
+        $sql = "DELETE FROM Enfermero WHERE Cedula_Enfermero = :ci";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
+        if ($sentencia->execute()) {
+        return $sentencia->rowCount() > 0; // Devuelve true si se borro alguna fila
+        }
+        return false;
     }
 
     // LOGIN
