@@ -36,7 +36,7 @@ if ($ci === $adminCI && $pass === $adminPass) {
     $usuarioAdmin = [
         'ci' => $adminCI,
         'nombre' => 'Administrador General',
-        'Cargo' => 'admin'
+        'Cargo' => 'Administrador'
     ];
 
     $_SESSION['usuario'] = $usuarioAdmin;

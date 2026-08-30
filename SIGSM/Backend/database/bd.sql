@@ -54,11 +54,11 @@ CREATE TABLE Documentos (
 
 -- DML:
 INSERT INTO Administrativo (Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo) VALUES
-('12345678', 'Juan', 'Perez', '123456', 'Admin'),
-('23456789', 'Ana', 'Gomez', '234567', 'Admin'),
-('34567890', 'Carlos', 'Rodriguez', '345678', 'Admin'),
-('45678901', 'Maria', 'Fernandez', '456789', 'Admin'),
-('56789012', 'Luis', 'Martinez', '567890', 'Admin');
+('12345678', 'Juan', 'Perez', '123456', 'Administrativo'),
+('23456789', 'Ana', 'Gomez', '234567', 'Administrativo'),
+('34567890', 'Carlos', 'Rodriguez', '345678', 'Administrativo'),
+('45678901', 'Maria', 'Fernandez', '456789', 'Administrativo'),
+('56789012', 'Luis', 'Martinez', '567890', 'Administrativo');
 
 INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
 ('CAT001', 'Atencion'),
