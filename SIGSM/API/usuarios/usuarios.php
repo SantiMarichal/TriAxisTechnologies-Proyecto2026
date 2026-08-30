@@ -62,7 +62,6 @@ try {
         exit;
     }
 } catch (PDOException $e) {
-    // Muestra el error REAL de MySQL si la consulta está mal redactada
     http_response_code(500);
     echo json_encode(['error_sql' => $e->getMessage()]);
     exit;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style/style-TransportedeVehiculos.css">
+    <link rel="stylesheet" href="../style/style-TransportedeVehiculosRestringido.css">
     <link rel="icon" href="../assets/icons/HospitalDeClinicas.ico">
     <title>Transporte de Vehículos</title>
 </head>
@@ -23,8 +23,9 @@
             <div class="usuario">
                 <img src="../assets/img/user-round.svg" alt="Usuario" class="user-icon">
                 <div class="user-info">
-                    <p class="user">Nombre del usuario</p>
-                    <p class="user-admin">Administrador</p>
+                    <p class="user" id="nombreUsuario">Nombre del usuario</p>
+                    <p class="user-admin" id="rolUsuario">Administrador</p>
+                    <button id="btnLogout" class="btn-logout">Cerrar sesión</button>
                 </div>
             </div>
         </aside>
@@ -33,7 +34,7 @@
         <main class="main-container">
             <div class="crear">
             <h2>Control y Seguimiento</h2>
-            <a href="../html/FormularioAmbulancias.html" class="btn">Crear solicitud de traslado</a>
+            <a href="../html/FormularioAmbulanciasRestringido.html" class="btn">Crear solicitud de traslado</a>
             </div>
             <br>
             <h3>Traslados</h3>
@@ -78,5 +79,5 @@
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
 </body>
-
+<script src="../js/logoutEnfermero.js"></script>
 </html>

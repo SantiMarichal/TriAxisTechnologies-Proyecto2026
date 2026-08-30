@@ -130,6 +130,11 @@ a:visited {
     border-radius: 50%;
 }
 
+.btn-logout{
+    border-radius: 10px;
+    background: #38a3d1;
+    color: white;
+}
 
 .crear {
     grid-column: 1;

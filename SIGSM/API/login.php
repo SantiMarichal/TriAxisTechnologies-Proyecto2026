@@ -29,7 +29,6 @@ $pass = $datos['pass'];
 
 
 //Usuario administrador (Acceso total)
-
 $adminCI = '00000000';
 $adminPass = 'admin123'; 
 
