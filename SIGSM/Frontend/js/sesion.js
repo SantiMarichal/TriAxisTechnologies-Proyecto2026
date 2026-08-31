@@ -5,14 +5,16 @@ async function cargarSesion() {
     try {
         const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/sesion');
         const datos = await response.json();
-        console.log('Datos de la sesión:', datos.usuario);
 
         if (!datos.autenticado) {
             window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
             return;
         }
-        
-        document.getElementById('nombreUsuario').textContent = datos.usuario.Nombre_Enfermero;
+
+        // Evalúa el nombre hardcodeado o el proveniente de las tablas SQL
+        const nombre = datos.usuario.nombre || datos.usuario.Nombre_Administrativo || datos.usuario.Nombre_Enfermero; 
+
+        document.getElementById('nombreUsuario').textContent = nombre;
         document.getElementById('rolUsuario').textContent = datos.usuario.Cargo;
 
     } catch (error) {
@@ -29,6 +31,6 @@ async function logout() {
         window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
 
     } catch (error) {
-        console.error(error);
+        console.error('Error al cerrar sesión:', error);
     }
 }

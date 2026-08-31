@@ -30,7 +30,7 @@
                         Gestión de ambulancias
                     </li>
                 </a>
-                <a href="../html/CreacionDeUsuarioAdministrativo.html">
+                <a href="../html/usuarios.html">
                     <li class="menu-item">
                         Gestión de usuarios
                     </li>
@@ -39,8 +39,9 @@
             <div class="usuario">
                 <img src="../assets/img/user-round.svg" alt="Usuario" class="user-icon">
                 <div class="user-info">
-                    <p class="user">Nombre del usuario</p>
-                    <p class="user-admin">Administrador</p>
+                    <p class="user" id="nombreUsuario">Nombre del usuario</p>
+                    <p class="user-admin" id="rolUsuario">Administrador</p>
+                    <button id="btnLogout" class="btn-logout">Cerrar sesión</button>
                 </div>
             </div>
         </aside>
@@ -90,5 +91,6 @@
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
 </body>
+<script src="../js/sesion.js"></script>
 
 </html>

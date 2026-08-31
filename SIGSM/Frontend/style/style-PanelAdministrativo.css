@@ -13,7 +13,7 @@ body {
 /* estructura principal */
 .layout {
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 250px 1fr;
     /*fr es una unidad de grid fr=fraccion*/
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
@@ -53,12 +53,6 @@ a:visited {
     grid-template-columns: 2fr 1fr;
     gap: 40px;
     padding: 40px;
-}
-
-.layout {
-    display: grid;
-    grid-template-columns: 250px 1fr;
-    min-height: 100vh;
 }
 
 .sidebar {
@@ -122,11 +116,18 @@ a:visited {
 }
 
 .user-icon {
-    width: 40px;
+    width: 30px;
     height: 40px;
     border-radius: 50%;
 }
 
+.btn-logout{
+    width: 100px;
+    height: 30px;
+    border-radius: 10px;
+    background: #38a3d1;
+    color: white;
+}
 
 .titulo {
     display: flex;

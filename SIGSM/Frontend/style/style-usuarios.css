@@ -42,6 +42,57 @@ body {
     color: #1e293b;
 }
 
+.layout {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    align-items: stretch; 
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+a:visited {
+    color: rgb(0, 0, 0);
+}
+
+.sidebar {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border-right: 1px solid #e2e8f0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, .05);
+    height: 100%; 
+    min-height: 100vh;
+}
+
+.menu {
+    list-style: none;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.menu-item {
+    padding: 14px 18px;
+    border-radius: 12px;
+    transition: .2s;
+    font-weight: 500;
+}
+
+.menu-item:hover {
+    background-color: #dbeafe;
+    color: #2563eb;
+    cursor: pointer;
+}
+
+.menu-item:active {
+    background-color: #2563eb;
+    color: #ffffff;
+}
+
 .main-container {
     max-width: 1400px;
     margin: auto;
@@ -165,7 +216,7 @@ button:hover {
 
 table {
     width: 100%;
-    min-width: 800px;
+    min-width: 1200px;
     border-collapse: collapse;
 }
 

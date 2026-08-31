@@ -46,10 +46,16 @@ CREATE TABLE Documentos (
     Titulo VARCHAR (100),
     Descripcion VARCHAR (200),
     ID_Categoria VARCHAR (10),
+    FOREIGN KEY  (ID_Categoria) REFERENCES Categorias(ID_Categoria)
+);
+
+CREATE TABLE Carga (
     Cedula_Administrativo VARCHAR (10),
-    FOREIGN KEY  (ID_Categoria) REFERENCES Categorias(ID_Categoria),
+    ID_Documento VARCHAR (10),
+    HoraYFecha datetime,
+    PRIMARY KEY (Cedula_Administrativo, ID_Documento),
     FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo),
-    HorayFecha datetime
+    FOREIGN KEY (ID_Documento) REFERENCES Documentos(ID_Documento)
 );
 
 -- DML:
@@ -88,12 +94,19 @@ INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
 ('R004', 'P004', 'ENC002', 'Malo'),
 ('R005', 'P005', 'ENC002', 'Muy Bueno');
 
-INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria, Cedula_Administrativo, HorayFecha) VALUES
-('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001', '12345678', '2026-08-01 08:30:00'),
-('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002', '23456789', '2026-08-05 09:15:00'),
-('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003', '34567890', '2026-08-10 10:00:00'),
-('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004', '45678901', '2026-08-15 11:30:00'),
-('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005', '56789012', '2026-08-20 12:00:00');
+INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria) VALUES
+('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001'),
+('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002'),
+('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003'),
+('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004'),
+('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005');
+
+INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
+('12345678', 'DOC001', '2026-08-30 09:30:00'),
+('23456789', 'DOC002', '2026-08-30 10:15:00'),
+('34567890', 'DOC003', '2026-08-30 11:00:00'),
+('45678901', 'DOC004', '2026-08-30 14:45:00'),
+('56789012', 'DOC005', '2026-08-30 16:20:00');
 
 
 -- Módulo Ambulancias

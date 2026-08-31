@@ -92,6 +92,8 @@ body {
 }
 
 .btn-logout{
+    width: 100px;
+    height: 30px;
     border-radius: 10px;
     background: #38a3d1;
     color: white;
