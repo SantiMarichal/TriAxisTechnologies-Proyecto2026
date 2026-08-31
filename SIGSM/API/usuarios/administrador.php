@@ -1,27 +1,28 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Administrativo.php';
+require_once __DIR__ . '/../../backend/models/Administrador.php';
 
-$Administrativo = new Administrativo();
+$Administrador = new Administrador();
 
 try {
 
     switch ($metodo) {
         case 'GET':
         if($id === null){
-            $administrativos= $Administrativo->obtenerTodos();
-            echo json_encode($administrativos);
+            $administradores= $Administrador->obtenerTodos();
+            echo json_encode($administradores);
         }else{
-            $administrativos = $Administrativo->obtenerPorCi($id);
-            if($administrativos === null){
+            $administradores = $Administrador->obtenerPorCi($id);
+            if($administradores === null){
                 http_response_code(404);
                 echo json_encode([
                     'error'=> 'Usuario No encontrado'
             ]);
             exit;
             }
-            echo json_encode($administrativos);
+            echo json_encode($administradores);
             } 
+            
         exit;
 
         case 'POST':
@@ -33,12 +34,11 @@ try {
             $pass = $datos['pass'];
             $cargo = $datos['cargo'];
 
-            $resultado = $Administrativo->crear(
+            $resultado = $Administrador->crear(
                 $ci,
                 $nombre,
                 $apellido,
-                $pass,
-                $cargo
+                $password
             );
             if ($resultado){
                 http_response_code(201);
@@ -49,27 +49,7 @@ try {
             }
             exit;
         case 'PUT':
-            $datos = json_decode(file_get_contents('php://input'), true);
-
-            $ci = $datos['ci'];
-            $nombre = $datos['nombre'];
-            $apellido = $datos['apellido'];
-            $pass = $datos['pass'];
-            $cargo = $datos['cargo'];
-
-            $resultado = $Administrativo->actualizar(
-                $nombre,
-                $apellido,
-                $pass,
-                $cargo
-            );
-            if ($resultado){
-                http_response_code(201);
-                echo json_encode(['mensaje' => 'Usuario creado correctamente']);
-            }else{
-                http_response_code(500);
-                echo json_encode(['error' => 'No se pudo crear el usuario']);
-            }
+            
             exit;
 
         case 'DELETE':

@@ -287,3 +287,19 @@ VALUES
 ('T003', 'TRAS003'),
 ('T004', 'TRAS004'),
 ('T005', 'TRAS005');
+
+-- DML Administrador:
+CREATE TABLE Administrador(
+    Cedula_Administrador VARCHAR (10) PRIMARY KEY,
+    Nombre_Administrador VARCHAR (20), 
+    Apellido_Administrador VARCHAR (20),
+    Contrasena VARCHAR (20),
+    Cargo VARCHAR (20)
+);
+
+-- DDL Administrador
+
+INSERT INTO Administrador
+(Cedula_Administrador, Nombre_Administrador, Apellido_Administrador, Contrasena, Cargo)
+VALUES
+('90876533', 'Kenia', 'Kronberg', '1234', 'Administrador');

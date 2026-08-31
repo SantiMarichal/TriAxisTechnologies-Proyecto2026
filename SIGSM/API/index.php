@@ -62,6 +62,11 @@ switch ($resource) {
         exit;
     }
 
+    if ($resource2 === 'administrador') {
+        require_once __DIR__ . '/usuarios/administrador.php';
+        exit;
+    }
+
         http_response_code(404);
         echo json_encode([
             'error' => 'Tipo de usuario no encontrado'

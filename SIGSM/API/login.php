@@ -28,7 +28,7 @@ $nombre = $datos['nombre'];
 $pass = $datos['pass'];
 
 
-//Usuario administrador (Acceso total)
+/*Usuario administrador (Acceso total)
 $adminCI = '00000000';
 $adminPass = 'admin123'; 
 
@@ -47,7 +47,7 @@ if ($ci === $adminCI && $pass === $adminPass) {
     ]);
     exit; 
 }
-
+*/
 
 
 $Administrativo = new Administrativo();
@@ -65,6 +65,18 @@ if ($usuario !== null) {
 
 $Enfermero = new Enfermero();
 $usuario = $Enfermero->login($ci, $nombre, $pass);
+
+if ($usuario !== null) {
+    $_SESSION['usuario'] = $usuario;
+    echo json_encode([
+        'mensaje' => 'Login correcto',
+        'usuario' => $usuario
+    ]);
+    exit; 
+}
+
+$Administrador = new Administrador();
+$usuario = $Administrador->login($ci, $nombre, $pass);
 
 if ($usuario !== null) {
     $_SESSION['usuario'] = $usuario;
