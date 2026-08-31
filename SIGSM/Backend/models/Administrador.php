@@ -64,8 +64,15 @@ class Administrador
 
 
     // Modificar usuario
-    public function actualizar(string $ci, string $nombre, string $apellido, string $user, string $rol): bool {
-        
+    public function actualizar(string $ci, string $nombre, string $apellido, string $cargo, string $pass): bool {
+        $sql = 'UPDATE Enfermero SET Nombre_Enfermero=:nombre, Apellido_Enfermero=:apellido, Contrasena=:pass, Cargo=:cargo WHERE Cedula_Enfermero=:ci';
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
+        $sentencia->bindParam(":nombre", $nombre);
+        $sentencia->bindParam(":apellido", $apellido);
+        $sentencia->bindParam(":pass", $pass);
+        $sentencia->bindParam(":cargo", $cargo);
+        return $sentencia->execute();
     }
 
     // Eliminar usuario

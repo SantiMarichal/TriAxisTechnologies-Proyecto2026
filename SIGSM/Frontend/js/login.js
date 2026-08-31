@@ -19,8 +19,6 @@ formulario.addEventListener('submit', async (e) => {
                 ci: ci,
                 nombre: nombre,
                 pass: pass
-
-
             })
         }
         );

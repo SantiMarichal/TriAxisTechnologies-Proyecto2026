@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../backend/models/Administrativo.php';
 require_once __DIR__ . '/../backend/models/Enfermero.php';
+require_once __DIR__ . '/../backend/models/Administrador.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -50,8 +51,8 @@ if ($ci === $adminCI && $pass === $adminPass) {
 */
 
 
-$Administrativo = new Administrativo();
-$usuario = $Administrativo->login($ci, $nombre, $pass);
+$administrativo = new Administrativo();
+$usuario = $administrativo->login($ci, $nombre, $pass);
 
 if ($usuario !== null) {
 
@@ -63,8 +64,8 @@ if ($usuario !== null) {
     exit; 
 }
 
-$Enfermero = new Enfermero();
-$usuario = $Enfermero->login($ci, $nombre, $pass);
+$enfermero = new Enfermero();
+$usuario = $enfermero->login($ci, $nombre, $pass);
 
 if ($usuario !== null) {
     $_SESSION['usuario'] = $usuario;
@@ -75,8 +76,8 @@ if ($usuario !== null) {
     exit; 
 }
 
-$Administrador = new Administrador();
-$usuario = $Administrador->login($ci, $nombre, $pass);
+$administrador = new Administrador();
+$usuario = $administrador->login($ci, $nombre, $pass);
 
 if ($usuario !== null) {
     $_SESSION['usuario'] = $usuario;

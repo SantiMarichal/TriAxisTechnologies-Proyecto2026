@@ -389,3 +389,11 @@ td button:hover {
 .btn-secundario:hover {
     background: #5f8fa8;
 }
+
+td button {
+    margin-right: 8px; /* Separación horizontal entre botones */
+}
+
+td button:last-child {
+    margin-right: 0; /* Remueve el margen innecesario en el último botón */
+}

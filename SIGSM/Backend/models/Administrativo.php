@@ -64,12 +64,13 @@ class Administrativo
 
 
     // Modificar usuario
-    public function actualizar(string $nombre, string $apellido, string $contrasena, string $cargo): bool {
-        $sql = 'UPDATE Administrativo SET Nombre_Administrativo=:nombre, Apellido_Administrativo=:apellido, Contrasena=:contrasena, Cargo=:cargo WHERE Cedula_Administrativo=:ci';
+    public function actualizar(string $ci, string $nombre, string $apellido, string $cargo, string $pass): bool {
+        $sql = 'UPDATE Administrativo SET Nombre_Administrativo=:nombre, Apellido_Administrativo=:apellido, Contrasena=:pass, Cargo=:cargo WHERE Cedula_Administrativo=:ci';
         $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
         $sentencia->bindParam(":nombre", $nombre);
         $sentencia->bindParam(":apellido", $apellido);
-        $sentencia->bindParam(":contrasena", $contrasena);
+        $sentencia->bindParam(":pass", $pass);
         $sentencia->bindParam(":cargo", $cargo);
         return $sentencia->execute();
     }

@@ -12,18 +12,7 @@ async function cargarSesion() {
             window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
             return;
         }
-
         usuarioActual = datos.usuario;
-
-        document.getElementById('nombreUsuario').textContent = usuarioActual.nombre;
-
-        document.getElementById('rolUsuario').textContent = usuarioActual.Cargo;
-
-
-        /*if (usuarioActual.Cargo !== 'admin') {
-            document.getElementById('administracion').style.display = 'none';
-            return;
-        }*/
 
         // Si es admin puede obtener usuarios
         cargarUsuarios();
@@ -61,6 +50,12 @@ async function cargarUsuarios() {
             fila.appendChild(celdaCargo);
 
             const celdaAcciones = document.createElement('td');
+            celdaAcciones.classList.add('celda-acciones'); // Agregamos la clase
+
+            const botonEditar = document.createElement('button');
+            botonEditar.textContent = 'Editar';
+            botonEditar.classList.add('btn-editar');
+            botonEditar.addEventListener('click', () => abrirModalEditar(usuario));
 
             const botonEliminar = document.createElement('button');
             botonEliminar.textContent = 'Eliminar';
@@ -70,6 +65,7 @@ async function cargarUsuarios() {
             });
 
             celdaAcciones.appendChild(botonEliminar);
+            celdaAcciones.appendChild(botonEditar);
 
             fila.appendChild(celdaAcciones);
 
@@ -77,26 +73,13 @@ async function cargarUsuarios() {
 
             // Agregar fila a la tabla
             tabla.appendChild(fila);
+            
         });
     } catch (error) {
         console.error(error);
     }
 }
 
-document.getElementById('btnLogout').addEventListener('click', logout);
-
-async function logout() {
-    try {
-        await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/logout', {
-            method: 'POST'
-        });
-
-        window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
-
-    } catch (error) {
-        console.error(error);
-    }
-}
 
 async function eliminarUsuario(ci) {
     if (!confirm('¿Desea eliminar este usuario?')) {
@@ -127,6 +110,8 @@ async function eliminarUsuario(ci) {
 
 const modalNuevo = document.getElementById('modalNuevo');
 
+const modalEditar = document.getElementById('modalEditar');
+
 const btnNuevo = document.getElementById('btnNuevo');
 
 const btnCerrarModal = document.getElementById('btnCerrarModal');
@@ -144,7 +129,6 @@ btnCancelar.addEventListener('click', cerrarModal);
 function abrirModal() {
     formNuevoUsuario.reset();
     modalNuevo.classList.add('mostrar');
-
 }
 
 function cerrarModal() {
@@ -187,3 +171,93 @@ async function crearUsuario(event) {
         console.error(error);
     }
 }
+
+const opcionesPorCargo = {
+    'Administrativo': ['Administrativo nuevo', 'Administrativo mayor', 'Administrativo'],
+    'Enfermero': ['Enfermero de piso', 'Enfermero jefe', 'Enfermero'],
+    'Administrador': ['Super Admin', 'Administrador de sistema', 'Administrador']
+};
+
+let cargoBase= '';
+
+function abrirModalEditar(usuario) {
+    document.getElementById('editarCi').value = usuario.ci;
+    document.getElementById('editarNombre').value = usuario.nombre;
+    document.getElementById('editarApellido').value = usuario.apellido;
+    document.getElementById('editarCargo').value = usuario.cargo;
+    document.getElementById('editarPass').value = usuario.pass;
+
+    cargoBase = usuario.rolBase;
+    const selectCargo = document.getElementById('editarCargo');
+    selectCargo.innerHTML = ''; 
+
+    const listaOpciones = opcionesPorCargo[usuario.rolBase] || [usuario.cargo];
+
+    listaOpciones.forEach(opcion => {
+        const opt = document.createElement('option');
+        opt.value = opcion;
+        opt.textContent = opcion;
+        
+        if (usuario.cargo === opcion) {
+            opt.selected = true;
+        }
+        selectCargo.appendChild(opt);
+    });
+
+    modalEditar.classList.add('mostrar');
+}
+
+document.getElementById('btnCancelarEditar').addEventListener('click', cerrarModalEditar);
+document.getElementById('btnCerrarModalEditar').addEventListener('click', cerrarModalEditar);
+
+function cerrarModalEditar() {
+    modalEditar.classList.remove('mostrar');
+}
+
+document.getElementById('formEditarUsuario').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const ci = document.getElementById('editarCi').value;
+    const cargo = document.getElementById('editarCargo').value;
+
+    const datos = {
+        ci: ci,
+        nombre: document.getElementById('editarNombre').value,
+        apellido: document.getElementById('editarApellido').value,
+        pass: document.getElementById('editarPass').value,
+        cargo: cargo
+    };
+
+    let endpoint = '';
+
+    if (cargoBase === 'Administrador') {
+        endpoint = 'administradores';
+    } else if (cargoBase === 'Administrativo') {
+        endpoint = 'administrativos';
+    } else if (cargoBase === 'Enfermero') {
+        endpoint = 'enfermeros';
+    }
+
+    const url = `/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${endpoint}/${ci}`;
+
+    try {
+        const response = await fetch(url, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(datos)
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok) {
+            alert(resultado.mensaje || 'Usuario actualizado correctamente');
+            cerrarModalEditar();
+            cargarUsuarios();
+        } else {
+            alert(resultado.error || 'Error al actualizar');
+        }
+    } catch (error) {
+        console.error('Error al actualizar usuario:', error);
+    }
+});
+

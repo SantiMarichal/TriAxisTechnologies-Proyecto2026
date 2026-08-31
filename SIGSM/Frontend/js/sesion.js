@@ -11,8 +11,7 @@ async function cargarSesion() {
             return;
         }
 
-        // Evalúa el nombre hardcodeado o el proveniente de las tablas SQL
-        const nombre = datos.usuario.nombre || datos.usuario.Nombre_Administrativo || datos.usuario.Nombre_Enfermero; 
+        const nombre = datos.usuario.Nombre_Administrador || datos.usuario.Nombre_Administrativo || datos.usuario.Nombre_Enfermero; 
 
         document.getElementById('nombreUsuario').textContent = nombre;
         document.getElementById('rolUsuario').textContent = datos.usuario.Cargo;

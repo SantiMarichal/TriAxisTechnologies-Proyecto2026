@@ -5,54 +5,54 @@ USE Proyecto2026;
 
 -- DDL:
 CREATE TABLE Administrativo (
-    Cedula_Administrativo VARCHAR (10) PRIMARY KEY,
-    Nombre_Administrativo VARCHAR (20), 
-    Apellido_Administrativo VARCHAR (20),
-    Contrasena VARCHAR (20),
-    Cargo VARCHAR (20)
+    Cedula_Administrativo VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre_Administrativo VARCHAR (20) NOT NULL, 
+    Apellido_Administrativo VARCHAR (20) NOT NULL,
+    Contrasena VARCHAR (20) NOT NULL,
+    Cargo VARCHAR (20) NOT NULL
 );
 
 CREATE TABLE Categorias (
-    ID_Categoria VARCHAR (10) PRIMARY KEY,
-    Nombre VARCHAR (20)
+    ID_Categoria VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR (20) NOT NULL
 );
 
 CREATE TABLE Encuesta (
-    ID_Encuesta VARCHAR (10) PRIMARY KEY,
-    Titulo VARCHAR (100),
-    Descripcion VARCHAR (200),
-    ID_Categoria VARCHAR (10),
+    ID_Encuesta VARCHAR (10) PRIMARY KEY NOT NULL,
+    Titulo VARCHAR (100) NOT NULL,
+    Descripcion VARCHAR (200) NOT NULL,
+    ID_Categoria VARCHAR (10) NOT NULL,
     FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
 CREATE TABLE Preguntas (
-    ID_Pregunta VARCHAR (10),
-    ID_Encuesta VARCHAR (10),
-    Texto VARCHAR (200),
+    ID_Pregunta VARCHAR (10) NOT NULL,
+    ID_Encuesta VARCHAR (10) NOT NULL,
+    Texto VARCHAR (200) NOT NULL,
     PRIMARY KEY (ID_Encuesta, ID_Pregunta),
     FOREIGN KEY (ID_Encuesta) REFERENCES Encuesta(ID_Encuesta)
 );
 
 CREATE TABLE Respuestas (
-    ID_Respuesta VARCHAR(10) PRIMARY KEY,
-    ID_Pregunta VARCHAR(10),
-    ID_Encuesta VARCHAR(10),
-    Texto VARCHAR(200),
+    ID_Respuesta VARCHAR(10) PRIMARY KEY NOT NULL,
+    ID_Pregunta VARCHAR(10) NOT NULL,
+    ID_Encuesta VARCHAR(10) NOT NULL,
+    Texto VARCHAR(200) NOT NULL,
     FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
 );
 
 CREATE TABLE Documentos (
-    ID_Documento VARCHAR (10) PRIMARY KEY,
-    Titulo VARCHAR (100),
-    Descripcion VARCHAR (200),
-    ID_Categoria VARCHAR (10),
+    ID_Documento VARCHAR (10) PRIMARY KEY NOT NULL,
+    Titulo VARCHAR (100) NOT NULL,
+    Descripcion VARCHAR (200) NOT NULL,
+    ID_Categoria VARCHAR (10) NOT NULL,
     FOREIGN KEY  (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
 CREATE TABLE Carga (
-    Cedula_Administrativo VARCHAR (10),
-    ID_Documento VARCHAR (10),
-    HoraYFecha datetime,
+    Cedula_Administrativo VARCHAR (10) NOT NULL,
+    ID_Documento VARCHAR (10) NOT NULL,
+    HoraYFecha datetime NOT NULL,
     PRIMARY KEY (Cedula_Administrativo, ID_Documento),
     FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo),
     FOREIGN KEY (ID_Documento) REFERENCES Documentos(ID_Documento)
@@ -113,51 +113,51 @@ INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
 
 -- DDL:
 CREATE TABLE Enfermero(
-    Cedula_Enfermero VARCHAR (10) PRIMARY KEY,
-    Nombre_Enfermero VARCHAR (20),
-    Apellido_Enfermero VARCHAR (20),
-    Contrasena VARCHAR (20),
-    Cargo VARCHAR (20)
+    Cedula_Enfermero VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre_Enfermero VARCHAR (20) NOT NULL,
+    Apellido_Enfermero VARCHAR (20) NOT NULL,
+    Contrasena VARCHAR (20) NOT NULL,
+    Cargo VARCHAR (20) NOT NULL
 );
 
 CREATE TABLE Chofer(
-    Cedula_Chofer VARCHAR (10) PRIMARY KEY,
-    Nombre_Chofer VARCHAR (20),
-    Apellido_Chofer VARCHAR (20),
-    Telefono VARCHAR (10)
+    Cedula_Chofer VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre_Chofer VARCHAR (20) NOT NULL,
+    Apellido_Chofer VARCHAR (20) NOT NULL,
+    Telefono VARCHAR (10) NOT NULL
 );
 
 CREATE TABLE Vehiculo(
-    Matricula VARCHAR (10) PRIMARY KEY,
-    Modelo VARCHAR (10),
-    Capacidad INT,
-    Tipo_Vehiculo ENUM('Ambulancia', 'Otro')
+    Matricula VARCHAR (10) PRIMARY KEY NOT NULL,
+    Modelo VARCHAR (10) NOT NULL,
+    Capacidad INT NOT NULL,
+    Tipo_Vehiculo ENUM('Ambulancia', 'Otro') NOT NULL
 );
 
 CREATE TABLE Destino(
-    ID_Destino VARCHAR (10) PRIMARY KEY,
-    Nombre VARCHAR (20),
-    Direccion VARCHAR (100),
-    Ruta VARCHAR (100)
+    ID_Destino VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR (20) NOT NULL,
+    Direccion VARCHAR (100) NOT NULL,
+    Ruta VARCHAR (100) NOT NULL
 );
 
 CREATE TABLE Trasladable(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY,
-    Piso_Retiro INT,
-    Habitacion_Retiro INT
+    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL, 
+    Piso_Retiro INT NOT NULL,
+    Habitacion_Retiro INT NOT NULL
 );
 
 CREATE TABLE Traslado(
-    ID_Traslado VARCHAR (10) PRIMARY KEY,
-    Fecha DATE,
-    Hora_Salida TIME,
-    Hora_Llegada TIME,
-    Estado ENUM('Aprobado', 'Denegado', 'En proceso'),
-    Lugar_Origen VARCHAR (100),
-    Cedula_Chofer VARCHAR (10),
-    Cedula_Enfermero VARCHAR (10),
-    Matricula VARCHAR (10),
-    ID_Destino VARCHAR (10),
+    ID_Traslado VARCHAR (10) PRIMARY KEY NOT NULL ,
+    Fecha DATE NOT NULL,
+    Hora_Salida TIME NOT NULL,
+    Hora_Llegada TIME NOT NULL,
+    Estado ENUM('Aprobado', 'Denegado', 'En proceso') NOT NULL,
+    Lugar_Origen VARCHAR (100) NOT NULL,
+    Cedula_Chofer VARCHAR (10) NOT NULL,
+    Cedula_Enfermero VARCHAR (10) NOT NULL,
+    Matricula VARCHAR (10) NOT NULL,
+    ID_Destino VARCHAR (10) NOT NULL,
     FOREIGN KEY (Cedula_Chofer) REFERENCES Chofer(Cedula_Chofer),
     FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero),
     FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
@@ -165,28 +165,28 @@ CREATE TABLE Traslado(
 );
 
 CREATE TABLE Paciente(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY,
-    CI VARCHAR(10)UNIQUE,
-    Nombre VARCHAR (20),
-    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno'),
-    Camilla ENUM('De emergencia', 'Normal'), 
-    Oxigeno BOOLEAN DEFAULT FALSE,
-    Aislamiento BOOLEAN DEFAULT FALSE,
+    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL,
+    CI VARCHAR(10) UNIQUE NOT NULL,
+    Nombre VARCHAR (20) NOT NULL,
+    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
+    Camilla ENUM('De emergencia', 'Normal') NOT NULL, 
+    Oxigeno BOOLEAN DEFAULT FALSE NOT NULL,
+    Aislamiento BOOLEAN DEFAULT FALSE NOT NULL,
     -- DEFAULT FALSE asigna automaticamente el valor false a una columna cuando se inserta un nuevo registro y no se especifica un valor
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
 CREATE TABLE Elemento(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY,
-    Nombre VARCHAR (20),
-    Descripcion VARCHAR (200),
-    Tipo_Elemento ENUM('Organo', 'Documentos', 'Otro'),
+    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR (20) NOT NULL,
+    Descripcion VARCHAR (200) NOT NULL,
+    Tipo_Elemento ENUM('Organo', 'Documentos', 'Otro') NOT NULL,
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
 CREATE TABLE Transporta(
-    ID_Traslado VARCHAR (10) PRIMARY KEY,
-    ID_Trasladable VARCHAR (10),
+    ID_Traslado VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Trasladable VARCHAR (10) NOT NULL,
     FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado),
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
@@ -290,11 +290,11 @@ VALUES
 
 -- DML Administrador:
 CREATE TABLE Administrador(
-    Cedula_Administrador VARCHAR (10) PRIMARY KEY,
-    Nombre_Administrador VARCHAR (20), 
-    Apellido_Administrador VARCHAR (20),
-    Contrasena VARCHAR (20),
-    Cargo VARCHAR (20)
+    Cedula_Administrador VARCHAR (10) PRIMARY KEY NOT NULL,
+    Nombre_Administrador VARCHAR (20) NOT NULL, 
+    Apellido_Administrador VARCHAR (20) NOT NULL,
+    Contrasena VARCHAR (20) NOT NULL,
+    Cargo VARCHAR (20) NOT NULL
 );
 
 -- DDL Administrador

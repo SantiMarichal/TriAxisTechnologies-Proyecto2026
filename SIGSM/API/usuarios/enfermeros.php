@@ -2,28 +2,28 @@
 
 require_once __DIR__ . '/../../backend/models/Enfermero.php';
 
-$Enfermero = new Enfermero();
+$enfermero = new Enfermero();
 
 try {
 
     switch ($metodo) {
         case 'GET':
-        if($id === null){
-            $enfermeros= $Enfermero->obtenerTodos();
-            echo json_encode($enfermeros);
-        }else{
-            $enfermeros = $Enfermero->obtenerPorCi($id);
-            if($enfermeros === null){
-                http_response_code(404);
-                echo json_encode([
-                    'error'=> 'Usuario No encontrado'
-            ]);
-            exit;
+            if ($id === null) {
+                $enfermeros = $enfermero->obtenerTodos();
+                echo json_encode($enfermeros);
+            } else {
+                $enfermeros = $enfermero->obtenerPorCi($id);
+                if ($enfermeros === null) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'error' => 'Usuario No encontrado'
+                    ]);
+                    exit;
+                }
+                echo json_encode($enfermeros);
             }
-            echo json_encode($enfermeros);
-            } 
-            
-        exit;
+
+            exit;
 
         case 'POST':
             $datos = json_decode(file_get_contents('php://input'), true);
@@ -34,27 +34,60 @@ try {
             $pass = $datos['pass'];
             $cargo = $datos['cargo'];
 
-            $resultado = $Enfermero->crear(
+            $resultado = $enfermero->crear(
                 $ci,
                 $nombre,
                 $apellido,
                 $password,
                 $cargo
             );
-            if ($resultado){
+            if ($resultado) {
                 http_response_code(201);
                 echo json_encode(['mensaje' => 'Usuario creado correctamente']);
-            }else{
+            } else {
                 http_response_code(500);
                 echo json_encode(['error' => 'No se pudo crear el usuario']);
             }
             exit;
         case 'PUT':
-            
+            $datos = json_decode(file_get_contents('php://input'), true);
+            if (!$datos) {
+                http_response_code(400);
+                echo json_encode(["error" => "Datos JSON inválidos o vacíos"]);
+                exit;
+            }
+
+            $ci = $datos['ci'] ?? null;
+            $nombre = $datos['nombre'] ?? null;
+            $apellido = $datos['apellido'] ?? null;
+            $cargo = $datos['cargo'] ?? null;
+            $pass = $datos['pass'] ?? null;
+
+            if (!$ci || !$nombre || !$apellido || !$cargo || !$pass) {
+                http_response_code(400);
+                echo json_encode(["error" => "Faltan campos obligatorios"]);
+                exit;
+            }
+
+            $resultado = $enfermero->actualizar(
+                $ci,
+                $nombre,
+                $apellido,
+                $cargo,
+                $pass
+            );
+
+            if ($resultado) {
+                http_response_code(200);
+                echo json_encode(["mensaje" => "Usuario actualizado correctamente"]);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "No se pudo actualizar el usuario"]);
+            }
             exit;
 
         case 'DELETE':
-            
+
             exit;
     }
 } catch (PDOException $e) {

@@ -23,129 +23,177 @@
             <h1>Administración de usuarios</h1>
         </div>
     </header>
-<div class="layout">
-    <aside class="sidebar">
-        <ul class="menu">
-            <a href="../html/TransportedeVehiculos.html">
-                <li class="menu-item">
-                    Gestión de ambulancias
-                </li>
-            </a>
-            <a href="../html/PanelAdministrativo.html">
-                <li class="menu-item">
-                    Panel administrativo
-                </li>
-            </a>
-        </ul>
-    </aside>
+    <div class="layout">
+        <aside class="sidebar">
+            <ul class="menu">
+                <a href="../html/TransportedeVehiculos.html">
+                    <li class="menu-item">
+                        Gestión de ambulancias
+                    </li>
+                </a>
+                <a href="../html/PanelAdministrativo.html">
+                    <li class="menu-item">
+                        Panel administrativo
+                    </li>
+                </a>
+            </ul>
+        </aside>
 
 
-    <main class="main-container">
-        <section class="panel">
+        <main class="main-container">
+            <section class="panel">
 
-            <div class="panel-header">
-                <div>
-                    <h2>Usuarios Registrados</h2>
-                </div>
-
-                <button id="btnNuevo" class="btn">+ Nuevo usuario</button>
-            </div>
-
-            <div class="usuario-actual">
-                <div class="usuario-datos">
-
-                    <div class="user-info">
-                        <span class="user">
-                            Usuario:
-                            <span id="nombreUsuario">---</span>
-                        </span>
-
-                        <span class="user-admin">
-                            Rol:
-                            <span id="rolUsuario">---</span>
-                        </span>
+                <div class="panel-header">
+                    <div>
+                        <h2>Usuarios Registrados</h2>
                     </div>
+
+                    <button id="btnNuevo" class="btn">+ Nuevo usuario</button>
                 </div>
 
-                <button id="btnLogout" class="btn-logout">Cerrar sesión</button>
+                <div class="usuario-actual">
+                    <div class="usuario-datos">
+
+                        <div class="user-info">
+                            <span class="user">
+                                Usuario:
+                                <span id="nombreUsuario">---</span>
+                            </span>
+
+                            <span class="user-admin">
+                                Rol:
+                                <span id="rolUsuario">---</span>
+                            </span>
+                        </div>
+                    </div>
+
+                    <button id="btnLogout" class="btn-logout">Cerrar sesión</button>
+                </div>
+
+                <div class="tabla-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>CI</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Cargo</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaUsuarios"></tbody>
+                    </table>
+                </div>
+
+            </section>
+        </main>
+
+        <div id="modalNuevo" class="modal">
+            <div class="modal-contenido">
+
+                <div class="modal-header">
+                    <div>
+                        <h2>Nuevo usuario</h2>
+                        <p>Complete los datos del nuevo usuario</p>
+                    </div>
+
+                    <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
+                </div>
+
+                <form id="formNuevoUsuario">
+
+                    <div class="campo">
+                        <label for="ci">CI</label>
+                        <input type="text" id="ci" name="ci" maxlength="10" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" maxlength="30" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" maxlength="30" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="pass">Contraseña</label>
+                        <input type="password" id="pass" name="pass" maxlength="30" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="cargo">Cargo</label>
+                        <select id="cargo" name="cargo" required>
+                            <option value="">Seleccione un Cargo</option>
+                            <option value="Enfermero">Enfermero</option>
+                            <option value="Administrativo">Administrativo</option>
+                            <option value="Administrador">Administrador</option>
+                        </select>
+                    </div>
+
+                    <p id="mensajeNuevo"></p>
+
+                    <div class="modal-acciones">
+                        <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
+                        <button type="submit" class="btn">Crear usuario</button>
+                    </div>
+
+                </form>
+
             </div>
-
-            <div class="tabla-container">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>CI</th>
-                            <th>Nombre</th>
-                            <th>Apellido</th>
-                            <th>Cargo</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-
-                    <tbody id="tablaUsuarios"></tbody>
-                </table>
-            </div>
-
-        </section>
-    </main>
-
-    <div id="modalNuevo" class="modal">
-        <div class="modal-contenido">
-
-            <div class="modal-header">
-                <div>
-                    <h2>Nuevo usuario</h2>
-                    <p>Complete los datos del nuevo usuario</p>
-                </div>
-
-                <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
-            </div>
-
-            <form id="formNuevoUsuario">
-
-                <div class="campo">
-                    <label for="ci">CI</label>
-                    <input type="text" id="ci" name="ci" maxlength="10" required>
-                </div>
-
-                <div class="campo">
-                    <label for="nombre">Nombre</label>
-                    <input type="text" id="nombre" name="nombre" maxlength="30" required>
-                </div>
-
-                <div class="campo">
-                    <label for="apellido">Apellido</label>
-                    <input type="text" id="apellido" name="apellido" maxlength="30" required>
-                </div>
-
-                <div class="campo">
-                    <label for="pass">Contraseña</label>
-                    <input type="password" id="pass" name="pass" maxlength="30" required>
-                </div>
-
-                <div class="campo">
-                    <label for="cargo">Cargo</label>
-                    <select id="cargo" name="cargo" required>
-                        <option value="">Seleccione un Cargo</option>
-                        <option value="Enfermero">Enfermero</option>
-                        <option value="Administrativo">Administrativo</option>
-                    </select>
-                </div>
-
-                <p id="mensajeNuevo"></p>
-
-                <div class="modal-acciones">
-                    <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
-                    <button type="submit" class="btn">Crear usuario</button>
-                </div>
-
-            </form>
-
         </div>
-    </div>
 
-</div>
+        <div id="modalEditar" class="modal">
+            <div class="modal-contenido">
+                <div class="modal-header">
+                    <div>
+                        <h2>Modificar usuario</h2>
+                        <p>Actualice la información del usuario seleccionado</p>
+                    </div>
+                    <button type="button" id="btnCerrarModalEditar" class="btn-cerrar">&times;</button>
+                </div>
+
+                <form id="formEditarUsuario">
+                    <div class="campo">
+                        <label for="editarCi">Cédula</label>
+                        <input type="text" id="editarCi" readonly>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editarNombre">Nombre</label>
+                        <input type="text" id="editarNombre" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editarApellido">Apellido</label>
+                        <input type="text" id="editarApellido" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editarPass">Contraseña</label>
+                        <input type="text" id="editarPass" placeholder="Nueva contraseña" required>
+                    </div>
+
+                    <div class="campo">
+                        <label for="editarCargo">Cargo</label>
+                        <select id="editarCargo" required>
+                            
+                        </select>
+                    </div>
+
+                    <div class="modal-acciones">
+                        <button type="button" id="btnCancelarEditar" class="btn-secundario">Cancelar</button>
+                        <button type="submit" class="btn">Guardar Cambios</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+    <script src="../js/sesion.js"></script>
+    <script src="../js/usuarios-main.js"></script>
 </body>
-<script src="../js/usuarios-main.js"></script>
 
 </html>

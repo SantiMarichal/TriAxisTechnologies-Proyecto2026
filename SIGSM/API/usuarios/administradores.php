@@ -2,17 +2,17 @@
 
 require_once __DIR__ . '/../../backend/models/Administrador.php';
 
-$Administrador = new Administrador();
+$administrador = new Administrador();
 
 try {
 
     switch ($metodo) {
         case 'GET':
         if($id === null){
-            $administradores= $Administrador->obtenerTodos();
+            $administradores= $administrador->obtenerTodos();
             echo json_encode($administradores);
         }else{
-            $administradores = $Administrador->obtenerPorCi($id);
+            $administradores = $administrador->obtenerPorCi($id);
             if($administradores === null){
                 http_response_code(404);
                 echo json_encode([
@@ -34,7 +34,7 @@ try {
             $pass = $datos['pass'];
             $cargo = $datos['cargo'];
 
-            $resultado = $Administrador->crear(
+            $resultado = $administrador->crear(
                 $ci,
                 $nombre,
                 $apellido,
@@ -49,7 +49,40 @@ try {
             }
             exit;
         case 'PUT':
-            
+            $datos = json_decode(file_get_contents('php://input'), true);
+            if (!$datos) {
+                http_response_code(400);
+                echo json_encode(["error" => "Datos JSON inválidos o vacíos"]);
+                exit;
+            }
+
+            $ci = $datos['ci'] ?? null;
+            $nombre = $datos['nombre'] ?? null;
+            $apellido = $datos['apellido'] ?? null;
+            $cargo = $datos['cargo'] ?? null;
+            $pass = $datos['pass'] ?? null;
+
+            if (!$ci || !$nombre || !$apellido || !$cargo || !$pass) {
+                http_response_code(400);
+                echo json_encode(["error" => "Faltan campos obligatorios"]);
+                exit;
+            }
+
+            $resultado = $administrador->actualizar(
+                $ci,
+                $nombre,
+                $apellido,
+                $cargo,
+                $pass
+            );
+
+            if ($resultado) {
+                http_response_code(200);
+                echo json_encode(["mensaje" => "Usuario actualizado correctamente"]);
+            } else {
+                http_response_code(400);
+                echo json_encode(["error" => "No se pudo actualizar el usuario"]);
+            }
             exit;
 
         case 'DELETE':

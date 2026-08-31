@@ -2,16 +2,19 @@
 
 require_once __DIR__ . '/../../backend/models/Administrativo.php';
 require_once __DIR__ . '/../../backend/models/Enfermero.php';
+require_once __DIR__ . '/../../backend/models/Administrador.php';
 
-$Administrativo = new Administrativo();
-$Enfermero = new Enfermero();
+$administrativo = new Administrativo();
+$enfermero = new Enfermero();
+$administrador = new Administrador();
 
 try {
 
     if ($metodo === 'GET') {
 
-        $administrativos = $Administrativo->obtenerTodos();
-        $enfermeros = $Enfermero->obtenerTodos();
+        $administrativos = $administrativo->obtenerTodos();
+        $enfermeros = $enfermero->obtenerTodos();
+        $administradores = $administrador->obtenerTodos();
 
         $usuarios = [];
 
@@ -21,6 +24,8 @@ try {
                 'nombre' => $administrativo['Nombre_Administrativo'],
                 'apellido' => $administrativo['Apellido_Administrativo'],
                 'cargo' => $administrativo['Cargo'],
+                'pass' => $administrativo['Contrasena'],
+                'rolBase'  => 'Administrativo'
             ];
         }
 
@@ -30,6 +35,19 @@ try {
                 'nombre' => $enfermero['Nombre_Enfermero'],
                 'apellido' => $enfermero['Apellido_Enfermero'],
                 'cargo' => $enfermero['Cargo'],
+                'pass' => $enfermero['Contrasena'],
+                'rolBase'  => 'Enfermero'
+            ];
+        }
+
+        foreach ($administradores as $administrador) {
+            $usuarios[] = [
+                'ci' => $administrador['Cedula_Administrador'],
+                'nombre' => $administrador['Nombre_Administrador'],
+                'apellido' => $administrador['Apellido_Administrador'],
+                'cargo' => $administrador['Cargo'],
+                'pass' => $administrador['Contrasena'],
+                'rolBase'  => 'Administrador'
             ];
         }
 
@@ -40,9 +58,13 @@ try {
         $datos = json_decode(file_get_contents('php://input'), true);
 
         if ($datos['cargo'] === 'Administrativo' || $datos['cargo'] === 'Admin') {
-            $creado = $Administrativo->crear2($datos);
-        } else {
-            $creado = $Enfermero->crear2($datos);
+            $creado = $administrativo->crear2($datos);
+        } else if ($datos['cargo' === 'Enfermero']) {
+            $creado = $enfermero->crear2($datos);
+        }else if ($datos['cargo'] === 'Administrador'){
+            $creado = $administrador->crear2($datos);
+        }else{
+            $creado = false;
         }
 
         if ($creado) {
@@ -54,7 +76,7 @@ try {
     }
     if ($metodo === 'DELETE') {
         $ci = $resource2;
-        if ($Administrativo->eliminar($ci) || $Enfermero->eliminar($ci)) {
+        if ($administrativo->eliminar($ci) || $enfermero->eliminar($ci) || $administrador->eliminar($ci)) {
             echo json_encode(['mensaje' => 'Usuario eliminado correctamente']);
         } else {
             echo json_encode(['error' => 'No se encontró ningún usuario con esa cédula']);
