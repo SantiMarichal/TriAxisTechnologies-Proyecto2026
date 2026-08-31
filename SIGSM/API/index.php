@@ -45,27 +45,27 @@ switch ($resource) {
     case 'sesion':
         require_once __DIR__ . '/sesion.php';
         exit;
-    
+
     case 'usuarios':
         if ($resource2 === null || is_numeric($resource2)) {
             require_once __DIR__ . '/usuarios/usuarios.php';
             exit;
         }
 
-    if ($resource2 === 'administrativos') {
-        require_once __DIR__ . '/usuarios/administrativos.php';
-        exit;
-    }
+        if ($resource2 === 'administrativos') {
+            require_once __DIR__ . '/usuarios/administrativos.php';
+            exit;
+        }
 
-    if ($resource2 === 'enfermeros') {
-        require_once __DIR__ . '/usuarios/enfermeros.php';
-        exit;
-    }
+        if ($resource2 === 'enfermeros') {
+            require_once __DIR__ . '/usuarios/enfermeros.php';
+            exit;
+        }
 
-    if ($resource2 === 'administrador') {
-        require_once __DIR__ . '/usuarios/administrador.php';
-        exit;
-    }
+        if ($resource2 === 'administrador') {
+            require_once __DIR__ . '/usuarios/administrador.php';
+            exit;
+        }
 
         http_response_code(404);
         echo json_encode([

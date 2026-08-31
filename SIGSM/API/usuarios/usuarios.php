@@ -25,7 +25,7 @@ try {
                 'apellido' => $administrativo['Apellido_Administrativo'],
                 'cargo' => $administrativo['Cargo'],
                 'pass' => $administrativo['Contrasena'],
-                'rolBase'  => 'Administrativo'
+                'rolBase' => 'Administrativo'
             ];
         }
 
@@ -36,7 +36,7 @@ try {
                 'apellido' => $enfermero['Apellido_Enfermero'],
                 'cargo' => $enfermero['Cargo'],
                 'pass' => $enfermero['Contrasena'],
-                'rolBase'  => 'Enfermero'
+                'rolBase' => 'Enfermero'
             ];
         }
 
@@ -47,7 +47,7 @@ try {
                 'apellido' => $administrador['Apellido_Administrador'],
                 'cargo' => $administrador['Cargo'],
                 'pass' => $administrador['Contrasena'],
-                'rolBase'  => 'Administrador'
+                'rolBase' => 'Administrador'
             ];
         }
 
@@ -61,9 +61,9 @@ try {
             $creado = $administrativo->crear2($datos);
         } else if ($datos['cargo' === 'Enfermero']) {
             $creado = $enfermero->crear2($datos);
-        }else if ($datos['cargo'] === 'Administrador'){
+        } else if ($datos['cargo'] === 'Administrador') {
             $creado = $administrador->crear2($datos);
-        }else{
+        } else {
             $creado = false;
         }
 

@@ -142,13 +142,13 @@ CREATE TABLE Destino(
 );
 
 CREATE TABLE Trasladable(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL, 
+    ID_Trasladable INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     Piso_Retiro INT NOT NULL,
     Habitacion_Retiro INT NOT NULL
 );
 
 CREATE TABLE Traslado(
-    ID_Traslado VARCHAR (10) PRIMARY KEY NOT NULL ,
+    ID_Traslado INT AUTO_INCREMENT PRIMARY KEY NOT NULL ,
     Fecha DATE NOT NULL,
     Hora_Salida TIME NOT NULL,
     Hora_Llegada TIME NOT NULL,
@@ -185,7 +185,7 @@ CREATE TABLE Elemento(
 );
 
 CREATE TABLE Transporta(
-    ID_Traslado VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Traslado INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     ID_Trasladable VARCHAR (10) NOT NULL,
     FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado),
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
@@ -261,32 +261,16 @@ VALUES
 ('TRAS010', 'Archivos', 'Archivos de pacientes', 'Documentos');
 
 INSERT INTO Traslado
-(ID_Traslado, Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen,
- Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
+(Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen, Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
 VALUES
-('T001', '2026-08-01', '08:00:00', '08:30:00', 'Aprobado',
- 'Hospital Clinicas', '66666666', '11111111', 'ABC1234', 'DEST001'),
+('2026-08-01', '08:00:00', '08:30:00', 'Aprobado', 'Hospital Clinicas', '66666666', '11111111', 'ABC1234', 'DEST001'),
+('2026-08-05', '09:15:00', '09:50:00', 'Aprobado', 'Hospital Maciel', '77777777', '22222222', 'DEF5678', 'DEST002'),
+('2026-08-10', '10:00:00', '10:40:00', 'Aprobado', 'Hospital Pasteur', '88888888', '33333333', 'GHI9012', 'DEST003');
 
-('T002', '2026-08-05', '09:15:00', '09:50:00', 'Aprobado',
- 'Hospital Maciel', '77777777', '22222222', 'DEF5678', 'DEST002'),
-
-('T003', '2026-08-10', '10:00:00', '10:40:00', 'Aprobado',
- 'Hospital Pasteur', '88888888', '33333333', 'GHI9012', 'DEST003'),
-
-('T004', '2026-08-15', '11:30:00', '12:10:00', 'En proceso',
- 'Hospital Clinicas', '99999999', '44444444', 'JKL3456', 'DEST004'),
-
-('T005', '2026-08-20', '13:00:00', '13:45:00', 'Denegado',
- 'Hospital Español', '10101010', '55555555', 'MNO7890', 'DEST005');
-
- INSERT INTO Transporta
-(ID_Traslado, ID_Trasladable)
-VALUES
-('T001', 'TRAS001'),
-('T002', 'TRAS002'),
-('T003', 'TRAS003'),
-('T004', 'TRAS004'),
-('T005', 'TRAS005');
+INSERT INTO Transporta (ID_Traslado, ID_Trasladable) VALUES
+(1, 'TRAS001'),
+(2, 'TRAS002'),
+(3, 'TRAS003');
 
 -- DML Administrador:
 CREATE TABLE Administrador(

@@ -8,22 +8,22 @@ try {
 
     switch ($metodo) {
         case 'GET':
-        if($id === null){
-            $administradores= $administrador->obtenerTodos();
-            echo json_encode($administradores);
-        }else{
-            $administradores = $administrador->obtenerPorCi($id);
-            if($administradores === null){
-                http_response_code(404);
-                echo json_encode([
-                    'error'=> 'Usuario No encontrado'
-            ]);
-            exit;
+            if ($id === null) {
+                $administradores = $administrador->obtenerTodos();
+                echo json_encode($administradores);
+            } else {
+                $administradores = $administrador->obtenerPorCi($id);
+                if ($administradores === null) {
+                    http_response_code(404);
+                    echo json_encode([
+                        'error' => 'Usuario No encontrado'
+                    ]);
+                    exit;
+                }
+                echo json_encode($administradores);
             }
-            echo json_encode($administradores);
-            } 
-            
-        exit;
+
+            exit;
 
         case 'POST':
             $datos = json_decode(file_get_contents('php://input'), true);
@@ -40,10 +40,10 @@ try {
                 $apellido,
                 $password
             );
-            if ($resultado){
+            if ($resultado) {
                 http_response_code(201);
                 echo json_encode(['mensaje' => 'Usuario creado correctamente']);
-            }else{
+            } else {
                 http_response_code(500);
                 echo json_encode(['error' => 'No se pudo crear el usuario']);
             }
@@ -86,7 +86,7 @@ try {
             exit;
 
         case 'DELETE':
-            
+
             exit;
     }
 } catch (PDOException $e) {

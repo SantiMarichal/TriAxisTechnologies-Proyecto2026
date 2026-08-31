@@ -11,7 +11,7 @@ async function cargarSesion() {
             return;
         }
 
-        const nombre = datos.usuario.Nombre_Administrador || datos.usuario.Nombre_Administrativo || datos.usuario.Nombre_Enfermero; 
+        const nombre = datos.usuario.Nombre_Administrador || datos.usuario.Nombre_Administrativo || datos.usuario.Nombre_Enfermero;
 
         document.getElementById('nombreUsuario').textContent = nombre;
         document.getElementById('rolUsuario').textContent = datos.usuario.Cargo;

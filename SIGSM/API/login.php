@@ -61,7 +61,7 @@ if ($usuario !== null) {
         'mensaje' => 'Login correcto',
         'usuario' => $usuario
     ]);
-    exit; 
+    exit;
 }
 
 $enfermero = new Enfermero();
@@ -73,7 +73,7 @@ if ($usuario !== null) {
         'mensaje' => 'Login correcto',
         'usuario' => $usuario
     ]);
-    exit; 
+    exit;
 }
 
 $administrador = new Administrador();
@@ -85,7 +85,7 @@ if ($usuario !== null) {
         'mensaje' => 'Login correcto',
         'usuario' => $usuario
     ]);
-    exit; 
+    exit;
 }
 
 http_response_code(401);

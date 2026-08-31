@@ -91,7 +91,7 @@ body {
     border-radius: 50%;
 }
 
-.btn-logout{
+.btn-logout {
     width: 100px;
     height: 30px;
     border-radius: 10px;
@@ -101,13 +101,13 @@ body {
 
 main {
     width: 100%;
-    max-width: 800px; 
+    max-width: 800px;
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.carga, 
+.carga,
 .documentos {
     width: 100%;
     background: #d9d9d9;
@@ -192,9 +192,17 @@ textarea {
     cursor: pointer;
 }
 
-.azul { background: #2d7df6; }
-.verde { background: #3dbb5d; }
-.rojo { background: #f44336; }
+.azul {
+    background: #2d7df6;
+}
+
+.verde {
+    background: #3dbb5d;
+}
+
+.rojo {
+    background: #f44336;
+}
 
 .footer {
     background-color: #bfdbfe;

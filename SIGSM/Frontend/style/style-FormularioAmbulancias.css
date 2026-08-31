@@ -88,7 +88,7 @@ input {
     border-color: gainsboro;
 }
 
-select{
+select {
     border: 1px solid;
     border-radius: 30px;
 }
@@ -104,7 +104,7 @@ select{
 }
 
 .volver {
-    display:block;
+    display: block;
     text-align: center;
     background-color: #054ad4;
     border: none;
@@ -114,4 +114,3 @@ select{
     cursor: pointer;
     height: 40px;
 }
-

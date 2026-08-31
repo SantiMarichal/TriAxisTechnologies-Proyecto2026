@@ -7,11 +7,11 @@ define('DBNAME', 'Proyecto2026'); // Nombre de la base de datos definido en dock
 
 class Database
 {
-    private static ?Database $instancia = null; // Dónde se guarda la única instancia
-    private PDO $conexion; // Objeto de conexión con la BD
+    private static ?Database $instancia = null;
+    private PDO $conexion;
 
-    // Constructor privado para evitar que se creen múltiples instancias de la clase
-    private function __construct() {
+    private function __construct()
+    {
         $host = SERVERNAME;
         $db = DBNAME;
         $user = USERNAME;
@@ -27,14 +27,16 @@ class Database
         }
     }
 
-    public static function getInstancia(): Database {
+    public static function getInstancia(): Database
+    {
         if (self::$instancia === null) {
             self::$instancia = new Database(); // $this->instancia = new Database(); error
         }
         return self::$instancia;
     }
 
-    public function getConexion(): PDO{
+    public function getConexion(): PDO
+    {
         return $this->conexion;
     }
 }

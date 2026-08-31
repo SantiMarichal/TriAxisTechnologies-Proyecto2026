@@ -73,7 +73,7 @@ async function cargarUsuarios() {
 
             // Agregar fila a la tabla
             tabla.appendChild(fila);
-            
+
         });
     } catch (error) {
         console.error(error);
@@ -178,7 +178,7 @@ const opcionesPorCargo = {
     'Administrador': ['Super Admin', 'Administrador de sistema', 'Administrador']
 };
 
-let cargoBase= '';
+let cargoBase = '';
 
 function abrirModalEditar(usuario) {
     document.getElementById('editarCi').value = usuario.ci;
@@ -189,7 +189,7 @@ function abrirModalEditar(usuario) {
 
     cargoBase = usuario.rolBase;
     const selectCargo = document.getElementById('editarCargo');
-    selectCargo.innerHTML = ''; 
+    selectCargo.innerHTML = '';
 
     const listaOpciones = opcionesPorCargo[usuario.rolBase] || [usuario.cargo];
 
@@ -197,7 +197,7 @@ function abrirModalEditar(usuario) {
         const opt = document.createElement('option');
         opt.value = opcion;
         opt.textContent = opcion;
-        
+
         if (usuario.cargo === opcion) {
             opt.selected = true;
         }
