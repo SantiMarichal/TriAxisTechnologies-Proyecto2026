@@ -38,7 +38,8 @@ try {
                 $ci,
                 $nombre,
                 $apellido,
-                $password
+                $pass,
+                $cargo
             );
             if ($resultado) {
                 http_response_code(201);
@@ -59,7 +60,7 @@ try {
             $ci = $datos['ci'] ?? null;
             $nombre = $datos['nombre'] ?? null;
             $apellido = $datos['apellido'] ?? null;
-            $cargo = $datos['cargo'] ?? null;
+            $cargo = $datos['cargo'] ?? 'Administrador';
             $pass = $datos['pass'] ?? null;
 
             if (!$ci || !$nombre || !$apellido || !$cargo || !$pass) {

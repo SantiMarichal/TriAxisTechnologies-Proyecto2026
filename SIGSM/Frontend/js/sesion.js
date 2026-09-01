@@ -15,7 +15,9 @@ async function cargarSesion() {
 
         document.getElementById('nombreUsuario').textContent = nombre;
         document.getElementById('rolUsuario').textContent = datos.usuario.Cargo;
+        document.getElementById('ciUsuario').textContent = datos.usuario.Cedula_Administrador || datos.usuario.Cedula_Administrativo || datos.usuario.Cedula_Enfermero;
 
+        cargarUsuarios();
     } catch (error) {
         console.error('Error al cargar la sesión:', error);
     }

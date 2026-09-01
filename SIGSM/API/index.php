@@ -63,8 +63,8 @@ switch ($resource) {
             exit;
         }
 
-        if ($resource2 === 'administrador') {
-            require_once __DIR__ . '/usuarios/administrador.php';
+        if ($resource2 === 'administradores') {
+            require_once __DIR__ . '/usuarios/administradores.php';
             exit;
         }
 

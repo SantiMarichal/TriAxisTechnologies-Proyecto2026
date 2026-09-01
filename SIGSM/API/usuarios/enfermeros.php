@@ -38,7 +38,7 @@ try {
                 $ci,
                 $nombre,
                 $apellido,
-                $password,
+                $pass,
                 $cargo
             );
             if ($resultado) {

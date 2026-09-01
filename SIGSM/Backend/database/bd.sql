@@ -159,7 +159,7 @@ CREATE TABLE Traslado(
     Matricula VARCHAR (10) NOT NULL,
     ID_Destino VARCHAR (10) NOT NULL,
     FOREIGN KEY (Cedula_Chofer) REFERENCES Chofer(Cedula_Chofer),
-    FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero),
+    FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero) ON DELETE CASCADE,
     FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
     FOREIGN KEY (ID_Destino) REFERENCES Destino(ID_Destino)
 );
@@ -187,8 +187,8 @@ CREATE TABLE Transporta(
     ID_Traslado INT NOT NULL,
     ID_Trasladable INT NOT NULL,
     PRIMARY KEY (ID_Traslado, ID_Trasladable),
-    FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado),
-    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
+    FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado) ON DELETE CASCADE,
+    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable) ON DELETE CASCADE
 );
 
 -- DML:

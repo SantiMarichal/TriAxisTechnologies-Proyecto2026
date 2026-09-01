@@ -59,7 +59,7 @@ try {
 
         if ($datos['cargo'] === 'Administrativo' || $datos['cargo'] === 'Admin') {
             $creado = $administrativo->crear2($datos);
-        } else if ($datos['cargo' === 'Enfermero']) {
+        } else if ($datos['cargo'] === 'Enfermero') {
             $creado = $enfermero->crear2($datos);
         } else if ($datos['cargo'] === 'Administrador') {
             $creado = $administrador->crear2($datos);
@@ -75,13 +75,21 @@ try {
         exit;
     }
     if ($metodo === 'DELETE') {
-        $ci = $resource2;
-            // echo json_encode(['mensaje' => "$resource2"]);
-            // exit;
-        if ($administrativo->eliminar($ci) || $enfermero->eliminar($ci) || $administrador->eliminar($ci)) {
+        $ci = $id ?? $resource2;
+
+        if (!$ci) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Cédula no proporcionada']);
+            exit;
+        }
+        $borrado = $administrativo->eliminar($ci) || $enfermero->eliminar($ci) || $administrador->eliminar($ci);
+
+        if ($borrado) {
+            http_response_code(200);
             echo json_encode(['mensaje' => 'Usuario eliminado correctamente']);
         } else {
-            echo json_encode(['error' => 'No se encontró ningún usuario con esa cédula']);
+            http_response_code(404);
+            echo json_encode(['error' => 'No se encontró ningún usuario con esa cédula para eliminar']);
         }
         exit;
     }

@@ -2,82 +2,67 @@ let usuarioActual = null;
 
 document.addEventListener('DOMContentLoaded', cargarSesion);
 
-async function cargarSesion() {
-    try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/sesion');
-
-        const datos = await response.json();
-
-        if (!datos.autenticado) {
-            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
-            return;
-        }
-        usuarioActual = datos.usuario;
-
-        // Si es admin puede obtener usuarios
-        cargarUsuarios();
-    } catch (error) {
-        console.error(error);
-    }
-}
-
 async function cargarUsuarios() {
     try {
         const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios');
-        const usuarios = await response.json();
-        const tabla = document.getElementById('tablaUsuarios');
+        const listaUsuarios = await response.json();
 
-        tabla.innerHTML = '';
-        usuarios.forEach((usuario) => {
-            // Se crea una fila
-            const fila = document.createElement('tr');
-
-            /* Se crean las diferentes columnas o celdas --- INICIO --- */
-            const celdaCi = document.createElement('td');
-            celdaCi.textContent = usuario.ci;
-            fila.appendChild(celdaCi);
-
-            const celdaNombre = document.createElement('td');
-            celdaNombre.textContent = usuario.nombre;
-            fila.appendChild(celdaNombre);
-
-            const celdaApellido = document.createElement('td');
-            celdaApellido.textContent = usuario.apellido;
-            fila.appendChild(celdaApellido);
-
-            const celdaCargo = document.createElement('td');
-            celdaCargo.textContent = usuario.cargo;
-            fila.appendChild(celdaCargo);
-
-            const celdaAcciones = document.createElement('td');
-            celdaAcciones.classList.add('celda-acciones'); // Agregamos la clase
-
-            const botonEditar = document.createElement('button');
-            botonEditar.textContent = 'Editar';
-            botonEditar.classList.add('btn-editar');
-            botonEditar.addEventListener('click', () => abrirModalEditar(usuario));
-
-            const botonEliminar = document.createElement('button');
-            botonEliminar.textContent = 'Eliminar';
-
-            botonEliminar.addEventListener('click', () => {
-                eliminarUsuario(usuario.ci);
-            });
-
-            celdaAcciones.appendChild(botonEliminar);
-            celdaAcciones.appendChild(botonEditar);
-
-            fila.appendChild(celdaAcciones);
-
-            /* Se crean las diferentes columnas o celdas --- FIN --- */
-
-            // Agregar fila a la tabla
-            tabla.appendChild(fila);
-
-        });
+        renderizarTabla(listaUsuarios);
     } catch (error) {
-        console.error(error);
+        console.error('Error al cargar la lista de usuarios:', error);
     }
+}
+
+// 2. Armar los elementos visuales en el HTML
+function renderizarTabla(listaUsuarios) {
+    
+    const ciLogueada = document.getElementById('ciUsuario').textContent.trim();
+
+    const tbody = document.getElementById('tablaUsuarios');
+    tbody.innerHTML = '';
+
+    listaUsuarios.forEach(usuario => {
+        const ciFila = usuario.Cedula_Administrador || usuario.Cedula_Administrativo || usuario.Cedula_Enfermero || usuario.ci;
+
+        const tr = document.createElement('tr');
+
+        // Celdas de información
+        const tdCi = document.createElement('td');
+        tdCi.textContent = ciFila;
+        tr.appendChild(tdCi);
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = usuario.Nombre_Administrador || usuario.Nombre_Administrativo || usuario.Nombre_Enfermero || usuario.nombre;
+        tr.appendChild(tdNombre);
+
+        const tdApellido = document.createElement('td');
+        tdApellido.textContent = usuario.Apellido_Administrador || usuario.Apellido_Administrativo || usuario.Apellido_Enfermero || usuario.apellido;
+        tr.appendChild(tdApellido);
+
+        const tdCargo = document.createElement('td');
+        tdCargo.textContent = usuario.Cargo || usuario.cargo;
+        tr.appendChild(tdCargo);
+
+        // Celda de Acciones
+        const tdAcciones = document.createElement('td');
+
+        // Botón Editar (siempre presente)
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditar(usuario);
+        tdAcciones.appendChild(btnEditar);
+
+        // IF SIMPLE: Solo agrega el botón Eliminar si la CI no coincide con la del span
+        if (ciFila !== ciLogueada) {
+            const btnEliminar = document.createElement('button');
+            btnEliminar.textContent = 'Eliminar';
+            btnEliminar.onclick = () => eliminarUsuario(ciFila);
+            tdAcciones.appendChild(btnEliminar);
+        }
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
+    });
 }
 
 
