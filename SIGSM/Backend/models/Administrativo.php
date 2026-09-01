@@ -83,7 +83,7 @@ class Administrativo
     // Eliminar usuario
     public function eliminar(string $ci): bool
     {
-        $sqlDocs = "DELETE FROM Documentos WHERE Cedula_Administrativo = :ci";
+        $sqlDocs = "DELETE FROM Carga WHERE Cedula_Administrativo = :ci";
         $sentenciaDocs = $this->conexion->prepare($sqlDocs);
         $sentenciaDocs->bindParam(":ci", $ci);
         $sentenciaDocs->execute();

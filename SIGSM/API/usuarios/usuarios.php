@@ -76,6 +76,8 @@ try {
     }
     if ($metodo === 'DELETE') {
         $ci = $resource2;
+            // echo json_encode(['mensaje' => "$resource2"]);
+            // exit;
         if ($administrativo->eliminar($ci) || $enfermero->eliminar($ci) || $administrador->eliminar($ci)) {
             echo json_encode(['mensaje' => 'Usuario eliminado correctamente']);
         } else {

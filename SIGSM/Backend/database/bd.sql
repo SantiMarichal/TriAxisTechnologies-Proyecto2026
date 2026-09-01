@@ -54,7 +54,7 @@ CREATE TABLE Carga (
     ID_Documento VARCHAR (10) NOT NULL,
     HoraYFecha datetime NOT NULL,
     PRIMARY KEY (Cedula_Administrativo, ID_Documento),
-    FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo),
+    FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo) ON DELETE CASCADE,
     FOREIGN KEY (ID_Documento) REFERENCES Documentos(ID_Documento)
 );
 

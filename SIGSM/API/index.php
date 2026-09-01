@@ -48,6 +48,7 @@ switch ($resource) {
 
     case 'usuarios':
         if ($resource2 === null || is_numeric($resource2)) {
+        // if ($resource2 === null) {
             require_once __DIR__ . '/usuarios/usuarios.php';
             exit;
         }
@@ -66,6 +67,11 @@ switch ($resource) {
             require_once __DIR__ . '/usuarios/administrador.php';
             exit;
         }
+
+        // echo json_encode([
+        //     'error' => "$resource2 | $id"
+        // ]);
+        // exit;
 
         http_response_code(404);
         echo json_encode([
