@@ -46,7 +46,7 @@ CREATE TABLE Documentos (
     Titulo VARCHAR (100) NOT NULL,
     Descripcion VARCHAR (200) NOT NULL,
     ID_Categoria VARCHAR (10) NOT NULL,
-    FOREIGN KEY  (ID_Categoria) REFERENCES Categorias(ID_Categoria)
+    FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
 CREATE TABLE Carga (
@@ -148,7 +148,7 @@ CREATE TABLE Trasladable(
 );
 
 CREATE TABLE Traslado(
-    ID_Traslado INT AUTO_INCREMENT PRIMARY KEY NOT NULL ,
+    ID_Traslado INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Fecha DATE NOT NULL,
     Hora_Salida TIME NOT NULL,
     Hora_Llegada TIME NOT NULL,
@@ -165,19 +165,18 @@ CREATE TABLE Traslado(
 );
 
 CREATE TABLE Paciente(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Trasladable INT PRIMARY KEY NOT NULL,
     CI VARCHAR(10) UNIQUE NOT NULL,
     Nombre VARCHAR (20) NOT NULL,
     Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
     Camilla ENUM('De emergencia', 'Normal') NOT NULL, 
     Oxigeno BOOLEAN DEFAULT FALSE NOT NULL,
     Aislamiento BOOLEAN DEFAULT FALSE NOT NULL,
-    -- DEFAULT FALSE asigna automaticamente el valor false a una columna cuando se inserta un nuevo registro y no se especifica un valor
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
 CREATE TABLE Elemento(
-    ID_Trasladable VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Trasladable INT PRIMARY KEY NOT NULL,
     Nombre VARCHAR (20) NOT NULL,
     Descripcion VARCHAR (200) NOT NULL,
     Tipo_Elemento ENUM('Organo', 'Documentos', 'Otro') NOT NULL,
@@ -185,8 +184,9 @@ CREATE TABLE Elemento(
 );
 
 CREATE TABLE Transporta(
-    ID_Traslado INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    ID_Trasladable VARCHAR (10) NOT NULL,
+    ID_Traslado INT NOT NULL,
+    ID_Trasladable INT NOT NULL,
+    PRIMARY KEY (ID_Traslado, ID_Trasladable),
     FOREIGN KEY (ID_Traslado) REFERENCES Traslado(ID_Traslado),
     FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
@@ -229,36 +229,36 @@ VALUES
 ('DEST005', 'Hospital Español', 'Av. Gral. Flores 1529', 'Ruta 5');
 
 INSERT INTO Trasladable
-(ID_Trasladable, Piso_Retiro, Habitacion_Retiro)
+(Piso_Retiro, Habitacion_Retiro)
 VALUES
-('TRAS001', 1, 101),
-('TRAS002', 2, 205),
-('TRAS003', 3, 310),
-('TRAS004', 4, 402),
-('TRAS005', 5, 515),
-('TRAS006', 1, 110),
-('TRAS007', 2, 215),
-('TRAS008', 3, 320),
-('TRAS009', 4, 425),
-('TRAS010', 5, 530);
+(1, 101),
+(2, 205),
+(3, 310),
+(4, 402),
+(5, 515),
+(1, 110),
+(2, 215),
+(3, 320),
+(4, 425),
+(5, 530);
 
 INSERT INTO Paciente
 (ID_Trasladable, CI, Nombre, Accesorio, Camilla, Oxigeno, Aislamiento)
 VALUES
-('TRAS001', '12345678', 'Juan Perez', 'Bastón', 'De emergencia', FALSE, FALSE),
-('TRAS002', '23456789', 'Ana Gomez', 'Silla de ruedas', 'Normal', FALSE, FALSE),
-('TRAS003', '34567890', 'Luis Rodriguez', 'Bastón', 'Normal', FALSE, FALSE),
-('TRAS004', '45678901', 'Maria Fernandez', 'Ninguno', 'De emergencia', TRUE, TRUE),
-('TRAS005', '56789012', 'Carlos Martinez', 'Silla de ruedas', 'Normal', TRUE, FALSE);
+(1, '12345678', 'Juan Perez', 'Bastón', 'De emergencia', FALSE, FALSE),
+(2, '23456789', 'Ana Gomez', 'Silla de ruedas', 'Normal', FALSE, FALSE),
+(3, '34567890', 'Luis Rodriguez', 'Bastón', 'Normal', FALSE, FALSE),
+(4, '45678901', 'Maria Fernandez', 'Ninguno', 'De emergencia', TRUE, TRUE),
+(5, '56789012', 'Carlos Martinez', 'Silla de ruedas', 'Normal', TRUE, FALSE);
 
 INSERT INTO Elemento
 (ID_Trasladable, Nombre, Descripcion, Tipo_Elemento)
 VALUES
-('TRAS006', 'Higado', 'Higado de donante', 'Organo'),
-('TRAS007', 'Archivos', 'Archivos de pacientes', 'Documentos'),
-('TRAS008', 'Riñon', 'Riñon de donante', 'Organo'),
-('TRAS009', 'Documentación', 'Documentacion CASO-03', 'Documentos'),
-('TRAS010', 'Archivos', 'Archivos de pacientes', 'Documentos');
+(6, 'Higado', 'Higado de donante', 'Organo'),
+(7, 'Archivos', 'Archivos de pacientes', 'Documentos'),
+(8, 'Riñon', 'Riñon de donante', 'Organo'),
+(9, 'Documentación', 'Documentacion CASO-03', 'Documentos'),
+(10, 'Archivos', 'Archivos de pacientes', 'Documentos');
 
 INSERT INTO Traslado
 (Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen, Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
@@ -268,11 +268,11 @@ VALUES
 ('2026-08-10', '10:00:00', '10:40:00', 'Aprobado', 'Hospital Pasteur', '88888888', '33333333', 'GHI9012', 'DEST003');
 
 INSERT INTO Transporta (ID_Traslado, ID_Trasladable) VALUES
-(1, 'TRAS001'),
-(2, 'TRAS002'),
-(3, 'TRAS003');
+(1, 1),
+(2, 2),
+(3, 3);
 
--- DML Administrador:
+-- Tabla Administrador
 CREATE TABLE Administrador(
     Cedula_Administrador VARCHAR (10) PRIMARY KEY NOT NULL,
     Nombre_Administrador VARCHAR (20) NOT NULL, 
@@ -281,9 +281,11 @@ CREATE TABLE Administrador(
     Cargo VARCHAR (20) NOT NULL
 );
 
--- DDL Administrador
-
 INSERT INTO Administrador
 (Cedula_Administrador, Nombre_Administrador, Apellido_Administrador, Contrasena, Cargo)
 VALUES
-('90876533', 'Kenia', 'Kronberg', '1234', 'Administrador');
+('90876533', 'Kenia', 'Kronberg', '1234', 'Administrador'),
+('90876534', 'Santiago', 'da Rosa', '123', 'Administrador'),
+('90876536', 'Joaquin', 'Estefan', '12344', 'Administrador'),
+('90876535', 'Gennaro', 'Rodriguez', '12345', 'Administrador'),
+('90876530', 'Valentina', 'Garcia', '12346', 'Administrador');

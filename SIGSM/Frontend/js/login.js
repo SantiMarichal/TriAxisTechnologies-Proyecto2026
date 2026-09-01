@@ -30,8 +30,6 @@ formulario.addEventListener('submit', async (e) => {
             return;
         }
 
-
-        console.log('Usuario:', datos.usuario);
         if (datos.usuario.Cargo === 'Administrador') {
             window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModulo.html';
         } else if (datos.usuario.Cargo === 'Administrativo') {
