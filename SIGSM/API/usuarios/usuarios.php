@@ -95,6 +95,6 @@ try {
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error_sql' => $e->getMessage()]);
+    echo json_encode(['error' => 'Error en la base de datos']);
     exit;
 }

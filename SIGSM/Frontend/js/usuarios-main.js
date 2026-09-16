@@ -43,16 +43,13 @@ function renderizarTabla(listaUsuarios) {
         tdCargo.textContent = usuario.Cargo || usuario.cargo;
         tr.appendChild(tdCargo);
 
-        // Celda de Acciones
         const tdAcciones = document.createElement('td');
 
-        // Botón Editar (siempre presente)
         const btnEditar = document.createElement('button');
         btnEditar.textContent = 'Editar';
         btnEditar.onclick = () => abrirModalEditar(usuario);
         tdAcciones.appendChild(btnEditar);
 
-        // IF SIMPLE: Solo agrega el botón Eliminar si la CI no coincide con la del span
         if (ciFila !== ciLogueada) {
             const btnEliminar = document.createElement('button');
             btnEliminar.textContent = 'Eliminar';
