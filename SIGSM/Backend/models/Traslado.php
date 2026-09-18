@@ -32,7 +32,9 @@ class Traslado
     public function obtenerTodos(): array
     {
         // Escribimos como texto literal la consulta SQL    
-        $sql = 'SELECT * FROM Traslado';
+        $sql = 'SELECT Traslado.*, Tipo_vehiculo 
+            FROM Traslado 
+            INNER JOIN Vehiculo ON Traslado.Matricula = Vehiculo.Matricula';
         //Preparamos la sentencia
         $sentencia = $this->conexion->prepare($sql);
 

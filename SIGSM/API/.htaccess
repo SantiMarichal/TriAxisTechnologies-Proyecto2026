@@ -3,5 +3,12 @@
 # RewriteCond %{REQUEST_FILENAME} !-d
 # RewriteRule ^ index.php [QSA,L]
 RewriteEngine On
+RewriteBase /Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/
 
-RewriteRule ^(usuarios(/.*)?|login|logout|sesion)/?$ index.php [QSA,L]
+# Si la petición solicita un archivo real que existe (imágenes, CSS, etc.), sírvelo
+RewriteCond %{REQUEST_FILENAME} -f
+RewriteRule ^ - [L]
+
+# Para cualquier otra cosa (incluyendo directorios existentes como /traslados/), 
+# reescribe la petición hacia index.php
+RewriteRule ^ index.php [QSA,L]
