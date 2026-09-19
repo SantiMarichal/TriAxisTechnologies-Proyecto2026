@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', cargarSesion);
 async function cargarUsuarios() {
     try {
         const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios');
-        const listaUsuarios = await response.json();
+        const  listaUsuarios= await response.json();
 
         renderizarTabla(listaUsuarios);
     } catch (error) {
