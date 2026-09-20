@@ -27,8 +27,7 @@ if (isset($segments[0]) && $segments[0] === 'index.php') {
 }
 
 $resource = $segments[0] ?? '';
-$resource2 = $segments[1] ?? null;
-$id = $segments[2] ?? null;
+$id = $segments[1] ?? null;
 
 // Obtener datos del body para POST/PUT
 $input = json_decode(file_get_contents('php://input'), true) ?? [];
@@ -47,22 +46,22 @@ switch ($resource) {
         exit;
 
     case 'usuarios':
-        if ($resource2 === null || is_numeric($resource2)) {
+        if ($id === null || is_numeric($id)) {
             require_once __DIR__ . '/usuarios/usuarios.php';
             exit;
         }
 
-        if ($resource2 === 'administrativos') {
+        if ($id === 'administrativos') {
             require_once __DIR__ . '/usuarios/administrativos.php';
             exit;
         }
 
-        if ($resource2 === 'enfermeros') {
+        if ($id === 'enfermeros') {
             require_once __DIR__ . '/usuarios/enfermeros.php';
             exit;
         }
 
-        if ($resource2 === 'administradores') {
+        if ($id === 'administradores') {
             require_once __DIR__ . '/usuarios/administradores.php';
             exit;
         }

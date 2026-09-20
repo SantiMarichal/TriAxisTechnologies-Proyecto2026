@@ -1,14 +1,12 @@
 # RewriteEngine On
-# RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
-# RewriteRule ^ index.php [QSA,L]
+# RewriteRule ^api/(.*)$ index.php [L]
 RewriteEngine On
-RewriteBase /Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/
 
-# Si la petición solicita un archivo real que existe (imágenes, CSS, etc.), sírvelo
-RewriteCond %{REQUEST_FILENAME} -f
-RewriteRule ^ - [L]
+# Desactivar la redirección automática cuando la URL coincide con el nombre de un directorio
+DirectorySlash Off
 
-# Para cualquier otra cosa (incluyendo directorios existentes como /traslados/), 
-# reescribe la petición hacia index.php
+# No reescribir si la petición es a un archivo físico real (como imágenes, css, etc.)
+RewriteCond %{REQUEST_FILENAME} !-f
+
+# Redirigir absolutamente TODO hacia index.php (sin hacer redirección HTTP 301/302)
 RewriteRule ^ index.php [QSA,L]
