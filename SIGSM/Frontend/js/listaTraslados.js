@@ -92,6 +92,102 @@ function renderizarTraslados(listaTraslados) {
         divAmbulancia.appendChild(divChofer);
         divAmbulancia.appendChild(divInfo);
 
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.classList.add('btn-eliminar');
+        btnEliminar.onclick = () => eliminarTraslado(traslado.ID_Traslado);
+        divAmbulancia.appendChild(btnEliminar);
         contenedor.appendChild(divAmbulancia);
     });
+}
+
+async function eliminarTraslado(id) {
+    if (!confirm('¿Desea eliminar este traslado?')) {
+        return;
+    }
+
+    try {
+        const response =
+            await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${id}`, {
+                method: 'DELETE'
+            });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+
+        cargarTraslados();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+const modalNuevo = document.getElementById('modalNuevo');
+
+const modalEditar = document.getElementById('modalEditar');
+
+const btnNuevo = document.getElementById('btnNuevo');
+
+const btnCerrarModal = document.getElementById('btnCerrarModal');
+
+const btnCancelar = document.getElementById('btnCancelar');
+
+const formNuevoTraslado = document.getElementById('formNuevoTraslado');
+
+btnNuevo.addEventListener('click', abrirModal);
+
+btnCerrarModal.addEventListener('click', cerrarModal);
+
+btnCancelar.addEventListener('click', cerrarModal);
+
+function abrirModal() {
+    formNuevoTraslado.reset();
+    modalNuevo.classList.add('mostrar');
+}
+
+function cerrarModal() {
+    modalNuevo.classList.remove('mostrar');
+}
+
+formNuevoTraslado.addEventListener('submit', crearTraslado);
+
+async function crearTraslado(event) {
+    event.preventDefault();
+    const datos = {
+        ci: document.getElementById('fecha').value,
+        nombre: document.getElementById('nombre').value,
+        apellido: document.getElementById('apellido').value,
+        pass: document.getElementById('pass').value,
+        cargo: document.getElementById('cargo').value
+    };
+
+    try {
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datos)
+        });
+
+        const resultado = await response.json();
+
+        if (!response.ok) {
+            document.getElementById('mensajeNuevo').textContent = resultado.error;
+            return;
+        }
+
+        alert('Traslado creado correctamente');
+
+        cerrarModal();
+        cargarTraslados();
+    } catch (error) {
+        console.error(error);
+    }
 }

@@ -89,6 +89,136 @@
                     <p>Completados hoy: 9</p>
                 </div>
             </div>
+
+            <div id="modalNuevo" class="modal">
+                <div class="modal-contenido">
+
+                    <div class="modal-header">
+                        <div>
+                            <h2>Nuevo traslado</h2>
+                            <p>Complete los datos del nuevo traslado</p>
+                        </div>
+
+                        <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
+                    </div>
+
+                    <form id="formNuevoTraslado">
+
+                        <div class="campo">
+                            <label for="ci">CI del paciente</label>
+                            <input type="text" id="ci" name="ci" maxlength="10" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="nombreChofer">Nombre del chofer</label>
+                            <input type="text" id="nombreChofer" name="nombre" maxlength="30" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="nombreEnfermero">Nombre del enfermero</label>
+                            <input type="text" id="nombreEnfermero" name="nombreEnfermero" maxlength="30" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horaSalida">Hora de salida</label>
+                            <input type="time" id="horaSalida" name="horaSalida" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horaLlegada">Hora de llegada estimada</label>
+                            <input type="time" id="horaLlegada" name="horaLlegada" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="Telefono">Teléfono</label>
+                            <input type="text" id="Telefono" name="Telefono" maxlength="15" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="oxigeno">¿Precisa oxigeno?</label>
+                            <select id="oxigeno" name="oxigeno" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="Sí">Sí</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="camilla">¿Que tipo de camilla va a utilizar?</label>
+                            <select id="camilla" name="camilla" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="camillaEmergencia">Camilla de emergencia</option>
+                                <option value="camillaTraslado">Camilla de traslado</option>
+                            </select>
+                        </div>
+
+                        <p id="mensajeNuevo"></p>
+
+                        <div class="modal-acciones">
+                            <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
+                            <button type="submit" class="btn">Crear traslado</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+            <div id="modalEditar" class="modal">
+                <div class="modal-contenido">
+                    <div class="modal-header">
+                        <div>
+                            <h2>Modificar traslado</h2>
+                            <p>Actualice la información del traslado seleccionado</p>
+                        </div>
+                        <button type="button" id="btnCerrarModalEditar" class="btn-cerrar">&times;</button>
+                    </div>
+
+                    <form id="formEditarTraslado">
+                        <div class="campo">
+                            <label for="editarCi">Cédula del paciente</label>
+                            <input type="text" id="editarCiPaciente" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarNombreChofer">Nombre del chofer</label>
+                            <input type="text" id="editarNombreChofer" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarNombreEnfermero">Nombre del enfermero</label>
+                            <input type="text" id="editarNombreEnfermero" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarHoraSalida">Hora de salida</label>
+                            <input type="text" id="editarHoraSalida" placeholder="Hora de salida" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarHoraLlegada">Hora de llegada estimada</label>
+                            <input type="text" id="editarHoraLlegada" placeholder="Hora de llegada estimada" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarTelefono">Teléfono</label>
+                            <input type="text" id="editarTelefono" placeholder="Número de teléfono" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarCargo">Cargo</label>
+                            <select id="editarCargo" required>
+
+                            </select>
+                        </div>
+
+                        <div class="modal-acciones">
+                            <button type="button" id="btnCancelarEditar" class="btn-secundario">Cancelar</button>
+                            <button type="submit" class="btn">Guardar Cambios</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </main>
     </div>
     <footer class="footer">
@@ -97,4 +227,5 @@
 </body>
 <script src="../js/sesion.js"></script>
 <script src="../js/listaTraslados.js"></script>
+
 </html>

@@ -57,6 +57,7 @@ try {
                 echo json_encode(['error' => 'No se pudo crear el traslado']);
             }
             exit;
+            
         case 'PUT':
             $datos = json_decode(file_get_contents('php://input'), true);
             if (!$datos) {
