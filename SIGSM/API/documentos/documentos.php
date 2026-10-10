@@ -16,7 +16,7 @@ try {
                 if ($documentos === null) {
                     http_response_code(404);
                     echo json_encode([
-                        'error' => 'Documento No encontrado'
+                        'error' => 'Documento no encontrado'
                     ]);
                     exit;
                 }
@@ -101,9 +101,8 @@ try {
                 echo json_encode(["error" => "No se pudo eliminar el documento"]);
             }
             exit;
-            exit;
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Error en la base de datos']);
+    echo json_encode(['error' => 'Error en la base de datos: ']);
 }

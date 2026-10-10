@@ -12,7 +12,7 @@ class Documento
 
     public function crear(string $id_documento, string $titulo, string $descripcion, string $id_categoria, string $estado): bool
     {
-        $sql = 'INSERT INTO Documentos(Id_Documento, Titulo, Descripcion, Id_Categoria, Estado) VALUES (:id_documento, :titulo, :descripcion, :id_categoria, :estado)';
+        $sql = 'INSERT INTO Documentos(ID_Documento, Titulo, Descripcion, ID_Categoria, Estado) VALUES (:id_documento, :titulo, :descripcion, :id_categoria, :estado)';
 
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(':id_documento', $id_documento);
@@ -49,7 +49,7 @@ class Documento
     public function obtenerPorID(string $id_documento): ?array
     {
 
-        $sql = 'SELECT * FROM Documentos WHERE Id_Documento=:id_documento'; 
+        $sql = 'SELECT * FROM Documentos WHERE ID_Documento=:id_documento'; 
 
         $sentencia = $this->conexion->prepare($sql);
 
@@ -65,7 +65,7 @@ class Documento
     // Modificar usuario
     public function actualizar(string $id_documento, string $titulo, string $descripcion, string $id_categoria, string $estado): bool
     {
-        $sql = 'UPDATE Documentos SET Titulo=:titulo, Descripcion=:descripcion, Id_Categoria=:id_categoria, Estado=:estado WHERE Id_Documento=:id_documento';
+        $sql = 'UPDATE Documentos SET Titulo=:titulo, Descripcion=:descripcion, Id_Categoria=:id_categoria, Estado=:estado WHERE ID_Documento=:id_documento';
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":id_documento", $id_documento);
         $sentencia->bindParam(":titulo", $titulo);
@@ -78,7 +78,12 @@ class Documento
     // Eliminar usuario
     public function eliminar(string $id_documento): bool
     {
-        $sql = "DELETE FROM Documentos WHERE Id_Documento = :id_documento";
+        $sqlCarga = "DELETE FROM Carga WHERE ID_Documento = :id_documento";
+        $sentenciaCarga = $this->conexion->prepare($sqlCarga);
+        $sentenciaCarga->bindParam(":id_documento", $id_documento);
+        $sentenciaCarga->execute();
+
+        $sql = "DELETE FROM Documentos WHERE ID_Documento = :id_documento";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":id_documento", $id_documento);
         if ($sentencia->execute()) {

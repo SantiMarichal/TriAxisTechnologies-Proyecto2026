@@ -22,27 +22,27 @@ function renderizarDocumentos(listaDocumentos) {
         divDocumento.classList.add('card');
 
         const h4Titulo = document.createElement('h4');
-        h4Titulo.textContent = documento.titulo || 'Documento';
+        h4Titulo.textContent = documento.Titulo || 'Documento';
 
         const pDescripcion = document.createElement('p');
-        pDescripcion.textContent = documento.descripcion || 'Sin descripción';
+        pDescripcion.textContent = documento.Descripcion || 'Sin descripción';
 
         const divEtiquetas = document.createElement('div');
         divEtiquetas.classList.add('etiquetas');
 
         const spanCategoria = document.createElement('span');
         spanCategoria.classList.add('azul');
-        spanCategoria.textContent = documento.id_categoria || 'Categoría';
+        spanCategoria.textContent = documento.ID_Categoria || 'Categoría';
 
         const spanEstado = document.createElement('span');
         spanEstado.classList.add('verde');
-        spanEstado.textContent = documento.estado || 'Aprobado';
+        spanEstado.textContent = documento.Estado || 'Aprobado';
 
         const spanEliminar = document.createElement('span');
         spanEliminar.classList.add('rojo');
         spanEliminar.textContent = 'Eliminar';
-        spanEliminar.style.cursor = 'pointer'; // Para indicar que es interactivo
-        spanEliminar.onclick = () => eliminarDocumento(documento.id_documento);
+        spanEliminar.style.cursor = 'pointer'; 
+        spanEliminar.onclick = () => eliminarDocumento(documento.ID_Documento);
 
         divEtiquetas.appendChild(spanCategoria);
         divEtiquetas.appendChild(spanEstado);
@@ -52,7 +52,6 @@ function renderizarDocumentos(listaDocumentos) {
         divDocumento.appendChild(pDescripcion);
         divDocumento.appendChild(divEtiquetas);
 
-        // Agregamos la tarjeta al contenedor del DOM
         contenedor.appendChild(divDocumento);
     });
 }
@@ -109,41 +108,4 @@ function abrirModal() {
 
 function cerrarModal() {
     modalNuevo.classList.remove('mostrar');
-}
-
-formNuevoDocumento.addEventListener('submit', crearDocumento);
-
-async function crearDocumento(event) {
-    event.preventDefault();
-    const datos = {
-        id_documento: document.getElementById('id_documento').value,
-        titulo: document.getElementById('titulo').value,
-        descripcion: document.getElementById('descripcion').value,
-        id_categoria: document.getElementById('id_categoria').value,
-        estado: document.getElementById('estado').value
-    };
-
-    try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(datos)
-        });
-
-        const resultado = await response.json();
-
-        if (!response.ok) {
-            document.getElementById('mensajeNuevo').textContent = resultado.error;
-            return;
-        }
-
-        alert('Documento creado correctamente');
-
-        cerrarModal();
-        cargarDocumentos();
-    } catch (error) {
-        console.error(error);
-    }
 }
