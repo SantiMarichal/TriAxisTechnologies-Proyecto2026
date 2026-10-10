@@ -46,6 +46,7 @@ CREATE TABLE Documentos (
     Titulo VARCHAR (100) NOT NULL,
     Descripcion VARCHAR (200) NOT NULL,
     ID_Categoria VARCHAR (10) NOT NULL,
+    Estado VARCHAR (20) NOT NULL,
     FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
@@ -94,12 +95,12 @@ INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
 ('R004', 'P004', 'ENC002', 'Malo'),
 ('R005', 'P005', 'ENC002', 'Muy Bueno');
 
-INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria) VALUES
-('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001'),
-('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002'),
-('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003'),
-('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004'),
-('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005');
+INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria, Estado) VALUES
+('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001', 'Aprobado'),
+('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002', 'Aprobado'),
+('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003', 'Aprobado'),
+('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004', 'Aprobado'),
+('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005', 'Aprobado');
 
 INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
 ('12345678', 'DOC001', '2026-08-30 09:30:00'),

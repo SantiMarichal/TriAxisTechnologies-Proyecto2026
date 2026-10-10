@@ -74,6 +74,9 @@ switch ($resource) {
     case 'traslados':
         require_once __DIR__ . '/traslados/traslados.php';
         exit;
+    case 'documentos':
+        require_once __DIR__ . '/documentos/documentos.php';
+        exit;
     default:
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');

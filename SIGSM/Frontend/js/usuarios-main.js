@@ -242,4 +242,3 @@ document.getElementById('formEditarUsuario').addEventListener('submit', async (e
         console.error('Error al actualizar usuario:', error);
     }
 });
-
