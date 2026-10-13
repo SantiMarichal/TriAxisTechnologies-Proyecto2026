@@ -21,6 +21,8 @@ function renderizarDocumentos(listaDocumentos) {
         const divDocumento = document.createElement('div');
         divDocumento.classList.add('card');
 
+        divDocumento.dataset.categoria = documento.ID_Categoria || 'General';
+
         const h4Titulo = document.createElement('h4');
         h4Titulo.textContent = documento.Titulo || 'Documento';
 
@@ -55,6 +57,24 @@ function renderizarDocumentos(listaDocumentos) {
         contenedor.appendChild(divDocumento);
     });
 }
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-filtro')) {
+        const categoriaSeleccionada = e.target.dataset.categoria;
+        
+        const cards = document.querySelectorAll('#ListaDocumentos .card');
+
+        cards.forEach((card) => {
+            const categoriaCard = card.dataset.categoria;
+
+            if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
+                card.style.display = 'flex';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});
 
 async function eliminarDocumento(id) {
     if (!confirm('¿Desea eliminar este documento?')) {
