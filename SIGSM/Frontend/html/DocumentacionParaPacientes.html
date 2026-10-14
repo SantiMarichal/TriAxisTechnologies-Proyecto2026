@@ -35,15 +35,15 @@
             <h2 class="title">Acceda a la información del Hospital de Clínicas de forma digital</h2>
             <h3 class="h3">Filtrar por Categoría:</h3>
 
-            <div class="filter-buttons">
-                <button class="btn">Todos</button>
-                <button class="btn">Protocolos</button>
-                <button class="btn">Información General</button>
-                <button class="btn">Servicios</button>
-                <button class="btn">Educación</button>
+            <div class="filter-buttons" id="filtros">
+                <button class="btn-filtro" data-categoria="todos">Todos</button>
+                <button class="btn-filtro" data-categoria="CAT002">Protocolos</button>
+                <button class="btn-filtro" data-categoria="CAT003">Información General</button>
+                <button class="btn-filtro" data-categoria="CAT004">Servicios</button>
+                <button class="btn-filtro" data-categoria="CAT005">Educación</button>
             </div>
 
-            <div class="pess">
+            <div class="pess" id="ListaDocumentos">
                 <div class="pes1">
                     <div class="pes1-text">
                         <h2>Protocolo de Atención</h2>
@@ -77,5 +77,6 @@
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
 </body>
+<script src="../js/documentosPacientes.js"></script>
 
 </html>
