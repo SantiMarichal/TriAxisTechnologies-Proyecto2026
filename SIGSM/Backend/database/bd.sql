@@ -13,21 +13,21 @@ CREATE TABLE Administrativo (
 );
 
 CREATE TABLE Categorias (
-    ID_Categoria VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Categoria INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Nombre VARCHAR (20) NOT NULL
 );
 
 CREATE TABLE Encuesta (
-    ID_Encuesta VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Encuesta INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Titulo VARCHAR (100) NOT NULL,
     Descripcion VARCHAR (200) NOT NULL,
-    ID_Categoria VARCHAR (10) NOT NULL,
+    ID_Categoria INT NOT NULL,
     FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
 CREATE TABLE Preguntas (
     ID_Pregunta VARCHAR (10) NOT NULL,
-    ID_Encuesta VARCHAR (10) NOT NULL,
+    ID_Encuesta INT NOT NULL,
     Texto VARCHAR (200) NOT NULL,
     PRIMARY KEY (ID_Encuesta, ID_Pregunta),
     FOREIGN KEY (ID_Encuesta) REFERENCES Encuesta(ID_Encuesta)
@@ -36,23 +36,26 @@ CREATE TABLE Preguntas (
 CREATE TABLE Respuestas (
     ID_Respuesta VARCHAR(10) PRIMARY KEY NOT NULL,
     ID_Pregunta VARCHAR(10) NOT NULL,
-    ID_Encuesta VARCHAR(10) NOT NULL,
+    ID_Encuesta INT NOT NULL,
     Texto VARCHAR(200) NOT NULL,
     FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
 );
 
 CREATE TABLE Documentos (
-    ID_Documento VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Documento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
+    CI_Usuario VARCHAR(10),
     Titulo VARCHAR (100) NOT NULL,
     Descripcion VARCHAR (200) NOT NULL,
-    ID_Categoria VARCHAR (10) NOT NULL,
+    ID_Categoria INT NOT NULL,
     Estado VARCHAR (20) NOT NULL,
+    Nombre_archivo VARCHAR(255),
+    Ruta_archivo VARCHAR(1000),
     FOREIGN KEY (ID_Categoria) REFERENCES Categorias(ID_Categoria)
 );
 
 CREATE TABLE Carga (
     Cedula_Administrativo VARCHAR (10) NOT NULL,
-    ID_Documento VARCHAR (10) NOT NULL,
+    ID_Documento INT NOT NULL,
     HoraYFecha datetime NOT NULL,
     PRIMARY KEY (Cedula_Administrativo, ID_Documento),
     FOREIGN KEY (Cedula_Administrativo) REFERENCES Administrativo(Cedula_Administrativo) ON DELETE CASCADE,
@@ -75,39 +78,39 @@ INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
 ('CAT005', 'Servicios');
 
 INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
-('ENC001', 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 'CAT001'),
-('ENC002', 'Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 'CAT002'),
-('ENC003', 'Instalaciones', 'Evaluacion del estado de las instalaciones.', 'CAT003'),
-('ENC004', 'Personal', 'Evaluacion del trato recibido por el personal.', 'CAT004'),
-('ENC005', 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 'CAT005');
+(1, 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 1),
+(2, 'Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 2),
+(3, 'Instalaciones', 'Evaluacion del estado de las instalaciones.', 3),
+(4, 'Personal', 'Evaluacion del trato recibido por el personal.', 4),
+(5, 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 5);
 
 INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta, Texto) VALUES
-('P001', 'ENC001', '¿Que opinas de la limpieza?'),
-('P002', 'ENC001', '¿Que opinas de la atención al cliente?'),
-('P003', 'ENC002', '¿Que opinas de la instalación?'),
-('P004', 'ENC002', '¿Que opinas de la documentación digital?'),
-('P005', 'ENC002', '¿Que opinas de los enfermeros?');
+('P001', 1, '¿Que opinas de la limpieza?'),
+('P002', 1, '¿Que opinas de la atención al cliente?'),
+('P003', 2, '¿Que opinas de la instalación?'),
+('P004', 2, '¿Que opinas de la documentación digital?'),
+('P005', 2, '¿Que opinas de los enfermeros?');
 
 INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
-('R001', 'P001', 'ENC001', 'Muy Bueno'),
-('R002', 'P002', 'ENC001', 'Bueno'),
-('R003', 'P003', 'ENC002', 'Regular'),
-('R004', 'P004', 'ENC002', 'Malo'),
-('R005', 'P005', 'ENC002', 'Muy Bueno');
+('R001', 'P001', 1, 'Muy Bueno'),
+('R002', 'P002', 1, 'Bueno'),
+('R003', 'P003', 2, 'Regular'),
+('R004', 'P004', 2, 'Malo'),
+('R005', 'P005', 2, 'Muy Bueno');
 
-INSERT INTO Documentos (ID_Documento, Titulo, Descripcion, ID_Categoria, Estado) VALUES
-('DOC001', 'Reglamento', 'Reglamento general del hospital.', 'CAT001', 'Aprobado'),
-('DOC002', 'Protocolo', 'Protocolo de atencion al paciente.', 'CAT002', 'Aprobado'),
-('DOC003', 'Normativa', 'Normativa interna del hospital.', 'CAT003', 'Aprobado'),
-('DOC004', 'Horarios', 'Horarios de atencion de los servicios.', 'CAT004', 'Aprobado'),
-('DOC005', 'Informacion', 'Informacion general para los pacientes.', 'CAT005', 'Aprobado');
+INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado) VALUES
+(1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado'),
+(2, '2222222', 'Protocolo', 'Protocolo de atencion al paciente.', 2, 'Aprobado'),
+(3, '3333333', 'Normativa', 'Normativa interna del hospital.', 3, 'Aprobado'),
+(4, '4444444', 'Horarios', 'Horarios de atencion de los servicios.', 4, 'Aprobado'),
+(5, '5555555', 'Informacion', 'Informacion general para los pacientes.', 5, 'Aprobado');
 
 INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
-('12345678', 'DOC001', '2026-08-30 09:30:00'),
-('23456789', 'DOC002', '2026-08-30 10:15:00'),
-('34567890', 'DOC003', '2026-08-30 11:00:00'),
-('45678901', 'DOC004', '2026-08-30 14:45:00'),
-('56789012', 'DOC005', '2026-08-30 16:20:00');
+('12345678', 1, '2026-08-30 09:30:00'),
+('23456789', 2, '2026-08-30 10:15:00'),
+('34567890', 3, '2026-08-30 11:00:00'),
+('45678901', 4, '2026-08-30 14:45:00'),
+('56789012', 5, '2026-08-30 16:20:00');
 
 
 -- Módulo Ambulancias
