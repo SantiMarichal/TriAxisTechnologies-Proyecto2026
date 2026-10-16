@@ -51,44 +51,27 @@
                 <a href="../html/FormularioAmbulancias.html" class="btn">Crear solicitud de traslado</a>
             </div>
             <br>
-            <h3>Traslados</h3>
-            <h3>Programación</h3>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar por paciente, conductor o destino...">
-            </div>
-            <div id="ListaTraslados" class="ListaTraslados">
-                <div class="ambulancia">
-                    <div class="chofer">
-                        <img src="../assets/img/ambulance.svg" alt="Ambulancia" class="imgAmbulancia">
-                        <p>Chofer: Juan Pérez</p>
-                        <p>Cedula: 123456789</p>
-                        <p>Estado: en curso</p>
-                    </div>
-                    <div class="info">
-                        <div class="info1">
-                            <p>Origen: Hospital de Clinicas</p>
-                            <p>Destino: Hospital Maciel</p>
-                            <p>Conductor: Pepe</p>
-                        </div>
-                        <div class="info2">
-                            <p>Enfermero: Maria</p>
-                            <p>Salida: 8:30</p>
-                            <p>Llegada estimada: 9:15</p>
-                        </div>
-                    </div>
+           <div class="tabla-container">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>ID Traslado</th>
+                                <th>Fecha</th>
+                                <th>Hora Salida</th>
+                                <th>Hora llegada</th>
+                                <th>Estado</th>
+                                <th>Lugar de origen</th>
+                                <th>Cedula chofer</th>
+                                <th>Cedula enfermero</th>
+                                <th>Matricula</th>
+                                <th>ID del destino</th>
+                                <th>Acciones</th>
+                            </tr>
+                        </thead>
+
+                        <tbody id="tablaTraslados"></tbody>
+                    </table>
                 </div>
-            </div>
-            <div class="estadoAmbulancias">
-                <div class="encurso">
-                    <p>En curso: 3</p>
-                </div>
-                <div class="pendientes">
-                    <p>Pendientes: 2</p>
-                </div>
-                <div class="completados">
-                    <p>Completados hoy: 9</p>
-                </div>
-            </div>
 
             <div id="modalNuevo" class="modal">
                 <div class="modal-contenido">
@@ -105,13 +88,18 @@
                     <form id="formNuevoTraslado">
 
                         <div class="campo">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+
+                        <div class="campo">
                             <label for="ci">CI del paciente</label>
                             <input type="text" id="ci" name="ci" maxlength="10" required>
                         </div>
 
                         <div class="campo">
                             <label for="nombreChofer">Nombre del chofer</label>
-                            <input type="text" id="nombreChofer" name="nombre" maxlength="30" required>
+                            <input type="text" id="nombreChofer" name="nombreChofer" maxlength="30" required>
                         </div>
 
                         <div class="campo">

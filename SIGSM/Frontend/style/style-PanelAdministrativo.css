@@ -288,3 +288,19 @@ textarea {
     cursor: pointer;
     transition: background-color 0.2s ease;
 }
+
+.btn{
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #5487f5;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.iframe{
+    border: none; 
+    border-radius: 8px; 
+    margin-top: 15px;
+}

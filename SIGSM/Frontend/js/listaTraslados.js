@@ -14,90 +14,69 @@ async function cargarTraslados() {
 }
 
 function renderizarTraslados(listaTraslados) {
-    const contenedor = document.getElementById('ListaTraslados');
-    contenedor.innerHTML = '';
+    const tbody = document.getElementById('tablaTraslados');
+    tbody.innerHTML = '';
 
     listaTraslados.forEach(traslado => {
-        const divAmbulancia = document.createElement('div');
-        divAmbulancia.classList.add('ambulancia');
+        const idFila = traslado.ID_Traslado;
 
-        const divChofer = document.createElement('div');
-        divChofer.classList.add('chofer');
+        const tr = document.createElement('tr');
 
-        const imgAmbulancia = document.createElement('img');
-        imgAmbulancia.src = '../assets/img/ambulance.svg';
-        imgAmbulancia.alt = 'Ambulancia';
-        imgAmbulancia.classList.add('imgAmbulancia');
+        // Celdas de información
+        const tdId = document.createElement('td');
+        tdId.textContent = idFila;
+        tr.appendChild(tdId);
 
-        const pId = document.createElement('p');
-        pId.textContent = `N° Traslado: ${traslado.ID_Traslado}`;
+        const tdFecha = document.createElement('td');
+        tdFecha.textContent = traslado.Fecha;
+        tr.appendChild(tdFecha);
 
-        const pEstado = document.createElement('p');
-        pEstado.textContent = `Estado: ${traslado.Estado}`;
+        const tdHoraSalida = document.createElement('td');
+        tdHoraSalida.textContent = traslado.Hora_Salida;
+        tr.appendChild(tdHoraSalida);
 
-        const pFecha = document.createElement('p');
-        pFecha.textContent = `Fecha: ${traslado.Fecha}`;
+        const tdHoraLlegada = document.createElement('td');
+        tdHoraLlegada.textContent = traslado.Hora_Llegada;
+        tr.appendChild(tdHoraLlegada);
 
-        divChofer.appendChild(imgAmbulancia);
-        divChofer.appendChild(pId);
-        divChofer.appendChild(pEstado);
-        divChofer.appendChild(pFecha);
+        const tdEstado = document.createElement('td');
+        tdEstado.textContent = traslado.Estado;
+        tr.appendChild(tdEstado);
 
-        const divInfo = document.createElement('div');
-        divInfo.classList.add('info');
+        const tdOrigen = document.createElement('td');
+        tdOrigen.textContent = traslado.Lugar_Origen;
+        tr.appendChild(tdOrigen);
 
-        const divInfo1 = document.createElement('div');
-        divInfo1.classList.add('info1');
+        const tdCedulaChofer = document.createElement('td');
+        tdCedulaChofer.textContent = traslado.Cedula_Chofer;
+        tr.appendChild(tdCedulaChofer);
 
-        const pOrigen = document.createElement('p');
-        pOrigen.textContent = `Origen: ${traslado.Lugar_Origen}`;
+        const tdCedulaEnfermero = document.createElement('td');
+        tdCedulaEnfermero.textContent = traslado.Cedula_Enfermero;
+        tr.appendChild(tdCedulaEnfermero);
 
-        const pDestino = document.createElement('p');
-        pDestino.textContent = `ID Destino: ${traslado.ID_Destino}`;
+        const tdMatricula = document.createElement('td');
+        tdMatricula.textContent = traslado.Matricula;
+        tr.appendChild(tdMatricula);
 
-        const pChofer = document.createElement('p');
-        pChofer.textContent = `Cédula Chofer: ${traslado.Cedula_Chofer}`;
+        const tdIdDestino = document.createElement('td');
+        tdIdDestino.textContent = traslado.ID_Destino;
+        tr.appendChild(tdIdDestino);
 
-        const pEnfermero = document.createElement('p');
-        pEnfermero.textContent = `Cédula Enfermero: ${traslado.Cedula_Enfermero}`;
+        const tdAcciones = document.createElement('td');
 
-        divInfo1.appendChild(pOrigen);
-        divInfo1.appendChild(pDestino);
-        divInfo1.appendChild(pChofer);
-        divInfo1.appendChild(pEnfermero);
-
-        const divInfo2 = document.createElement('div');
-        divInfo2.classList.add('info2');
-
-        const pMatricula = document.createElement('p');
-        pMatricula.textContent = `Matrícula: ${traslado.Matricula}`;
-
-        const pVehiculo = document.createElement('p');
-        pVehiculo.textContent = `Tipo Vehículo: ${traslado.Tipo_vehiculo ?? 'N/A'}`;
-
-        const pSalida = document.createElement('p');
-        pSalida.textContent = `Hora Salida: ${traslado.Hora_Salida}`;
-
-        const pLlegada = document.createElement('p');
-        pLlegada.textContent = `Hora Llegada: ${traslado.Hora_Llegada}`;
-
-        divInfo2.appendChild(pMatricula);
-        divInfo2.appendChild(pVehiculo);
-        divInfo2.appendChild(pSalida);
-        divInfo2.appendChild(pLlegada);
-
-        divInfo.appendChild(divInfo1);
-        divInfo.appendChild(divInfo2);
-
-        divAmbulancia.appendChild(divChofer);
-        divAmbulancia.appendChild(divInfo);
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditar(traslado);
+        tdAcciones.appendChild(btnEditar);
 
         const btnEliminar = document.createElement('button');
         btnEliminar.textContent = 'Eliminar';
-        btnEliminar.classList.add('btn-eliminar');
-        btnEliminar.onclick = () => eliminarTraslado(traslado.ID_Traslado);
-        divAmbulancia.appendChild(btnEliminar);
-        contenedor.appendChild(divAmbulancia);
+        btnEliminar.onclick = () => eliminarTraslado(idFila);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
     });
 }
 
@@ -160,15 +139,19 @@ formNuevoTraslado.addEventListener('submit', crearTraslado);
 async function crearTraslado(event) {
     event.preventDefault();
     const datos = {
-        ci: document.getElementById('fecha').value,
-        nombre: document.getElementById('nombre').value,
-        apellido: document.getElementById('apellido').value,
-        pass: document.getElementById('pass').value,
-        cargo: document.getElementById('cargo').value
+        fecha: document.getElementById('fecha').value,
+        ci: document.getElementById('ci').value,
+        nombreChofer: document.getElementById('nombreChofer').value,
+        nombreEnfermero: document.getElementById('nombreEnfermero').value,
+        horaSalida: document.getElementById('horaSalida').value,
+        horaLlegada: document.getElementById('horaLlegada').value,
+        telefono: document.getElementById('Telefono').value,
+        oxigeno: document.getElementById('oxigeno').value,
+        camilla: document.getElementById('camilla').value
     };
 
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/', {
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

@@ -13,13 +13,21 @@ async function cargarDocumentos() {
     }
 }
 
+const nombresCategorias = {
+    "1": "Atencion",
+    "2": "Limpieza",
+    "3": "Instalaciones",
+    "4": "Personal",
+    "5": "Servicios"
+};
+
 function renderizarDocumentos(listaDocumentos) {
     const contenedor = document.getElementById('ListaDocumentos');
     contenedor.innerHTML = '';
 
     listaDocumentos.forEach(documento => {
         const divCard = document.createElement('div');
-        divCard.classList.add('pes1'); 
+        divCard.classList.add('pes1');
 
         divCard.dataset.categoria = documento.ID_Categoria || 'General';
 
@@ -33,7 +41,7 @@ function renderizarDocumentos(listaDocumentos) {
         pDesc.textContent = documento.Descripcion || 'Sin descripción';
 
         const pCat = document.createElement('p');
-        pCat.textContent = documento.ID_Categoria || 'General';
+        pCat.textContent = nombresCategorias[documento.ID_Categoria] || 'Categoría';
 
         divText.appendChild(h2Titulo);
         divText.appendChild(pDesc);
@@ -44,8 +52,11 @@ function renderizarDocumentos(listaDocumentos) {
 
         const btnVer = document.createElement('button');
         btnVer.classList.add('btn');
+        btnVer.addEventListener("click", () => {
+            verPDF(documento.ID_Documento);
+        });
         btnVer.innerHTML = '<img src="../assets/img/eye.svg" alt="Ver">';
-        
+
         const btnDescargar = document.createElement('button');
         btnDescargar.classList.add('btn');
         btnDescargar.innerHTML = '<img src="../assets/img/file-down.svg" alt="Descargar">';
@@ -65,17 +76,29 @@ function renderizarDocumentos(listaDocumentos) {
     });
 }
 
+function verPDF(id) {
+    if (!visorPDF) return;
+    // La API devuelve el archivo PDF, no un JSON.
+    visorPDF.src = `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`;
+
+    visorPDF.hidden = false;
+
+    visorPDF.scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+    });
+}
+
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('btn-filtro')) {
         const categoriaSeleccionada = e.target.dataset.categoria;
-        
         const cards = document.querySelectorAll('#ListaDocumentos .pes1');
 
         cards.forEach((card) => {
             const categoriaCard = card.dataset.categoria;
 
-            if (categoriaSeleccionada.toLowerCase() === 'todos' || categoriaSeleccionada === categoriaCard) {
-                card.style.display = 'flex';
+            if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
+                card.style.display = '';
             } else {
                 card.style.display = 'none';
             }

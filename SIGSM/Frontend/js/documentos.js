@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 const usuarioCI = localStorage.getItem('usuario_ci');
 
-const formulario = document.getElementById("formulario");
+const formulario = document.getElementById("formNuevoDocumento");
 const archivoInput = document.getElementById("archivo");
 const mensaje = document.getElementById("mensaje");
 
@@ -59,9 +59,7 @@ if (formulario) {
             mostrarMensaje(resultado.mensaje, true);
 
             formulario.reset();
-            cerrarModal();
 
-            // Actualizamos el listado para mostrar el nuevo PDF.
             await cargarDocumentos();
 
         } catch (error) {
@@ -103,10 +101,18 @@ async function cargarDocumentos() {
     }
 }
 
+const nombresCategorias = {
+    "1": "Atencion",
+    "2": "Limpieza",
+    "3": "Instalaciones",
+    "4": "Personal",
+    "5": "Servicios"
+};
+
 function renderizarDocumentos(listaDocumentos) {
     const contenedor = document.getElementById('ListaDocumentos');
     if (!contenedor) return;
-    
+
     contenedor.innerHTML = '';
 
     if (!listaDocumentos || listaDocumentos.length === 0) {
@@ -133,14 +139,14 @@ function renderizarDocumentos(listaDocumentos) {
 
         const spanCategoria = document.createElement('span');
         spanCategoria.classList.add('azul');
-        spanCategoria.textContent = documento.ID_Categoria || 'Categoría';
+        spanCategoria.textContent = nombresCategorias[documento.ID_Categoria] || 'Categoría';
 
         const spanEstado = document.createElement('span');
         spanEstado.classList.add('verde');
         spanEstado.textContent = documento.Estado || 'Aprobado';
 
         // Botón o enlace para visualizar el PDF asociado si existe ruta en el servidor
-        if (documento.ruta_archivo) {
+        if (documento.Ruta_archivo) {
             const botonVer = document.createElement("button");
             botonVer.type = "button";
             botonVer.textContent = "Ver PDF";
@@ -154,7 +160,7 @@ function renderizarDocumentos(listaDocumentos) {
         const spanEliminar = document.createElement('span');
         spanEliminar.classList.add('rojo');
         spanEliminar.textContent = 'Eliminar';
-        spanEliminar.style.cursor = 'pointer'; 
+        spanEliminar.style.cursor = 'pointer';
         spanEliminar.onclick = () => eliminarDocumento(documento.ID_Documento);
 
         divEtiquetas.appendChild(spanCategoria);
@@ -183,18 +189,16 @@ function verPDF(id) {
     });
 }
 
-// Filtrado de tarjetas por categoría mediante delegación de eventos
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('btn-filtro')) {
         const categoriaSeleccionada = e.target.dataset.categoria;
-        
         const cards = document.querySelectorAll('#ListaDocumentos .card');
 
         cards.forEach((card) => {
             const categoriaCard = card.dataset.categoria;
 
             if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
-                card.style.display = 'flex';
+                card.style.display = ''; 
             } else {
                 card.style.display = 'none';
             }

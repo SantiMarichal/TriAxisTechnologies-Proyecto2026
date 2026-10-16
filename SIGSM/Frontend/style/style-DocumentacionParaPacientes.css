@@ -57,6 +57,9 @@ body {
 }
 
 .sidebar {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     grid-area: sidebar;
     background: white;
     border-right: 1px solid #e2e8f0;
@@ -229,6 +232,26 @@ body {
 
 .btn-filtro:hover {
     background-color: #003ecc;
+}
+
+.iframe{
+    border: none; 
+    border-radius: 8px; 
+    margin-top: 15px;
+}
+
+.volver{
+    background-color: #0055ff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color .2s;
+    display: block;
+    margin: 0 auto;
 }
 
 /*media para celulares (hasta 768px)*/

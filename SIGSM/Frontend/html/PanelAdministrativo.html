@@ -61,11 +61,12 @@
                     <textarea name="descripcion" required></textarea>
                     <label>Categoría</label>
                     <select name="id_categoria" required>
-                        <option value="CAT002">Laboratorio</option>
-                        <option value="CAT003">Emergencia</option>
+                        <option value="1">Atencion</option>
+                        <option value="2">Limpieza</option>
+                        <option value="3">Instalaciones</option>
+                        <option value="4">Personal</option>
+                        <option value="5">Servicios</option>
                     </select>
-                    <label>ID del Documento</label>
-                    <input type="text" name="id_documento" required>
                     <label>Seleccionar PDF</label>
                     <input type="file" name="archivo" id="archivo" accept="application/pdf" required>
                     <button class="subir" type="submit">
@@ -74,18 +75,27 @@
                 </form>
                 <p id="mensaje"></p>
             </div>
-            
+
             <div class="documentos">
                 <h3>Documentos cargados</h3>
                 <div id="filtros" class="filtros">
                     <button class="btn-filtro" data-categoria="todos">
                         Todos
                     </button>
-                    <button class="btn-filtro" data-categoria="CAT002">
-                        Laboratorio
+                    <button class="btn-filtro" data-categoria="1">
+                        Atencion
                     </button>
-                    <button class="btn-filtro" data-categoria="CAT003">
-                        Emergencia
+                    <button class="btn-filtro" data-categoria="2">
+                        Limpieza
+                    </button>
+                    <button class="btn-filtro" data-categoria="3">
+                        Instalaciones
+                    </button>
+                    <button class="btn-filtro" data-categoria="4">
+                        Personal
+                    </button>
+                    <button class="btn-filtro" data-categoria="5">
+                        Servicios
                     </button>
                 </div>
                 <div id="ListaDocumentos" class="documentos-cargados">
@@ -110,7 +120,7 @@
             <!-- Sección del Visor PDF (Iframe) -->
             <div class="documentos">
                 <h3>Visualizar PDF</h3>
-                <iframe id="visorPDF" width="100%" height="600" hidden style="border: none; border-radius: 8px; margin-top: 15px;"></iframe>
+                <iframe id="visorPDF" width="100%" height="600" hidden class="iframe"></iframe>
             </div>
         </main>
     </div>

@@ -33,7 +33,7 @@ class Documento
     public function crearConArchivo(string $titulo, string $descripcion, string $id_categoria, string $estado, ?string $ciUsuario, string $nombreArchivo, string $rutaArchivo): bool
     {
         $sql = 'INSERT INTO Documentos (Titulo, Descripcion, ID_Categoria, Estado, CI_Usuario, Nombre_archivo, Ruta_archivo) 
-                VALUES (:titulo, :descripcion, :id_categoria, :estado, :ci_usuario, :nombre_archivo, :ruta_archivo)';
+                VALUES (:titulo, :descripcion, :id_categoria, :estado, :ci_usuario, :nombre_archivo, :rutaArchivo)';
 
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(':titulo', $titulo);
@@ -42,7 +42,7 @@ class Documento
         $sentencia->bindParam(':estado', $estado);
         $sentencia->bindParam(':ci_usuario', $ciUsuario);
         $sentencia->bindParam(':nombre_archivo', $nombreArchivo);
-        $sentencia->bindParam(':ruta_archivo', $ruta_archivo); 
+        $sentencia->bindParam(':rutaArchivo', $rutaArchivo); 
         
         return $sentencia->execute();
     }

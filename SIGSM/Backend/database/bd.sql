@@ -71,11 +71,11 @@ INSERT INTO Administrativo (Cedula_Administrativo, Nombre_Administrativo, Apelli
 ('56789012', 'Luis', 'Martinez', '567890', 'Administrativo');
 
 INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
-('CAT001', 'Atencion'),
-('CAT002', 'Limpieza'),
-('CAT003', 'Instalaciones'),
-('CAT004', 'Personal'),
-('CAT005', 'Servicios');
+(1, 'Atencion'),
+(2, 'Limpieza'),
+(3, 'Instalaciones'),
+(4, 'Personal'),
+(5, 'Servicios');
 
 INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
 (1, 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 1),

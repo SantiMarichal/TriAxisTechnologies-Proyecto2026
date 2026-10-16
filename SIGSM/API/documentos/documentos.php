@@ -64,14 +64,14 @@ switch ($metodo) {
                 ], 404);
             }
 
-            if (empty($documentoInfo["ruta_archivo"])) {
+            if (empty($documentoInfo["Ruta_archivo"])) {
                 responderJson([
                     "error" => "Este documento no tiene un archivo PDF asociado"
                 ], 404);
             }
 
             $rutaFisica = resolverRutaArchivo(
-                $documentoInfo["ruta_archivo"],
+                $documentoInfo["Ruta_archivo"],
                 $raizProyecto
             );
 
@@ -81,7 +81,7 @@ switch ($metodo) {
                 ], 404);
             }
 
-            $nombreArchivo = str_replace(["\r", "\n", '"', "\\"], "_", basename($documentoInfo["nombre_archivo"]));
+            $nombreArchivo = str_replace(["\r", "\n", '"', "\\"], "_", basename($documentoInfo["Nombre_archivo"]));
 
             header("Content-Type: application/pdf");
             header('Content-Disposition: inline; filename="' . $nombreArchivo . '"');
