@@ -52,10 +52,11 @@ a:visited {
 }
 
 .main-container {
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    gap: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
     padding: 40px;
+    width: 100%;
 }
 
 .layout {
@@ -179,7 +180,7 @@ h2 {
 }
 
 .btn {
-    width: 250px;
+    width: 220px;
     height: 50px;
     margin-left: 20px;
     margin-bottom: 15px;
@@ -207,12 +208,13 @@ h3 {
     overflow-x: auto;
     border: 1px solid #bae6fd;
     border-radius: 14px;
+    background: white;
 }
 
 table {
     width: 100%;
-    min-width: 1200px;
     border-collapse: collapse;
+    white-space: nowrap;
 }
 
 thead {
@@ -371,12 +373,30 @@ td button:hover {
     justify-content: flex-end;
     gap: 10px;
     margin-top: 10px;
+    align-items: center;
 }
 
 .btn-secundario {
     padding: 14px 20px;
     border-radius: 12px;
-    background: #7aa6bd;
+    background: #1c6992;
+    color: white;
+    font-weight: 600;
+    height: 50px;
+}
+
+.btn-crear{
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: #0284c7;
+    color: white;
+    font-weight: 600;
+}
+
+.btn-guardar{
+    padding: 14px 20px;
+    border-radius: 12px;
+    background: #0284c7;
     color: white;
     font-weight: 600;
 }
@@ -397,4 +417,12 @@ td button:last-child {
     list-style: none;
     padding: 0;
     margin: 0;
+}
+
+.footer {
+    background-color: #bfdbfe;
+    border-top: 1px solid #e2e8f0;
+    padding: 20px;
+    text-align: center;
+    color: #1e293b;
 }

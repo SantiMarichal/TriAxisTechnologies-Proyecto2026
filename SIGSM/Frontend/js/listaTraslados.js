@@ -86,10 +86,9 @@ async function eliminarTraslado(id) {
     }
 
     try {
-        const response =
-            await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${id}`, {
-                method: 'DELETE'
-            });
+        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${id}`, {
+            method: 'DELETE'
+        });
 
         const datos = await response.json();
 
@@ -99,7 +98,6 @@ async function eliminarTraslado(id) {
         }
 
         alert(datos.mensaje);
-
         cargarTraslados();
 
     } catch (error) {
@@ -108,30 +106,47 @@ async function eliminarTraslado(id) {
 }
 
 const modalNuevo = document.getElementById('modalNuevo');
-
 const modalEditar = document.getElementById('modalEditar');
 
 const btnNuevo = document.getElementById('btnNuevo');
-
 const btnCerrarModal = document.getElementById('btnCerrarModal');
-
 const btnCancelar = document.getElementById('btnCancelar');
 
+const btnCerrarModalEditar = document.getElementById('btnCerrarModalEditar');
+const btnCancelarEditar = document.getElementById('btnCancelarEditar');
+
 const formNuevoTraslado = document.getElementById('formNuevoTraslado');
+const formEditarTraslado = document.getElementById('formEditarTraslado');
 
-btnNuevo.addEventListener('click', abrirModal);
+if (btnNuevo) btnNuevo.addEventListener('click', abrirModalNuevo);
+if (btnCerrarModal) btnCerrarModal.addEventListener('click', cerrarModalNuevo);
+if (btnCancelar) btnCancelar.addEventListener('click', cerrarModalNuevo);
 
-btnCerrarModal.addEventListener('click', cerrarModal);
-
-btnCancelar.addEventListener('click', cerrarModal);
-
-function abrirModal() {
+function abrirModalNuevo() {
     formNuevoTraslado.reset();
     modalNuevo.classList.add('mostrar');
 }
 
-function cerrarModal() {
+function cerrarModalNuevo() {
     modalNuevo.classList.remove('mostrar');
+}
+
+if (btnCerrarModalEditar) btnCerrarModalEditar.addEventListener('click', cerrarModalEditar);
+if (btnCancelarEditar) btnCancelarEditar.addEventListener('click', cerrarModalEditar);
+
+function abrirModalEditar(traslado) {
+    document.getElementById('editarCiPaciente').value = traslado.Cedula_Chofer || '';
+    document.getElementById('editarNombreChofer').value = traslado.Cedula_Chofer || ''; 
+    document.getElementById('editarNombreEnfermero').value = traslado.Cedula_Enfermero || '';
+    document.getElementById('editarHoraSalida').value = traslado.Hora_Salida || '';
+    document.getElementById('editarHoraLlegada').value = traslado.Hora_Llegada || '';
+    document.getElementById('editarTelefono').value = ''; 
+
+    modalEditar.classList.add('mostrar');
+}
+
+function cerrarModalEditar() {
+    modalEditar.classList.remove('mostrar');
 }
 
 formNuevoTraslado.addEventListener('submit', crearTraslado);
@@ -140,14 +155,14 @@ async function crearTraslado(event) {
     event.preventDefault();
     const datos = {
         fecha: document.getElementById('fecha').value,
-        ci: document.getElementById('ci').value,
-        nombreChofer: document.getElementById('nombreChofer').value,
-        nombreEnfermero: document.getElementById('nombreEnfermero').value,
-        horaSalida: document.getElementById('horaSalida').value,
-        horaLlegada: document.getElementById('horaLlegada').value,
-        telefono: document.getElementById('Telefono').value,
-        oxigeno: document.getElementById('oxigeno').value,
-        camilla: document.getElementById('camilla').value
+        hora_salida: document.getElementById('horaSalida').value,
+        hora_llegada: document.getElementById('horaLlegada').value,
+        estado: 'Pendiente',
+        lugar_origen: 'Hospital de Clínicas',
+        cedula_chofer: document.getElementById('ci').value,
+        cedula_enfermero: document.getElementById('nombreEnfermero').value,
+        matricula: 'ABC1234', // Ajustar según tu lógica de vehículos
+        id_destino: 1
     };
 
     try {
@@ -167,8 +182,7 @@ async function crearTraslado(event) {
         }
 
         alert('Traslado creado correctamente');
-
-        cerrarModal();
+        cerrarModalNuevo();
         cargarTraslados();
     } catch (error) {
         console.error(error);
