@@ -8,6 +8,12 @@ try {
 
     switch ($metodo) {
         case 'GET':
+            if (isset($_GET['recursos']) && $_GET['recursos'] === 'true') {
+                $recursos = $traslado->obtenerDatosParaSelects();
+                echo json_encode($recursos);
+                exit;
+            }
+
             if ($id === null) {
                 $traslados = $traslado->obtenerTodos();
                 echo json_encode($traslados);
@@ -28,27 +34,70 @@ try {
         case 'POST':
             $datos = json_decode(file_get_contents('php://input'), true);
 
-            $Fecha = $datos['fecha'];
-            $Hora_Salida = $datos['hora_salida'];
-            $Hora_Llegada = $datos['hora_llegada'];
-            $Estado = $datos['estado'];
-            $Lugar_Origen = $datos['lugar_origen'];
-            $Cedula_Chofer = $datos['cedula_chofer'];
-            $Cedula_Enfermero = $datos['cedula_enfermero'];
-            $Matricula = $datos['matricula'];
-            $ID_Destino = $datos['id_destino'];
+            $tipoCarga = $datos['tipo_carga'] ?? 'paciente';
 
-            $resultado = $traslado->crear(
-                $Fecha,
-                $Hora_Salida,
-                $Hora_Llegada,
-                $Estado,
-                $Lugar_Origen,
-                $Cedula_Chofer,
-                $Cedula_Enfermero,
-                $Matricula,
-                $ID_Destino
-            );
+            $Fecha = $datos['fecha'] ?? '';
+            $Hora_Salida = $datos['hora_salida'] ?? '';
+            $Hora_Llegada = $datos['hora_llegada'] ?? '';
+            $Estado = $datos['estado'] ?? 'En proceso';
+            $Lugar_Origen = $datos['lugar_origen'] ?? '';
+            $Cedula_Chofer = $datos['cedula_chofer'] ?? '';
+            $Cedula_Enfermero = $datos['cedula_enfermero'] ?? '';
+            $Matricula = $datos['matricula'] ?? '';
+            $ID_Destino = $datos['id_destino'] ?? '';
+
+            if ($tipoCarga === 'elemento') {
+                $Nombre = $datos['nombre'] ?? '';
+                $Descripcion = $datos['descripcion'] ?? '';
+                $TipoElemento = $datos['tipo_elemento'] ?? '';
+
+                if (empty($Nombre)) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'El nombre del elemento es obligatorio']);
+                    exit;
+                }
+
+                $resultado = $traslado->crearElemento(
+                    $Fecha,
+                    $Hora_Salida,
+                    $Hora_Llegada,
+                    $Estado,
+                    $Lugar_Origen,
+                    $Cedula_Chofer,
+                    $Cedula_Enfermero,
+                    $Matricula,
+                    $ID_Destino,
+                    $Nombre,
+                    $Descripcion,
+                    $TipoElemento
+                );
+            } else {
+                $CI_Paciente = trim($datos['CI_Paciente'] ?? '');
+                $Camilla = $datos['camilla'] ?? 'Normal';
+                $Oxigeno = (isset($datos['oxigeno']) && ($datos['oxigeno'] === true || $datos['oxigeno'] === 'Sí' || $datos['oxigeno'] == 1)) ? 1 : 0;
+
+                if (empty($CI_Paciente)) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'La cédula del paciente es obligatoria']);
+                    exit;
+                }
+
+                $resultado = $traslado->crearPaciente(
+                    $Fecha,
+                    $Hora_Salida,
+                    $Hora_Llegada,
+                    $Estado,
+                    $Lugar_Origen,
+                    $Cedula_Chofer,
+                    $Cedula_Enfermero,
+                    $Matricula,
+                    $ID_Destino,
+                    $CI_Paciente,
+                    $Camilla,
+                    $Oxigeno
+                );
+            }
+
             if ($resultado) {
                 http_response_code(201);
                 echo json_encode(['mensaje' => 'Traslado creado correctamente']);
@@ -57,7 +106,7 @@ try {
                 echo json_encode(['error' => 'No se pudo crear el traslado']);
             }
             exit;
-            
+
         case 'PUT':
             $datos = json_decode(file_get_contents('php://input'), true);
             if (!$datos) {
@@ -128,5 +177,8 @@ try {
     }
 } catch (PDOException $e) {
     http_response_code(500);
-    echo json_encode(['error' => 'Error en la base de datos']);
+    echo json_encode([
+        'error' => 'Error en la BD: ' . $e->getMessage(),
+        'codigo' => $e->getCode()
+    ]);
 }

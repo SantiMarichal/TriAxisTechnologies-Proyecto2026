@@ -170,7 +170,7 @@ CREATE TABLE Traslado(
 
 CREATE TABLE Paciente(
     ID_Trasladable INT PRIMARY KEY NOT NULL,
-    CI VARCHAR(10) UNIQUE NOT NULL,
+    CI VARCHAR(10) NOT NULL,
     Nombre VARCHAR (20) NOT NULL,
     Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
     Camilla ENUM('De emergencia', 'Normal') NOT NULL, 

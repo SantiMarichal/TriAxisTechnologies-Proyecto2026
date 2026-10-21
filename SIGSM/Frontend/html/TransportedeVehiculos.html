@@ -51,27 +51,28 @@
                 <button type="button" id="btnNuevo" class="btn">Crear solicitud de traslado</button>
             </div>
             <br>
-           <div class="tabla-container">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>ID Traslado</th>
-                                <th>Fecha</th>
-                                <th>Hora Salida</th>
-                                <th>Hora llegada</th>
-                                <th>Estado</th>
-                                <th>Lugar de origen</th>
-                                <th>Cedula chofer</th>
-                                <th>Cedula enfermero</th>
-                                <th>Matricula</th>
-                                <th>ID del destino</th>
-                                <th>Acciones</th>
-                            </tr>
-                        </thead>
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Traslado</th>
+                            <th>Fecha</th>
+                            <th>Hora Salida</th>
+                            <th>Hora llegada</th>
+                            <th>Estado</th>
+                            <th>Lugar de origen</th>
+                            <th>Cedula paciente / Elemento</th>
+                            <th>Cedula chofer</th>
+                            <th>Cedula enfermero</th>
+                            <th>Matricula</th>
+                            <th>ID del destino</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
 
-                        <tbody id="tablaTraslados"></tbody>
-                    </table>
-                </div>
+                    <tbody id="tablaTraslados"></tbody>
+                </table>
+            </div>
 
             <div id="modalNuevo" class="modal">
                 <div class="modal-contenido">
@@ -88,23 +89,16 @@
                     <form id="formNuevoTraslado">
 
                         <div class="campo">
+                            <label for="tipoCarga">Tipo de carga</label>
+                            <select id="tipoCarga" name="tipoCarga" required>
+                                <option value="paciente">Paciente</option>
+                                <option value="elemento">Elemento / Órgano</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
                             <label for="fecha">Fecha</label>
                             <input type="date" id="fecha" name="fecha" required>
-                        </div>
-
-                        <div class="campo">
-                            <label for="ci">CI del paciente</label>
-                            <input type="text" id="ci" name="ci" maxlength="10" required>
-                        </div>
-
-                        <div class="campo">
-                            <label for="nombreChofer">Nombre del chofer</label>
-                            <input type="text" id="nombreChofer" name="nombreChofer" maxlength="30" required>
-                        </div>
-
-                        <div class="campo">
-                            <label for="nombreEnfermero">Nombre del enfermero</label>
-                            <input type="text" id="nombreEnfermero" name="nombreEnfermero" maxlength="30" required>
                         </div>
 
                         <div class="campo">
@@ -118,26 +112,79 @@
                         </div>
 
                         <div class="campo">
-                            <label for="Telefono">Teléfono</label>
-                            <input type="text" id="Telefono" name="Telefono" maxlength="15" required>
+                            <label for="lugarOrigen">Lugar de origen</label>
+                            <input type="text" id="lugarOrigen" name="lugarOrigen" maxlength="30" required>
                         </div>
 
                         <div class="campo">
-                            <label for="oxigeno">¿Precisa oxigeno?</label>
-                            <select id="oxigeno" name="oxigeno" required>
-                                <option value="">Seleccione una opción</option>
-                                <option value="Sí">Sí</option>
-                                <option value="No">No</option>
+                            <label for="cedulaChofer">Chofer</label>
+                            <select id="cedulaChofer" name="cedulaChofer" required>
+                                <option value="">Seleccione un chofer</option>
                             </select>
                         </div>
 
                         <div class="campo">
-                            <label for="camilla">¿Que tipo de camilla va a utilizar?</label>
-                            <select id="camilla" name="camilla" required>
-                                <option value="">Seleccione una opción</option>
-                                <option value="camillaEmergencia">Camilla de emergencia</option>
-                                <option value="camillaTraslado">Camilla de traslado</option>
+                            <label for="cedulaEnfermero">Enfermero</label>
+                            <select id="cedulaEnfermero" name="cedulaEnfermero" required>
+                                <option value="">Seleccione un enfermero</option>
                             </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="matricula">Vehículo</label>
+                            <select id="matricula" name="matricula" required>
+                                <option value="">Seleccione un vehículo</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="idDestino">Destino</label>
+                            <select id="idDestino" name="idDestino" required>
+                                <option value="">Seleccione un destino</option>
+                            </select>
+                        </div>
+
+                        <div id="seccionPaciente">
+                            <div class="campo">
+                                <label for="cedulaPaciente">Paciente</label>
+                                <select id="cedulaPaciente" name="cedulaPaciente">
+                                    <option value="">Seleccione un paciente</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label for="oxigeno">¿Precisa oxígeno?</label>
+                                <select id="oxigeno" name="oxigeno">
+                                    <option value="0">No</option>
+                                    <option value="1">Sí</option>
+                                </select>
+                            </div>
+
+                            <div class="campo">
+                                <label for="camilla">Tipo de camilla</label>
+                                <select id="camilla" name="camilla">
+                                    <option value="Normal">Normal</option>
+                                    <option value="Emergencia">Emergencia</option>
+                                    <option value="Traslado">Traslado</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="seccionElemento">
+                            <div class="campo">
+                                <label for="nombreElemento">Nombre del elemento</label>
+                                <input type="text" id="nombreElemento" name="nombreElemento">
+                            </div>
+                            <div class="campo">
+                                <label for="descripcionElemento">Descripción</label>
+                                <input type="text" id="descripcionElemento" name="descripcionElemento">
+                            </div>
+                            <div class="campo">
+                                <label for="tipoElemento">Tipo de elemento</label>
+                                <select id="tipoElemento" name="tipoElemento">
+                                    <option value="">Seleccione un tipo</option>
+                                </select>
+                            </div>
                         </div>
 
                         <p id="mensajeNuevo"></p>
