@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     cargarTraslados();
     cargarOpcionesSelects();
+    cargarOpcionesSelectsEdicion();
 });
 
 async function cargarTraslados() {
@@ -73,9 +74,67 @@ async function cargarOpcionesSelects() {
     }
 }
 
+async function cargarOpcionesSelectsEdicion() {
+    try {
+        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?recursos=true');
+        const datos = await response.json();
+
+        const selectChofer = document.getElementById('editarCedulaChofer');
+        datos.choferes.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.Cedula_Chofer;
+            opt.textContent = `${c.Nombre_Chofer} (${c.Cedula_Chofer})`;
+            selectChofer.appendChild(opt);
+        });
+
+        const selectEnfermero = document.getElementById('editarCedulaEnfermero');
+        datos.enfermeros.forEach(e => {
+            const opt = document.createElement('option');
+            opt.value = e.Cedula_Enfermero;
+            opt.textContent = `${e.Nombre_Enfermero} (${e.Cedula_Enfermero})`;
+            selectEnfermero.appendChild(opt);
+        });
+
+        const selectVehiculo = document.getElementById('editarMatricula');
+        datos.vehiculos.forEach(v => {
+            const opt = document.createElement('option');
+            opt.value = v.Matricula;
+            opt.textContent = `${v.Matricula} - ${v.Tipo_Vehiculo}`;
+            selectVehiculo.appendChild(opt);
+        });
+
+        const selectDestino = document.getElementById('editarIdDestino');
+        datos.destinos.forEach(d => {
+            const opt = document.createElement('option');
+            opt.value = d.ID_Destino;
+            opt.textContent = d.Nombre;
+            selectDestino.appendChild(opt);
+        });
+
+        const selectPaciente = document.getElementById('editarCedulaPaciente');
+        datos.pacientes.forEach(p => {
+            const opt = document.createElement('option');
+            opt.value = p.CI;
+            opt.textContent = `${p.Nombre} (${p.CI})`;
+            selectPaciente.appendChild(opt);
+        });
+
+        const selectTipoElemento = document.getElementById('editarTipoElemento');
+        datos.tipo_elementos.forEach(t => {
+            const opt = document.createElement('option');
+            opt.value = t.Tipo_Elemento;
+            opt.textContent = t.Tipo_Elemento;
+            selectTipoElemento.appendChild(opt);
+        });
+
+    } catch (error) {
+        console.error('Error al cargar las opciones de edición:', error);
+    }
+}
+
 function renderizarTraslados(listaTraslados) {
     const tbody = document.getElementById('tablaTraslados');
-    tbody.innerHTML = ''; 
+    tbody.innerHTML = '';
 
     listaTraslados.forEach(traslado => {
         const idFila = traslado.ID_Traslado;
@@ -204,13 +263,28 @@ function cerrarModalNuevo() {
 if (btnCerrarModalEditar) btnCerrarModalEditar.addEventListener('click', cerrarModalEditar);
 if (btnCancelarEditar) btnCancelarEditar.addEventListener('click', cerrarModalEditar);
 
+let idTrasladoActualEnEdicion = null;
+
 function abrirModalEditar(traslado) {
-    document.getElementById('editarCiPaciente').value = traslado.Cedula_Chofer || '';
-    document.getElementById('editarNombreChofer').value = traslado.Cedula_Chofer || '';
-    document.getElementById('editarNombreEnfermero').value = traslado.Cedula_Enfermero || '';
+    idTrasladoActualEnEdicion = traslado.ID_Traslado;
+
+    document.getElementById('editarFecha').value = traslado.Fecha || '';
     document.getElementById('editarHoraSalida').value = traslado.Hora_Salida || '';
     document.getElementById('editarHoraLlegada').value = traslado.Hora_Llegada || '';
-    document.getElementById('editarTelefono').value = '';
+    document.getElementById('editarEstado').value = traslado.Estado || 'En proceso';
+    document.getElementById('editarLugarOrigen').value = traslado.Lugar_Origen || '';
+    document.getElementById('editarCedulaChofer').value = traslado.Cedula_Chofer || '';
+    document.getElementById('editarCedulaEnfermero').value = traslado.Cedula_Enfermero || '';
+    document.getElementById('editarMatricula').value = traslado.Matricula || '';
+    document.getElementById('editarIdDestino').value = traslado.ID_Destino || '';
+
+    if (traslado.CI_Paciente) {
+        document.getElementById('editarTipoCarga').value = 'paciente';
+        document.getElementById('editarCedulaPaciente').value = traslado.CI_Paciente || '';
+    } else {
+        document.getElementById('editarTipoCarga').value = 'elemento';
+        document.getElementById('editarNombreElemento').value = traslado.Nombre_Elemento || '';
+    }
 
     modalEditar.classList.add('mostrar');
 }
@@ -270,5 +344,29 @@ async function crearTraslado(event) {
         cargarTraslados();
     } catch (error) {
         console.error('Error en la petición:', error);
+    }
+}
+
+async function actualizarTraslado(idTraslado, datosActualizados) {
+    try {
+        const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?id=${idTraslado}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(datosActualizados)
+        });
+
+        const resultado = await respuesta.json();
+
+        if (respuesta.ok) {
+            alert('¡Traslado actualizado correctamente!');
+            cargarTraslados();
+            cerrarModalEditar();
+        } else {
+            alert(resultado.error || 'No se pudo actualizar.');
+        }
+    } catch (error) {
+        console.error('Error en la petición PUT:', error);
     }
 }

@@ -131,7 +131,7 @@ try {
             $Matricula = $datos['matricula'] ?? null;
             $ID_Destino = $datos['id_destino'] ?? null;
 
-            if (!$Fecha || !$Hora_Salida || !$Hora_Llegada || !$Estado || !$Lugar_Origen || !$Cedula_Chofer || !$Cedula_Enfermero || !$Matricula || !$ID_Destino) {
+            if (is_null($Fecha) || is_null($Hora_Salida) || is_null($Hora_Llegada) || is_null($Estado) || is_null($Lugar_Origen) || is_null($Cedula_Chofer) || is_null($Cedula_Enfermero) || is_null($Matricula) || is_null($ID_Destino)) {
                 http_response_code(400);
                 echo json_encode(["error" => "Faltan campos obligatorios"]);
                 exit;
