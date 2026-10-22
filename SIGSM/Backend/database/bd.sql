@@ -41,6 +41,15 @@ CREATE TABLE Respuestas (
     FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
 );
 
+CREATE TABLE Usuario_Respuesta (
+    ID_Detalle INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    ID_Encuesta INT NOT NULL,
+    ID_Pregunta VARCHAR(10) NOT NULL,
+    ID_Respuesta VARCHAR(10) NOT NULL,
+    FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta),
+    FOREIGN KEY (ID_Respuesta) REFERENCES Respuestas(ID_Respuesta)
+);
+
 CREATE TABLE Documentos (
     ID_Documento INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
     CI_Usuario VARCHAR(10),

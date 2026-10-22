@@ -22,54 +22,75 @@
     <div class="layout">
         <aside class="sidebar">
             <ul class="menu">
-                <li class="menu-item">
-                    <a href="../html/DocumentacionParaPacientes.html">Gestión de documentos</a>
-                </li>
-                <li class="menu-item">
-                    <a href="../html/Encuesta.html">Encuestas</a>
-                </li>
+                <a href="../html/DocumentacionParaPacientes.html" class="menu-link">
+                    <li class="menu-item">
+                        <img src="../assets/img/file-text.svg" alt="Icono Documento" class="menu-icon">
+                        <span class="menu-text">Gestión de documentos</span>
+                    </li>
+                </a>
+                <a href="../html/Encuesta.html" class="menu-link">
+                    <li class="menu-item">
+                        <img src="../assets/img/circle-dashed-check.svg" alt="Icono encuesta" class="menu-icon">
+                        <span class="menu-text">Encuestas</span>
+                    </li>
+                </a>
             </ul>
+            <a href="../index.html"><button class="volver">Volver</button></a>
         </aside>
 
         <main class="main-container">
-            <h2 class="h2Titulo">Encuesta de satisfacción</h2>
-            <h3 class="h3Titulo">Ayúdenos a mejorar nuestros servicios con su opinión</h3>
-
-            <div class="grid-encuesta">
-
-                <div class="opiniones">
-                    <div class="satisfaccion">
-                        <h2>Satisfacción general</h2>
-                        <p>4/5</p>
-                    </div>
-                    <div class="completadas">
-                        <h2>Encuestas completadas</h2>
-                        <p>12</p>
-                    </div>
+            <section class="panel">
+                <div class="preferencias-encabezado">
+                    <h2 id="tituloEncuesta">Cargando encuesta...</h2>
+                    <p id="descripcionEncuesta">Por favor espere.</p>
                 </div>
+                <form id="formEncuesta">
+                    <!-- Pregunta 1: Satisfacción General -->
+                    <fieldset class="grupo-preferencias">
+                        <legend>Satisfacción general</legend>
+                        <p class="descripcion-grupo">¿Cómo calificaría el servicio general recibido durante su traslado?
+                        </p>
+                        <div class="opciones-preferencias">
+                            <label class="opcion-preferencia">
+                                <input type="radio" name="satisfaccion" value="R001" checked required>
+                                <span class="opcion-contenido">
+                                    <span class="opcion-titulo">Muy Bueno</span>
+                                </span>
+                            </label>
+                            <label class="opcion-preferencia">
+                                <input type="radio" name="satisfaccion" value="R002" required>
+                                <span class="opcion-contenido">
+                                    <span class="opcion-titulo">Bueno</span>
+                                </span>
+                            </label>
+                        </div>
+                    </fieldset>
+                    <fieldset class="grupo-preferencias">
+                        <legend>Aspectos positivos a destacar</legend>
+                        <p class="descripcion-grupo">Seleccione uno o varios factores que le parecieron destacables:</p>
+                        <div class="opciones-tipos">
+                            <label class="opcion-tipo">
+                                <input type="checkbox" name="aspectos[]" value="R003">
+                                <span>Puntualidad</span>
+                            </label>
+                            <label class="opcion-tipo">
+                                <input type="checkbox" name="aspectos[]" value="R004">
+                                <span>Trato del personal</span>
+                            </label>
+                            <label class="opcion-tipo">
+                                <input type="checkbox" name="aspectos[]" value="R005">
+                                <span>Comodidad del móvil</span>
+                            </label>
+                        </div>
+                    </fieldset>
 
-                <div class="Encuesta">
-                    <img src="../assets/img/Encuesta.png" alt="Encuesta" class="imgEncuesta">
-                    <h2>Nueva Encuesta</h2>
-                    <h3>Servicio utilizado:</h3>
-                    <select id="servicio">
-                        <option>Odontología</option>
-                        <option>Pediatría</option>
-                        <option>Cardiología</option>
-                        <option>Ginecología</option>
-                        <option>Traumatología</option>
-                    </select>
-                    <div class="calificacion">
-                        <button>😡</button>
-                        <button>😕</button>
-                        <button>😐</button>
-                        <button>🙂</button>
-                        <button>😄</button>
+                    <div class="acciones-preferencias">
+                        <button type="submit" id="btnGuardarEncuesta">Enviar Encuesta</button>
                     </div>
-                    <button class="enviar">ENVIAR ENCUESTA</button>
-                </div>
-
-            </div>
+                    <p id="mensajeEncuesta" class="mensaje-preferencias" role="status" aria-live="polite"></p>
+                </form>
+            </section>
+        </main>
         </main>
     </div>
 
@@ -77,5 +98,6 @@
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
 </body>
+<script src="../js/encuesta.js"></script>
 
 </html>
