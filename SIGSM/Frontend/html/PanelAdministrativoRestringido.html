@@ -10,7 +10,6 @@
 </head>
 
 <body>
-    <!-- contenedor principal -->
     <header class="header">
 
         <div class="logo-container">
@@ -33,44 +32,78 @@
                 </div>
             </div>
         </aside>
+
         <main>
             <div class="carga">
                 <h2>Panel Administrativo</h2>
                 <p>Gestión de documentación del Hospital de Clínicas.</p>
                 <h3>Cargar nuevo documento</h3>
-                <form>
+                <form id="formNuevoDocumento">
                     <label>Nombre del documento</label>
-                    <input type="text">
+                    <input type="text" name="titulo" required>
                     <label>Descripción</label>
-                    <!-- textarea para textos largos -->
-                    <textarea></textarea>
+                    <textarea name="descripcion" required></textarea>
                     <label>Categoría</label>
-                    <select>
-                        <option>Laboratorio</option>
-                        <option>Emergencia</option>
+                    <select name="id_categoria" required>
+                        <option value="1">Atencion</option>
+                        <option value="2">Limpieza</option>
+                        <option value="3">Instalaciones</option>
+                        <option value="4">Personal</option>
+                        <option value="5">Servicios</option>
                     </select>
-                    <button class="subir">
+                    <label>Seleccionar PDF</label>
+                    <input type="file" name="archivo" id="archivo" accept="application/pdf" required>
+                    <button class="subir" type="submit">
                         Cargar documento
                     </button>
                 </form>
+                <p id="mensaje"></p>
             </div>
+
             <div class="documentos">
                 <h3>Documentos cargados</h3>
-                <div class="card">
-                    <h4>Protocolo</h4>
-                    <p>Proyecto descripción</p>
-                    <div class="etiquetas">
-                        <span class="azul">
-                            Categoría
-                        </span>
-                        <span class="verde">
-                            Aprobado
-                        </span>
-                        <span class="rojo">
-                            Eliminar
-                        </span>
+                <div id="filtros" class="filtros">
+                    <button class="btn-filtro" data-categoria="todos">
+                        Todos
+                    </button>
+                    <button class="btn-filtro" data-categoria="1">
+                        Atencion
+                    </button>
+                    <button class="btn-filtro" data-categoria="2">
+                        Limpieza
+                    </button>
+                    <button class="btn-filtro" data-categoria="3">
+                        Instalaciones
+                    </button>
+                    <button class="btn-filtro" data-categoria="4">
+                        Personal
+                    </button>
+                    <button class="btn-filtro" data-categoria="5">
+                        Servicios
+                    </button>
+                </div>
+                <div id="ListaDocumentos" class="documentos-cargados">
+                    <div class="card">
+                        <h4>Protocolo</h4>
+                        <p>Proyecto descripción</p>
+                        <div class="etiquetas">
+                            <span class="azul">
+                                Categoría
+                            </span>
+                            <span class="verde">
+                                Aprobado
+                            </span>
+                            <span class="rojo">
+                                Eliminar
+                            </span>
+                        </div>
                     </div>
                 </div>
+            </div>
+
+            <div class="documentos">
+                <h3>Visualizar PDF</h3>
+                <iframe id="visorPDF" width="100%" height="600" hidden class="iframe"></iframe>
             </div>
         </main>
     </div>
@@ -78,6 +111,7 @@
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
     <script src="../js/sesion.js"></script>
+    <script src="../js/documentos.js"></script>
 </body>
 
 </html>

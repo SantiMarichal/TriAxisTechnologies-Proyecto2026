@@ -75,6 +75,8 @@ try {
                 $CI_Paciente = trim($datos['CI_Paciente'] ?? '');
                 $Camilla = $datos['camilla'] ?? 'Normal';
                 $Oxigeno = (isset($datos['oxigeno']) && ($datos['oxigeno'] === true || $datos['oxigeno'] === 'Sí' || $datos['oxigeno'] == 1)) ? 1 : 0;
+                $Aislamiento = (isset($datos['aislamiento']) && ($datos['aislamiento'] === true || $datos['aislamiento'] === 'Sí' || $datos['aislamiento'] == 1)) ? 1 : 0;
+                $Accesorio = $datos['accesorio'] ?? '';
 
                 if (empty($CI_Paciente)) {
                     http_response_code(400);
@@ -94,7 +96,9 @@ try {
                     $ID_Destino,
                     $CI_Paciente,
                     $Camilla,
-                    $Oxigeno
+                    $Oxigeno,
+                    $Aislamiento,
+                    $Accesorio
                 );
             }
 
@@ -114,13 +118,14 @@ try {
                 echo json_encode(["error" => "Datos JSON inválidos o vacíos"]);
                 exit;
             }
-
+            
             if ($id === null) {
                 http_response_code(400);
                 echo json_encode(["error" => "Debe proporcionar el ID del traslado en la URL"]);
                 exit;
             }
 
+            $tipoCarga = $datos['tipo_carga'] ?? 'paciente';
             $Fecha = $datos['fecha'] ?? null;
             $Hora_Salida = $datos['hora_salida'] ?? null;
             $Hora_Llegada = $datos['hora_llegada'] ?? null;
@@ -137,19 +142,63 @@ try {
                 exit;
             }
 
-            $resultado = $traslado->actualizar(
-                $id,
-                $Fecha,
-                $Hora_Salida,
-                $Hora_Llegada,
-                $Estado,
-                $Lugar_Origen,
-                $Cedula_Chofer,
-                $Cedula_Enfermero,
-                $Matricula,
-                $ID_Destino
-            );
+           if ($tipoCarga === 'elemento') {
+                $Nombre = $datos['nombre'] ?? '';
+                $Descripcion = $datos['descripcion'] ?? '';
+                $TipoElemento = $datos['tipo_elemento'] ?? '';
 
+                if (empty($Nombre)) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'El nombre del elemento es obligatorio']);
+                    exit;
+                }
+
+                $resultado = $traslado->actualizarElemento(
+                    $id,
+                    $Fecha,
+                    $Hora_Salida,
+                    $Hora_Llegada,
+                    $Estado,
+                    $Lugar_Origen,
+                    $Cedula_Chofer,
+                    $Cedula_Enfermero,
+                    $Matricula,
+                    $ID_Destino,
+                    $Nombre,
+                    $Descripcion,
+                    $TipoElemento
+                );
+            } else {
+                $CI_Paciente = trim($datos['CI_Paciente'] ?? '');
+                $Camilla = $datos['camilla'] ?? 'Normal';
+                $Oxigeno = (isset($datos['oxigeno']) && ($datos['oxigeno'] === true || $datos['oxigeno'] === 'Sí' || $datos['oxigeno'] == 1)) ? 1 : 0;
+                $Aislamiento = (isset($datos['aislamiento']) && ($datos['aislamiento'] === true || $datos['aislamiento'] === 'Sí' || $datos['aislamiento'] == 1)) ? 1 : 0;
+                $Accesorio = $datos['accesorio'] ?? '';
+
+                if (empty($CI_Paciente)) {
+                    http_response_code(400);
+                    echo json_encode(['error' => 'La cédula del paciente es obligatoria']);
+                    exit;
+                }
+
+                $resultado = $traslado->actualizarPaciente(
+                    $id,
+                    $Fecha,
+                    $Hora_Salida,
+                    $Hora_Llegada,
+                    $Estado,
+                    $Lugar_Origen,
+                    $Cedula_Chofer,
+                    $Cedula_Enfermero,
+                    $Matricula,
+                    $ID_Destino,
+                    $CI_Paciente,
+                    $Camilla,
+                    $Oxigeno,
+                    $Aislamiento,
+                    $Accesorio
+                );
+            }
             if ($resultado) {
                 http_response_code(200);
                 echo json_encode(["mensaje" => "Traslado actualizado correctamente"]);

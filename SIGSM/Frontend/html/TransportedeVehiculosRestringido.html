@@ -33,44 +33,271 @@
 
         <main class="main-container">
             <div class="crear">
-                <h2>Control y Seguimiento</h2>
-                <a href="../html/FormularioAmbulanciasRestringido.html" class="btn">Crear solicitud de traslado</a>
+                <h2>Control y seguimiento de traslados</h2>
+                <button type="button" id="btnNuevo" class="btn">Crear solicitud de traslado</button>
             </div>
             <br>
-            <h3>Traslados</h3>
-            <h3>Programación</h3>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar por paciente, conductor o destino...">
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Traslado</th>
+                            <th>Fecha</th>
+                            <th>Hora Salida</th>
+                            <th>Hora llegada</th>
+                            <th>Estado</th>
+                            <th>Lugar de origen</th>
+                            <th>Cedula paciente / Elemento</th>
+                            <th>Cedula chofer</th>
+                            <th>Cedula enfermero</th>
+                            <th>Matricula</th>
+                            <th>ID del destino</th>
+                            <th>Nombre del destino</th>
+                            <th>Tipo de camilla</th>
+                            <th>Aislamiento</th>
+                            <th>Accesorio necesario</th>
+                            <th>Oxígeno</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+
+                    <tbody id="tablaTraslados"></tbody>
+                </table>
             </div>
-            <div class="ambulancia">
-                <div class="chofer">
-                    <img src="../assets/img/ambulance.svg" alt="Ambulancia" class="imgAmbulancia">
-                    <p>Chofer: Juan Pérez</p>
-                    <p>Cedula: 123456789</p>
-                    <p>Estado: en curso</p>
-                </div>
-                <div class="info">
-                    <div class="info1">
-                        <p>Origen: Hospital de Clinicas</p>
-                        <p>Destino: Hospital Maciel</p>
-                        <p>Conductor: Pepe</p>
+
+            <div id="modalNuevo" class="modal">
+                <div class="modal-contenido">
+
+                    <div class="modal-header">
+                        <div>
+                            <h2>Nuevo traslado</h2>
+                            <p>Complete los datos del nuevo traslado</p>
+                        </div>
+
+                        <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
                     </div>
-                    <div class="info2">
-                        <p>Enfermero: Maria</p>
-                        <p>Salida: 8:30</p>
-                        <p>Llegada estimada: 9:15</p>
-                    </div>
+
+                    <form id="formNuevoTraslado">
+
+                        <div class="campo">
+                            <label for="tipoCarga">Tipo de carga</label>
+                            <select id="tipoCarga" name="tipoCarga" required>
+                                <option value="paciente">Paciente</option>
+                                <option value="elemento">Elemento / Órgano</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="fecha">Fecha</label>
+                            <input type="date" id="fecha" name="fecha" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horaSalida">Hora de salida</label>
+                            <input type="time" id="horaSalida" name="horaSalida" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="horaLlegada">Hora de llegada estimada</label>
+                            <input type="time" id="horaLlegada" name="horaLlegada" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="lugarOrigen">Lugar de origen</label>
+                            <input type="text" id="lugarOrigen" name="lugarOrigen" maxlength="30" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="cedulaChofer">Chofer</label>
+                            <select id="cedulaChofer" name="cedulaChofer" required>
+                                <option value="">Seleccione un chofer</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="cedulaEnfermero">Enfermero</label>
+                            <select id="cedulaEnfermero" name="cedulaEnfermero" required>
+                                <option value="">Seleccione un enfermero</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="matricula">Vehículo</label>
+                            <select id="matricula" name="matricula" required>
+                                <option value="">Seleccione un vehículo</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="idDestino">Destino</label>
+                            <select id="idDestino" name="idDestino" required>
+                                <option value="">Seleccione un destino</option>
+                            </select>
+                        </div>
+
+                        <div id="camposPaciente" class="campo" style="display: none;">
+                            <label for="cedulaPaciente">Paciente:</label>
+                            <select id="cedulaPaciente" name="cedulaPaciente"></select>
+
+                            <label for="camilla">Camilla:</label>
+                            <select id="camilla" name="camilla"></select>
+
+                            <label for="oxigeno">Oxígeno:</label>
+                            <select id="oxigeno" name="oxigeno">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="aislamiento">Aislamiento:</label>
+                            <select id="aislamiento" name="aislamiento">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="accesorio">Accesorio:</label>
+                            <select id="accesorio" name="accesorio"></select>
+                        </div>
+
+                        <div id="camposElemento" class="campo" style="display: none;">
+                            <label for="nombreElemento">Nombre del Elemento/Órgano:</label>
+                            <input type="text" id="nombreElemento" name="nombreElemento">
+
+                            <label for="descripcionElemento">Descripción:</label>
+                            <input type="text" id="descripcionElemento" name="descripcionElemento">
+
+                            <label for="tipoElemento">Tipo de Elemento:</label>
+                            <select id="tipoElemento" name="tipoElemento"></select>
+                        </div>
+
+                        <p id="mensajeNuevo"></p>
+
+                        <div class="modal-acciones">
+                            <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
+                            <button type="submit" class="btn-crear">Crear traslado</button>
+                        </div>
+
+                    </form>
+
                 </div>
             </div>
-            <div class="estadoAmbulancias">
-                <div class="encurso">
-                    <p>En curso: 3</p>
-                </div>
-                <div class="pendientes">
-                    <p>Pendientes: 2</p>
-                </div>
-                <div class="completados">
-                    <p>Completados hoy: 9</p>
+
+            <div id="modalEditar" class="modal">
+                <div class="modal-contenido">
+                    <div class="modal-header">
+                        <div>
+                            <h2>Modificar traslado</h2>
+                            <p>Actualice la información del traslado seleccionado</p>
+                        </div>
+                        <button type="button" id="btnCerrarModalEditar" class="btn-cerrar">&times;</button>
+                    </div>
+
+                    <form id="formEditarTraslado">
+                        <div class="campo">
+                            <label for="editarTipoCarga">Tipo de carga</label>
+                            <select id="editarTipoCarga" name="editarTipoCarga" required>
+                                <option value="paciente">Paciente</option>
+                                <option value="elemento">Elemento / Órgano</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarEstado">Estado</label>
+                            <select id="editarEstado" name="editarEstado" required>
+                                <option value="En proceso">En proceso</option>
+                                <option value="Aprobado">Aprobado</option>
+                                <option value="Denegado">Denegado</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarFecha">Fecha</label>
+                            <input type="date" id="editarFecha" name="editarFecha" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarHoraSalida">Hora de salida</label>
+                            <input type="time" id="editarHoraSalida" name="editarHoraSalida" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarHoraLlegada">Hora de llegada estimada</label>
+                            <input type="time" id="editarHoraLlegada" name="editarHoraLlegada" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarLugarOrigen">Lugar de origen</label>
+                            <input type="text" id="editarLugarOrigen" name="editarLugarOrigen" maxlength="30" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarCedulaChofer">Chofer</label>
+                            <select id="editarCedulaChofer" name="editarCedulaChofer" required>
+                                <option value="">Seleccione un chofer</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarCedulaEnfermero">Enfermero</label>
+                            <select id="editarCedulaEnfermero" name="editarCedulaEnfermero" required>
+                                <option value="">Seleccione un enfermero</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarMatricula">Vehículo</label>
+                            <select id="editarMatricula" name="editarMatricula" required>
+                                <option value="">Seleccione un vehículo</option>
+                            </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="editarIdDestino">Destino</label>
+                            <select id="editarIdDestino" name="editarIdDestino" required>
+                                <option value="">Seleccione un destino</option>
+                            </select>
+                        </div>
+
+                        <div id="editarcamposPaciente" class="campo" style="display: none;">
+                            <label for="editarcedulaPaciente">Paciente:</label>
+                            <select id="editarcedulaPaciente" name="editarcedulaPaciente"></select>
+
+                            <label for="editarCamilla">Camilla:</label>
+                            <select id="editarCamilla" name="editarCamilla"></select>
+
+                            <label for="editarOxigeno">Oxígeno:</label>
+                            <select id="editarOxigeno" name="editarOxigeno">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="editarAislamiento">Aislamiento:</label>
+                            <select id="editarAislamiento" name="editarAislamiento">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="editarAccesorio">Accesorio:</label>
+                            <select id="editarAccesorio" name="editarAccesorio"></select>
+                        </div>
+
+                        <div id="editarcamposElemento" class="campo" style="display: none;">
+                            <label for="editarnombreElemento">Nombre del Elemento/Órgano:</label>
+                            <input type="text" id="editarnombreElemento" name="editarnombreElemento">
+
+                            <label for="editardescripcionElemento">Descripción:</label>
+                            <input type="text" id="editardescripcionElemento" name="editardescripcionElemento">
+
+                            <label for="editarTipoElemento">Tipo de Elemento:</label>
+                            <select id="editarTipoElemento" name="editarTipoElemento"></select>
+                        </div>
+
+                        <p id="mensajeNuevo"></p>
+
+                        <div class="modal-acciones">
+                            <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
+                            <button type="submit" class="btn-crear">Modificar traslado</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </main>
@@ -80,5 +307,6 @@
     </footer>
 </body>
 <script src="../js/sesion.js"></script>
+<script src="../js/listaTraslados.js"></script>
 
 </html>

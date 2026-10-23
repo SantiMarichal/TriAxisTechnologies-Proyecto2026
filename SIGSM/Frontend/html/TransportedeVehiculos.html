@@ -66,6 +66,11 @@
                             <th>Cedula enfermero</th>
                             <th>Matricula</th>
                             <th>ID del destino</th>
+                            <th>Nombre del destino</th>
+                            <th>Tipo de camilla</th>
+                            <th>Aislamiento</th>
+                            <th>Accesorio necesario</th>
+                            <th>Oxígeno</th>
                             <th>Acciones</th>
                         </tr>
                     </thead>
@@ -144,47 +149,38 @@
                             </select>
                         </div>
 
-                        <div id="seccionPaciente">
-                            <div class="campo">
-                                <label for="cedulaPaciente">Paciente</label>
-                                <select id="cedulaPaciente" name="cedulaPaciente">
-                                    <option value="">Seleccione un paciente</option>
-                                </select>
-                            </div>
+                        <div id="camposPaciente" class="campo" style="display: none;">
+                            <label for="cedulaPaciente">Paciente:</label>
+                            <select id="cedulaPaciente" name="cedulaPaciente"></select>
 
-                            <div class="campo">
-                                <label for="oxigeno">¿Precisa oxígeno?</label>
-                                <select id="oxigeno" name="oxigeno">
-                                    <option value="0">No</option>
-                                    <option value="1">Sí</option>
-                                </select>
-                            </div>
+                            <label for="camilla">Camilla:</label>
+                            <select id="camilla" name="camilla"></select>
 
-                            <div class="campo">
-                                <label for="camilla">Tipo de camilla</label>
-                                <select id="camilla" name="camilla">
-                                    <option value="Normal">Normal</option>
-                                    <option value="Emergencia">Emergencia</option>
-                                    <option value="Traslado">Traslado</option>
-                                </select>
-                            </div>
+                            <label for="oxigeno">Oxígeno:</label>
+                            <select id="oxigeno" name="oxigeno">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="aislamiento">Aislamiento:</label>
+                            <select id="aislamiento" name="aislamiento">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="accesorio">Accesorio:</label>
+                            <select id="accesorio" name="accesorio"></select>
                         </div>
 
-                        <div id="seccionElemento">
-                            <div class="campo">
-                                <label for="nombreElemento">Nombre del elemento</label>
-                                <input type="text" id="nombreElemento" name="nombreElemento">
-                            </div>
-                            <div class="campo">
-                                <label for="descripcionElemento">Descripción</label>
-                                <input type="text" id="descripcionElemento" name="descripcionElemento">
-                            </div>
-                            <div class="campo">
-                                <label for="tipoElemento">Tipo de elemento</label>
-                                <select id="tipoElemento" name="tipoElemento">
-                                    <option value="">Seleccione un tipo</option>
-                                </select>
-                            </div>
+                        <div id="camposElemento" class="campo" style="display: none;">
+                            <label for="nombreElemento">Nombre del Elemento/Órgano:</label>
+                            <input type="text" id="nombreElemento" name="nombreElemento">
+
+                            <label for="descripcionElemento">Descripción:</label>
+                            <input type="text" id="descripcionElemento" name="descripcionElemento">
+
+                            <label for="tipoElemento">Tipo de Elemento:</label>
+                            <select id="tipoElemento" name="tipoElemento"></select>
                         </div>
 
                         <p id="mensajeNuevo"></p>
@@ -275,47 +271,38 @@
                             </select>
                         </div>
 
-                        <div id="seccionPaciente">
-                            <div class="campo">
-                                <label for="editarCedulaPaciente">Paciente</label>
-                                <select id="editarCedulaPaciente" name="editarCedulaPaciente">
-                                    <option value="">Seleccione un paciente</option>
-                                </select>
-                            </div>
+                        <div id="editarcamposPaciente" class="campo" style="display: none;">
+                            <label for="editarcedulaPaciente">Paciente:</label>
+                            <select id="editarcedulaPaciente" name="editarcedulaPaciente"></select>
 
-                            <div class="campo">
-                                <label for="editarOxigeno">¿Precisa oxígeno?</label>
-                                <select id="editarOxigeno" name="editarOxigeno">
-                                    <option value="0">No</option>
-                                    <option value="1">Sí</option>
-                                </select>
-                            </div>
+                            <label for="editarCamilla">Camilla:</label>
+                            <select id="editarCamilla" name="editarCamilla"></select>
 
-                            <div class="campo">
-                                <label for="editarCamilla">Tipo de camilla</label>
-                                <select id="editarCamilla" name="editarCamilla">
-                                    <option value="Normal">Normal</option>
-                                    <option value="Emergencia">Emergencia</option>
-                                    <option value="Traslado">Traslado</option>
-                                </select>
-                            </div>
+                            <label for="editarOxigeno">Oxígeno:</label>
+                            <select id="editarOxigeno" name="editarOxigeno">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="editarAislamiento">Aislamiento:</label>
+                            <select id="editarAislamiento" name="editarAislamiento">
+                                <option value="0">No</option>
+                                <option value="1">Sí</option>
+                            </select>
+
+                            <label for="editarAccesorio">Accesorio:</label>
+                            <select id="editarAccesorio" name="editarAccesorio"></select>
                         </div>
 
-                        <div id="seccionElemento">
-                            <div class="campo">
-                                <label for="editarNombreElemento">Nombre del elemento</label>
-                                <input type="text" id="editarNombreElemento" name="editarNombreElemento">
-                            </div>
-                            <div class="campo">
-                                <label for="editarDescripcionElemento">Descripción</label>
-                                <input type="text" id="editarDescripcionElemento" name="editarDescripcionElemento">
-                            </div>
-                            <div class="campo">
-                                <label for="editarTipoElemento">Tipo de elemento</label>
-                                <select id="editarTipoElemento" name="editarTipoElemento">
-                                    <option value="">Seleccione un tipo</option>
-                                </select>
-                            </div>
+                        <div id="editarcamposElemento" class="campo" style="display: none;">
+                            <label for="editarnombreElemento">Nombre del Elemento/Órgano:</label>
+                            <input type="text" id="editarnombreElemento" name="editarnombreElemento">
+
+                            <label for="editardescripcionElemento">Descripción:</label>
+                            <input type="text" id="editardescripcionElemento" name="editardescripcionElemento">
+
+                            <label for="editarTipoElemento">Tipo de Elemento:</label>
+                            <select id="editarTipoElemento" name="editarTipoElemento"></select>
                         </div>
 
                         <p id="mensajeNuevo"></p>

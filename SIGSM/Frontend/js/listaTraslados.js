@@ -60,6 +60,22 @@ async function cargarOpcionesSelects() {
             selectPaciente.appendChild(opt);
         });
 
+        const selectCamilla = document.getElementById('camilla');
+        datos.camillas.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.Camilla;
+            opt.textContent = `${c.Camilla}`;
+            selectCamilla.appendChild(opt);
+        });
+
+        const selectAccesorio = document.getElementById('accesorio');
+        datos.accesorios.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a.Accesorio;
+            opt.textContent = `${a.Accesorio}`;
+            selectAccesorio.appendChild(opt);
+        });
+
         const selectTipoElemento = document.getElementById('tipoElemento');
         datos.tipo_elementos.forEach(t => {
             const opt = document.createElement('option');
@@ -111,12 +127,28 @@ async function cargarOpcionesSelectsEdicion() {
             selectDestino.appendChild(opt);
         });
 
-        const selectPaciente = document.getElementById('editarCedulaPaciente');
+        const selectPaciente = document.getElementById('editarcedulaPaciente');
         datos.pacientes.forEach(p => {
             const opt = document.createElement('option');
             opt.value = p.CI;
             opt.textContent = `${p.Nombre} (${p.CI})`;
             selectPaciente.appendChild(opt);
+        });
+
+        const selectCamilla = document.getElementById('editarCamilla');
+        datos.camillas.forEach(c => {
+            const opt = document.createElement('option');
+            opt.value = c.Camilla;
+            opt.textContent = `${c.Camilla}`;
+            selectCamilla.appendChild(opt);
+        });
+
+        const selectAccesorio = document.getElementById('editarAccesorio');
+        datos.accesorios.forEach(a => {
+            const opt = document.createElement('option');
+            opt.value = a.Accesorio;
+            opt.textContent = `${a.Accesorio}`;
+            selectAccesorio.appendChild(opt);
         });
 
         const selectTipoElemento = document.getElementById('editarTipoElemento');
@@ -132,6 +164,33 @@ async function cargarOpcionesSelectsEdicion() {
     }
 }
 
+const selectTipoCargaNuevo = document.getElementById('tipoCarga');
+if (selectTipoCargaNuevo) {
+    selectTipoCargaNuevo.addEventListener('change', (e) => {
+        CamposCarga(e.target.value, 'camposPaciente', 'camposElemento');
+    });
+}
+
+const selectTipoCargaEditar = document.getElementById('editarTipoCarga');
+if (selectTipoCargaEditar) {
+    selectTipoCargaEditar.addEventListener('change', (e) => {
+        CamposCarga(e.target.value, 'editarCamposPaciente', 'editarCamposElemento');
+    });
+}
+
+function CamposCarga(valorSeleccionado, idContenedorPaciente, idContenedorElemento) {
+    const contenedorPaciente = document.getElementById(idContenedorPaciente);
+    const contenedorElemento = document.getElementById(idContenedorElemento);
+
+    if (valorSeleccionado === 'paciente') {
+        if (contenedorPaciente) contenedorPaciente.style.display = 'block';
+        if (contenedorElemento) contenedorElemento.style.display = 'none';
+    } else {
+        if (contenedorPaciente) contenedorPaciente.style.display = 'none';
+        if (contenedorElemento) contenedorElemento.style.display = 'block';
+    }
+}
+
 function renderizarTraslados(listaTraslados) {
     const tbody = document.getElementById('tablaTraslados');
     tbody.innerHTML = '';
@@ -140,7 +199,7 @@ function renderizarTraslados(listaTraslados) {
         const idFila = traslado.ID_Traslado;
         const tr = document.createElement('tr');
 
-        // Celdas de información
+        // Celdas de informacion
         const tdId = document.createElement('td');
         tdId.textContent = idFila;
         tr.appendChild(tdId);
@@ -190,6 +249,36 @@ function renderizarTraslados(listaTraslados) {
         const tdIdDestino = document.createElement('td');
         tdIdDestino.textContent = traslado.ID_Destino;
         tr.appendChild(tdIdDestino);
+
+        const tdNombreDestino = document.createElement('td');
+        tdNombreDestino.textContent = traslado.Nombre_Destino;
+        tr.appendChild(tdNombreDestino);
+
+        const esPaciente = Boolean(traslado.CI_Paciente);
+
+        const tdCamilla = document.createElement('td');
+        tdCamilla.textContent = esPaciente ? (traslado.Camilla || '-') : '-';
+        tr.appendChild(tdCamilla);
+
+        const tdAislamiento = document.createElement('td');
+        if (esPaciente) {
+            tdAislamiento.textContent = traslado.Aislamiento == 1 ? 'Sí' : (traslado.Aislamiento == 0 ? 'No' : '-');
+        } else {
+            tdAislamiento.textContent = '-';
+        }
+        tr.appendChild(tdAislamiento);
+
+        const tdAccesorio = document.createElement('td');
+        tdAccesorio.textContent = esPaciente ? (traslado.Accesorio || '-') : '-';
+        tr.appendChild(tdAccesorio);
+
+        const tdOxigeno = document.createElement('td');
+        if (esPaciente) {
+            tdOxigeno.textContent = traslado.Oxigeno == 1 ? 'Sí' : (traslado.Oxigeno == 0 ? 'No' : '-');
+        } else {
+            tdOxigeno.textContent = '-';
+        }
+        tr.appendChild(tdOxigeno);
 
         // Celdas de acciones
         const tdAcciones = document.createElement('td');
@@ -280,10 +369,18 @@ function abrirModalEditar(traslado) {
 
     if (traslado.CI_Paciente) {
         document.getElementById('editarTipoCarga').value = 'paciente';
-        document.getElementById('editarCedulaPaciente').value = traslado.CI_Paciente || '';
+        document.getElementById('editarcedulaPaciente').value = traslado.CI_Paciente || '';
+        document.getElementById('editarCamilla').value = traslado.Camilla || '';
+        document.getElementById('editarOxigeno').value = traslado.Oxigeno || 0;
+        document.getElementById('editarAislamiento').value = traslado.Aislamiento || 0;
+        document.getElementById('editarAccesorio').value = traslado.Accesorio || '';
+        CamposCarga('paciente', 'editarcamposPaciente', 'editarcamposElemento');
     } else {
         document.getElementById('editarTipoCarga').value = 'elemento';
-        document.getElementById('editarNombreElemento').value = traslado.Nombre_Elemento || '';
+        document.getElementById('editarnombreElemento').value = traslado.Nombre_Elemento || '';
+        document.getElementById('editardescripcionElemento').value = traslado.Descripcion || '';
+        document.getElementById('editarTipoElemento').value = traslado.Tipo_Elemento || '';
+        CamposCarga('elemento', 'editarcamposPaciente', 'editarcamposElemento');
     }
 
     modalEditar.classList.add('mostrar');
@@ -320,7 +417,9 @@ async function crearTraslado(event) {
     } else {
         datos.CI_Paciente = document.getElementById('cedulaPaciente').value;
         datos.camilla = document.getElementById('camilla').value;
-        datos.oxigeno = parseInt(document.getElementById('oxigeno').value);
+        datos.oxigeno = parseInt(document.getElementById('oxigeno').value) || 0;
+        datos.aislamiento = parseInt(document.getElementById('aislamiento').value) || 0;
+        datos.accesorio = document.getElementById('accesorio').value; 
     }
 
     try {
@@ -346,10 +445,49 @@ async function crearTraslado(event) {
         console.error('Error en la petición:', error);
     }
 }
+if (formEditarTraslado) {
+    formEditarTraslado.addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        if (!idTrasladoActualEnEdicion) {
+            alert('No se ha seleccionado ningún traslado para editar.');
+            return;
+        }
+
+        const tipoCarga = document.getElementById('editarTipoCarga').value;
+
+        const datosActualizados = {
+            tipo_carga: tipoCarga,
+            estado: document.getElementById('editarEstado').value,
+            fecha: document.getElementById('editarFecha').value,
+            hora_salida: document.getElementById('editarHoraSalida').value,
+            hora_llegada: document.getElementById('editarHoraLlegada').value,
+            lugar_origen: document.getElementById('editarLugarOrigen').value,
+            cedula_chofer: document.getElementById('editarCedulaChofer').value,
+            cedula_enfermero: document.getElementById('editarCedulaEnfermero').value,
+            matricula: document.getElementById('editarMatricula').value,
+            id_destino: document.getElementById('editarIdDestino').value
+        };
+
+        if (tipoCarga === 'elemento') {
+            datosActualizados.nombre = document.getElementById('editarnombreElemento').value;
+            datosActualizados.descripcion = document.getElementById('editardescripcionElemento').value;
+            datosActualizados.tipo_elemento = document.getElementById('editarTipoElemento').value;
+        } else {
+            datosActualizados.CI_Paciente = document.getElementById('editarcedulaPaciente').value;
+            datosActualizados.camilla = document.getElementById('editarCamilla').value;
+            datosActualizados.oxigeno = parseInt(document.getElementById('editarOxigeno').value) || 0;
+            datosActualizados.aislamiento = parseInt(document.getElementById('editarAislamiento').value) || 0;
+            datosActualizados.accesorio = document.getElementById('editarAccesorio').value;
+        }
+
+        await actualizarTraslado(idTrasladoActualEnEdicion, datosActualizados);
+    });
+}
 
 async function actualizarTraslado(idTraslado, datosActualizados) {
     try {
-        const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?id=${idTraslado}`, {
+        const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${idTraslado}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -361,10 +499,11 @@ async function actualizarTraslado(idTraslado, datosActualizados) {
 
         if (respuesta.ok) {
             alert('¡Traslado actualizado correctamente!');
-            cargarTraslados();
             cerrarModalEditar();
+            cargarTraslados();
         } else {
-            alert(resultado.error || 'No se pudo actualizar.');
+            alert('Error al actualizar: ' + (resultado.error || 'Desconocido'));
+            console.error('Detalle del error:', resultado);
         }
     } catch (error) {
         console.error('Error en la petición PUT:', error);
