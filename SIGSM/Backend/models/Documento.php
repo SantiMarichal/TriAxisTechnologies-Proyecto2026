@@ -42,8 +42,8 @@ class Documento
         $sentencia->bindParam(':estado', $estado);
         $sentencia->bindParam(':ci_usuario', $ciUsuario);
         $sentencia->bindParam(':nombre_archivo', $nombreArchivo);
-        $sentencia->bindParam(':rutaArchivo', $rutaArchivo); 
-        
+        $sentencia->bindParam(':rutaArchivo', $rutaArchivo);
+
         return $sentencia->execute();
     }
 
@@ -79,7 +79,7 @@ class Documento
         $sql = "DELETE FROM Documentos WHERE ID_Documento = :id_documento";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":id_documento", $id_documento);
-        
+
         if ($sentencia->execute()) {
             return $sentencia->rowCount() > 0;
         }

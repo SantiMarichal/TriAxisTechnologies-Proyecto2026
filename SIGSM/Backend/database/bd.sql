@@ -26,28 +26,20 @@ CREATE TABLE Encuesta (
 );
 
 CREATE TABLE Preguntas (
-    ID_Pregunta VARCHAR (10) NOT NULL,
+    ID_Pregunta INT AUTO_INCREMENT NOT NULL,
     ID_Encuesta INT NOT NULL,
     Texto VARCHAR (200) NOT NULL,
-    PRIMARY KEY (ID_Encuesta, ID_Pregunta),
+    PRIMARY KEY (ID_Pregunta, ID_Encuesta),
     FOREIGN KEY (ID_Encuesta) REFERENCES Encuesta(ID_Encuesta)
 );
 
 CREATE TABLE Respuestas (
-    ID_Respuesta VARCHAR(10) PRIMARY KEY NOT NULL,
-    ID_Pregunta VARCHAR(10) NOT NULL,
+    ID_Respuesta INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
+    ID_Pregunta INT NOT NULL,
     ID_Encuesta INT NOT NULL,
     Texto VARCHAR(200) NOT NULL,
+    Cantidad_Votos INT DEFAULT 0 NOT NULL,
     FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
-);
-
-CREATE TABLE Usuario_Respuesta (
-    ID_Detalle INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    ID_Encuesta INT NOT NULL,
-    ID_Pregunta VARCHAR(10) NOT NULL,
-    ID_Respuesta VARCHAR(10) NOT NULL,
-    FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta),
-    FOREIGN KEY (ID_Respuesta) REFERENCES Respuestas(ID_Respuesta)
 );
 
 CREATE TABLE Documentos (
@@ -94,18 +86,61 @@ INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
 (5, 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 5);
 
 INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta, Texto) VALUES
-('P001', 1, '¿Que opinas de la limpieza?'),
-('P002', 1, '¿Que opinas de la atención al cliente?'),
-('P003', 2, '¿Que opinas de la instalación?'),
-('P004', 2, '¿Que opinas de la documentación digital?'),
-('P005', 2, '¿Que opinas de los enfermeros?');
+(1, 1, '¿Que opinas de la limpieza?'),
+(2, 1, '¿Que opinas de la atención al cliente?'),
+(3, 2, '¿Que opinas de la instalación?'),
+(4, 2, '¿Que opinas de la documentación digital?'),
+(5, 2, '¿Que opinas de los enfermeros?'),
+(1, 3, '¿Cómo califica el estado general de las instalaciones?'),
+(2, 3, '¿Las áreas comunes se encontraban accesibles y señalizadas?'),
+(1, 4, '¿Cómo evalúa la amabilidad y el trato del personal?'),
+(2, 4, '¿El personal respondió a sus inquietudes con claridad?'),
+(1, 5, '¿Cómo califica la eficiencia de los servicios ofrecidos?'),
+(2, 5, '¿Utilizaría nuevamente los servicios de este centro?');
 
 INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
-('R001', 'P001', 1, 'Muy Bueno'),
-('R002', 'P002', 1, 'Bueno'),
-('R003', 'P003', 2, 'Regular'),
-('R004', 'P004', 2, 'Malo'),
-('R005', 'P005', 2, 'Muy Bueno');
+(1, 1, 1, 'Muy Bueno'),
+(2, 1, 1, 'Bueno'),
+(3, 1, 1, 'Regular'),
+(4, 1, 1, 'Malo'),
+(5, 2, 1, 'Muy Bueno'),
+(6, 2, 1, 'Bueno'),
+(7, 2, 1, 'Regular'),
+(8, 2, 1, 'Malo'),
+(9, 3, 2, 'Muy Bueno'),
+(10, 3, 2, 'Bueno'),
+(11, 3, 2, 'Regular'),
+(12, 3, 2, 'Malo'),
+(13, 4, 2, 'Muy Bueno'),
+(14, 4, 2, 'Bueno'),
+(15, 4, 2, 'Regular'),
+(16, 4, 2, 'Malo'),
+(17, 5, 2, 'Muy Bueno'),
+(18, 5, 2, 'Bueno'),
+(19, 5, 2, 'Regular'),
+(20, 5, 2, 'Malo'),
+(21, 1, 3, 'Muy Bueno'),
+(22, 1, 3, 'Bueno'),
+(23, 1, 3, 'Regular'),
+(24, 1, 3, 'Malo'),
+(25, 2, 3, 'Muy Bueno'),
+(26, 2, 3, 'Bueno'),
+(27, 2, 3, 'Regular'),
+(28, 2, 3, 'Malo'),
+(29, 1, 4, 'Muy Bueno'),
+(30, 1, 4, 'Bueno'),
+(31, 1, 4, 'Regular'),
+(32, 1, 4, 'Malo'),
+(33, 2, 4, 'Muy Bueno'),
+(34, 2, 4, 'Bueno'),
+(35, 2, 4, 'Regular'),
+(36, 2, 4, 'Malo'),
+(37, 1, 5, 'Muy Bueno'),
+(38, 1, 5, 'Bueno'),
+(39, 1, 5, 'Regular'),
+(40, 1, 5, 'Malo'),
+(41, 2, 5, 'Sí'),
+(42, 2, 5, 'No');
 
 INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado) VALUES
 (1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado'),

@@ -203,7 +203,7 @@ class Traslado
                             Matricula = :matricula, 
                             ID_Destino = :id_destino 
                         WHERE ID_Traslado = :id';
-                        
+
         $sentenciaTraslado = $this->conexion->prepare($sqlTraslado);
         $sentenciaTraslado->bindParam(":fecha", $fecha);
         $sentenciaTraslado->bindParam(":hora_salida", $Hora_Salida);
@@ -231,13 +231,13 @@ class Traslado
         }
 
         $idTrasladable = $trasladable['ID_Trasladable'];
-        
+
         $sqlElemento = 'UPDATE Elemento 
                         SET Nombre = :nombre, 
                             Descripcion = :descripcion, 
                             Tipo_Elemento = :tipo_elemento 
                         WHERE ID_Trasladable = :id_trasladable';
-                        
+
         $sentenciaElemento = $this->conexion->prepare($sqlElemento);
         $sentenciaElemento->bindParam(":nombre", $Nombre_Elemento);
         $sentenciaElemento->bindParam(":descripcion", $Descripcion);

@@ -137,6 +137,22 @@ a:visited {
     gap: 20px;
 }
 
+.filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-filtro {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
 .h2Titulo {
     font-size: 27px;
     font-weight: 700;

@@ -1,55 +1,107 @@
 document.addEventListener('DOMContentLoaded', () => {
-    cargarDatosEncuesta();
+    cargarEncuesta(1);
 });
 
-async function cargarDatosEncuesta() {
+async function cargarEncuesta(idCategoria) {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas');
-        const encuesta = await response.json();
+        const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php?categoria=' + idCategoria);
+        const encuesta = await respuesta.json();
 
-        if (encuesta) {
-            document.getElementById('tituloEncuesta').textContent = encuesta.Titulo;
-            document.getElementById('descripcionEncuesta').textContent = encuesta.Descripcion;
-        }
+        document.getElementById('tituloEncuesta').textContent = encuesta.Titulo;
+        document.getElementById('descripcionEncuesta').textContent = encuesta.Descripcion;
+
+        const contenedor = document.getElementById('contenedorPreguntas');
+        contenedor.innerHTML = '';
+
+        encuesta.preguntas.forEach((pregunta, index) => {
+            const fieldset = document.createElement('fieldset');
+            fieldset.className = 'grupo-preferencias';
+
+            const legend = document.createElement('legend');
+            legend.textContent = 'Pregunta ' + (index + 1);
+            fieldset.appendChild(legend);
+
+            const p = document.createElement('p');
+            p.className = 'descripcion-grupo';
+            p.textContent = pregunta.Texto;
+            fieldset.appendChild(p);
+
+            const div = document.createElement('div');
+            div.className = 'opciones-preferencias';
+
+            pregunta.respuestas.forEach((resp, idx) => {
+                const label = document.createElement('label');
+                label.className = 'opcion-preferencia';
+
+                const input = document.createElement('input');
+                input.type = 'radio';
+                input.name = pregunta.ID_Pregunta;
+                input.value = resp.ID_Respuesta;
+                if (idx === 0) input.checked = true;
+                input.required = true;
+
+                const span = document.createElement('span');
+                span.className = 'opcion-contenido';
+
+                const spanTitulo = document.createElement('span');
+                spanTitulo.className = 'opcion-titulo';
+                spanTitulo.textContent = resp.Texto;
+
+                span.appendChild(spanTitulo);
+                label.appendChild(input);
+                label.appendChild(span);
+                div.appendChild(label);
+            });
+
+            fieldset.appendChild(div);
+            contenedor.appendChild(fieldset);
+        });
+
+        document.getElementById('contenedorBotonEnviar').style.display = 'block';
     } catch (error) {
-        console.error('Error al cargar la información de la encuesta:', error);
+        console.error('Error:', error);
     }
 }
 
-const formularioEncuesta = document.getElementById("formEncuesta");
+document.addEventListener('click', (e) => {
+    const boton = e.target.closest('.btn-filtro');
+    
+    if (boton) {
+        const categoria = boton.getAttribute('data-categoria');
+        cargarEncuesta(categoria);
+    }
+});
 
-formularioEncuesta.addEventListener("submit", async function (event) {
-    event.preventDefault();
+const formulario = document.getElementById('formEncuesta');
 
-    const datos = new FormData(formularioEncuesta);
+formulario.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    const satisfaccion = datos.get("satisfaccion");
-    const aspectosSeleccionados = datos.getAll("aspectos[]");
-
+    const formData = new FormData(formulario);
+    const respuestas = {};
+    
+    formData.forEach((valor, clave) => {
+        respuestas[clave] = valor;
+    });
 
     try {
-        const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas', {
+        const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php', {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                satisfaccion: satisfaccion,
-                aspectos: aspectosSeleccionados
-            })
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ respuestas: respuestas })
         });
 
         const resultado = await respuesta.json();
+        const mensaje = document.getElementById('mensajeEncuesta');
 
-        if (respuesta.ok) {
-            alert('¡Encuesta enviada con éxito. Muchas gracias!');
-            formularioEncuesta.reset();
-        } else {
-            alert(resultado.error || 'Error al enviar la encuesta.');
+        mensaje.textContent = resultado.mensaje || resultado.error;
+        mensaje.style.color = resultado.mensaje ? 'green' : 'red';
+
+        if (resultado.mensaje) {
+            formulario.reset();
+            cargarEncuesta(1);
         }
-
     } catch (error) {
-        console.error('Error al conectar con la API:', error);
-        alert('Ocurrió un error al intentar enviar la encuesta al servidor.');
+        console.error('Error al enviar:', error);
     }
 });

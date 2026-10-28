@@ -221,7 +221,7 @@ switch ($metodo) {
                 $estado,
                 $usuarioCI !== "" ? $usuarioCI : null,
                 $nombreOriginal,
-                $rutaRelativa   
+                $rutaRelativa
             );
         } catch (Throwable $e) {
             if (is_file($rutaFisica)) {

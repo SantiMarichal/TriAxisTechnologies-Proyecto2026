@@ -118,7 +118,7 @@ try {
                 echo json_encode(["error" => "Datos JSON inválidos o vacíos"]);
                 exit;
             }
-            
+
             if ($id === null) {
                 http_response_code(400);
                 echo json_encode(["error" => "Debe proporcionar el ID del traslado en la URL"]);
@@ -142,7 +142,7 @@ try {
                 exit;
             }
 
-           if ($tipoCarga === 'elemento') {
+            if ($tipoCarga === 'elemento') {
                 $Nombre = $datos['nombre'] ?? '';
                 $Descripcion = $datos['descripcion'] ?? '';
                 $TipoElemento = $datos['tipo_elemento'] ?? '';
