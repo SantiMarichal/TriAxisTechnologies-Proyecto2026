@@ -110,6 +110,9 @@
                             <span class="rojo">
                                 Eliminar
                             </span>
+                            <span class="modificar">
+                                Modificar
+                            </span>
                         </div>
                     </div>
                 </div>
@@ -118,6 +121,41 @@
             <div class="documentos">
                 <h3>Visualizar PDF</h3>
                 <iframe id="visorPDF" width="100%" height="600" hidden class="iframe"></iframe>
+            </div>
+            <!-- Modal de Edición -->
+            <div id="modalEditar" class="modal">
+                <div class="modal-content">
+                    <h3>Modificar Documento</h3>
+                    <form id="formEditarDocumento">
+                        <input type="hidden" id="editIDDocumento">
+
+                        <label>Nombre del documento</label>
+                        <input type="text" id="editTitulo" name="titulo" required>
+
+                        <label>Descripción</label>
+                        <textarea id="editDescripcion" name="descripcion" required></textarea>
+
+                        <label>Categoría</label>
+                        <select id="editCategoria" name="id_categoria" required>
+                            <option value="1">Atencion</option>
+                            <option value="2">Limpieza</option>
+                            <option value="3">Instalaciones</option>
+                            <option value="4">Personal</option>
+                            <option value="5">Servicios</option>
+                        </select>
+
+                        <label>Estado</label>
+                        <input type="text" id="editEstado" name="estado" required>
+
+                        <label>Nuevo PDF (Opcional - dejar vacío para conservar el actual)</label>
+                        <input type="file" name="archivo" id="editArchivo" accept="application/pdf">
+
+                        <div class="guardar-boton">
+                            <button type="submit" class="subir">Guardar cambios</button>
+                            <button type="button" id="btnCerrarModal" class="btn">Cancelar</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </main>
     </div>

@@ -69,6 +69,29 @@ class Documento
         return $sentencia->execute();
     }
 
+    public function actualizarConArchivo(string $id_documento, string $titulo, string $descripcion, string $id_categoria, string $estado, string $nombreArchivo, string $rutaArchivo): bool
+    {
+        $sql = 'UPDATE Documentos 
+                SET Titulo = :titulo, 
+                    Descripcion = :descripcion, 
+                    ID_Categoria = :id_categoria, 
+                    Estado = :estado, 
+                    Nombre_archivo = :nombre_archivo, 
+                    Ruta_archivo = :ruta_archivo 
+                WHERE ID_Documento = :id_documento';
+
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":id_documento", $id_documento);
+        $sentencia->bindParam(":titulo", $titulo);
+        $sentencia->bindParam(":descripcion", $descripcion);
+        $sentencia->bindParam(":id_categoria", $id_categoria);
+        $sentencia->bindParam(":estado", $estado);
+        $sentencia->bindParam(":nombre_archivo", $nombreArchivo);
+        $sentencia->bindParam(":ruta_archivo", $rutaArchivo);
+
+        return $sentencia->execute();
+    }
+
     public function eliminar(string $id_documento): bool
     {
         $sqlCarga = "DELETE FROM Carga WHERE ID_Documento = :id_documento";

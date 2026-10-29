@@ -163,8 +163,15 @@ function renderizarDocumentos(listaDocumentos) {
         spanEliminar.style.cursor = 'pointer';
         spanEliminar.onclick = () => eliminarDocumento(documento.ID_Documento);
 
+        const spanModificar = document.createElement('span');
+        spanModificar.classList.add('modificar'); 
+        spanModificar.textContent = 'Modificar';
+        spanModificar.style.cursor = 'pointer';
+        spanModificar.onclick = () => abrirModal(documento);
+
         divEtiquetas.appendChild(spanCategoria);
         divEtiquetas.appendChild(spanEstado);
+        divEtiquetas.appendChild(spanModificar);
         divEtiquetas.appendChild(spanEliminar);
 
         divDocumento.appendChild(h4Titulo);
@@ -198,7 +205,7 @@ document.addEventListener('click', (e) => {
             const categoriaCard = card.dataset.categoria;
 
             if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
-                card.style.display = ''; 
+                card.style.display = '';
             } else {
                 card.style.display = 'none';
             }
@@ -229,17 +236,83 @@ async function eliminarDocumento(id) {
 
         alert(datos.mensaje);
 
-        // Se cierra el visor para no mostrar el PDF eliminado
         if (visorPDF) {
             visorPDF.removeAttribute("src");
             visorPDF.hidden = true;
         }
 
-        // Actualizamos el listado de PDFs, una vez borrado algún PDF
         await cargarDocumentos();
 
     } catch (error) {
         console.error(error);
         alert(error.message || "Error de conexión con la API.");
     }
+}
+
+const modalEditar = document.getElementById('modalEditar');
+const formEditarDocumento = document.getElementById('formEditarDocumento');
+const btnCerrarModal = document.getElementById('btnCerrarModal');
+
+const editIDDocumento = document.getElementById('editIDDocumento');
+const editTitulo = document.getElementById('editTitulo');
+const editDescripcion = document.getElementById('editDescripcion');
+const editCategoria = document.getElementById('editCategoria');
+const editEstado = document.getElementById('editEstado');
+
+function abrirModal(documento) {
+    editIDDocumento.value = documento.ID_Documento;
+    editTitulo.value = documento.Titulo || '';
+    editDescripcion.value = documento.Descripcion || '';
+    editCategoria.value = documento.ID_Categoria || '1';
+    editEstado.value = documento.Estado || 'Aprobado';
+
+    document.getElementById('editArchivo').value = '';
+
+    modalEditar.style.display = 'flex';
+}
+
+// Función para cerrar el modal
+function cerrarModal() {
+    modalEditar.style.display = 'none';
+    formEditarDocumento.reset();
+}
+
+if (btnCerrarModal) {
+    btnCerrarModal.addEventListener('click', cerrarModal);
+}
+
+if (formEditarDocumento) {
+    formEditarDocumento.addEventListener('submit', async function (e) {
+        e.preventDefault();
+
+        const id = editIDDocumento.value;
+        const formData = new FormData(formEditarDocumento);
+
+        if (usuarioCI && !formData.has("usuarioCI")) {
+            formData.append("usuarioCI", usuarioCI);
+        }
+
+        formData.append("_method", "PUT");
+
+        try {
+            const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`, {
+                method: "POST", 
+                body: formData
+            });
+
+            const resultado = await respuesta.json();
+
+            if (!respuesta.ok) {
+                throw new Error(resultado.error || "No se pudo actualizar el documento.");
+            }
+
+            alert(resultado.mensaje);
+            cerrarModal();
+            await cargarDocumentos(); 
+
+        } catch (error) {
+            console.error(error);
+            alert(error.message || "Error al actualizar el documento.");
+        }
+    });
 }

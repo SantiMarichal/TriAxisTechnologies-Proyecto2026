@@ -50,6 +50,11 @@ function resolverRutaArchivo(string $rutaRelativa, string $raizProyecto): ?strin
     return $rutaFisica;
 }
 
+$metodoReal = $metodo ?? $_SERVER['REQUEST_METHOD'];
+
+if ($metodoReal === 'POST' && isset($_POST['_method']) && strtoupper($_POST['_method']) === 'PUT') {
+    $metodo = 'PUT';
+}
 
 switch ($metodo) {
     case 'GET':
@@ -245,6 +250,161 @@ switch ($metodo) {
 
         break;
 
+    case 'PUT':
+        $idDocumento = isset($id) && is_numeric($id) ? $id : null;
+
+        if ($idDocumento === null) {
+            responderJson([
+                "error" => "Debe indicar un ID de documento válido para actualizar"
+            ], 400);
+        }
+
+        // Verifica que el documento exista previamente
+        $documentoActual = $documento->buscarPorID($idDocumento);
+        if ($documentoActual === null) {
+            responderJson([
+                "error" => "Documento no encontrado"
+            ], 404);
+        }
+
+        $titulo = isset($_POST["titulo"]) ? trim((string) $_POST["titulo"]) : "";
+        $descripcion = isset($_POST["descripcion"]) ? trim((string) $_POST["descripcion"]) : "";
+        $id_categoria = isset($_POST["id_categoria"]) ? trim((string) $_POST["id_categoria"]) : "";
+        $estado = isset($_POST["estado"]) ? trim((string) $_POST["estado"]) : "";
+
+        if ($titulo === "") {
+            responderJson([
+                "error" => "Debe indicar el Título del documento"
+            ], 400);
+        }
+
+        // Comprueba si el usuario adjuntó un nuevo archivo en la actualización
+        $tieneNuevoArchivo = isset($_FILES["archivo"]) && $_FILES["archivo"]["error"] !== UPLOAD_ERR_NO_FILE;
+        $rutaRelativaNueva = null;
+        $rutaFisicaNueva = null;
+        $nombreOriginalNuevo = null;
+
+        if ($tieneNuevoArchivo) {
+            $archivo = $_FILES["archivo"];
+
+            if ($archivo["error"] !== UPLOAD_ERR_OK) {
+                responderJson([
+                    "error" => "Se produjo un error al subir el nuevo archivo"
+                ], 400);
+            }
+
+            if (!is_uploaded_file($archivo["tmp_name"]) || $archivo["size"] <= 0) {
+                responderJson([
+                    "error" => "El archivo recibido no es válido"
+                ], 400);
+            }
+
+            if ($archivo["size"] > $tamañoMaximo) {
+                responderJson([
+                    "error" => "El archivo supera el límite de 10 MB"
+                ], 400);
+            }
+
+            // Validar que sea un PDF real
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $tipoMime = finfo_file($finfo, $archivo["tmp_name"]);
+
+            $handle = fopen($archivo["tmp_name"], "rb");
+            $cabecera = fread($handle, 5);
+            fclose($handle);
+
+            if ($tipoMime !== "application/pdf" || $cabecera !== "%PDF-") {
+                responderJson([
+                    "error" => "El archivo debe ser un PDF válido"
+                ], 400);
+            }
+
+            // Procesar nombre seguro
+            $nombreOriginalNuevo = basename(str_replace("\\", "/", $archivo["name"]));
+            $nombreOriginalNuevo = preg_replace('/[\x00-\x1F\x7F]/', "", $nombreOriginalNuevo);
+            if ($nombreOriginalNuevo === "") {
+                $nombreOriginalNuevo = "documento.pdf";
+            }
+            $nombreOriginalNuevo = mb_substr($nombreOriginalNuevo, 0, 255, "UTF-8");
+
+            $nombreServidor = bin2hex(random_bytes(16)) . ".pdf";
+            $anio = date("Y");
+            $carpetaRelativa = "uploads/pdf/" . $anio;
+            $carpetaFisica = $raizProyecto . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, $carpetaRelativa);
+
+            if (!is_dir($carpetaFisica) && !mkdir($carpetaFisica, 0777, true) && !is_dir($carpetaFisica)) {
+                responderJson([
+                    "error" => "No se pudo crear la carpeta de destino"
+                ], 500);
+            }
+
+            $rutaRelativaNueva = $carpetaRelativa . "/" . $nombreServidor;
+            $rutaFisicaNueva = $carpetaFisica . DIRECTORY_SEPARATOR . $nombreServidor;
+
+            if (!move_uploaded_file($archivo["tmp_name"], $rutaFisicaNueva)) {
+                responderJson([
+                    "error" => "No se pudo guardar el nuevo archivo en el servidor"
+                ], 500);
+            }
+        }
+
+        try {
+            if ($tieneNuevoArchivo) {
+                // Actualizamos con el nuevo archivo
+                $resultado = $documento->actualizarConArchivo(
+                    $idDocumento,
+                    $titulo,
+                    $descripcion,
+                    $id_categoria,
+                    $estado,
+                    $nombreOriginalNuevo,
+                    $rutaRelativaNueva
+                );
+
+                if ($resultado) {
+                    // Si se guardó bien en la BD, borra el PDF viejo del servidor
+                    if (!empty($documentoActual["Ruta_archivo"])) {
+                        $rutaFisicaVieja = resolverRutaArchivo($documentoActual["Ruta_archivo"], $raizProyecto);
+                        if ($rutaFisicaVieja !== null && is_file($rutaFisicaVieja)) {
+                            unlink($rutaFisicaVieja);
+                        }
+                    }
+                }
+            } else {
+                // Actualizamos solo los Textos, conservando el archivo anterior
+                $resultado = $documento->actualizar(
+                    $idDocumento,
+                    $titulo,
+                    $descripcion,
+                    $id_categoria,
+                    $estado
+                );
+            }
+        } catch (Throwable $e) {
+            // Si ocurre un error, borra el archivo nuevo que subimos temporalmente
+            if ($tieneNuevoArchivo && is_file($rutaFisicaNueva)) {
+                unlink($rutaFisicaNueva);
+            }
+            error_log($e->getMessage());
+            responderJson([
+                "error" => "No se pudo actualizar el documento"
+            ], 500);
+        }
+
+        if (!$resultado) {
+            if ($tieneNuevoArchivo && is_file($rutaFisicaNueva)) {
+                unlink($rutaFisicaNueva);
+            }
+            responderJson([
+                "error" => "No se pudo actualizar el registro en la base de datos"
+            ], 500);
+        }
+
+        responderJson([
+            "mensaje" => "Documento actualizado correctamente"
+        ]);
+
+        break;
     case 'DELETE':
         $idDocumento = isset($id) ? $id : null;
 
