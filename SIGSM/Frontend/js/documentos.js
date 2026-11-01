@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     cargarDocumentos();
+    cargarResultadosEncuesta();
 });
 
 const usuarioCI = localStorage.getItem('usuario_ci');
@@ -164,7 +165,7 @@ function renderizarDocumentos(listaDocumentos) {
         spanEliminar.onclick = () => eliminarDocumento(documento.ID_Documento);
 
         const spanModificar = document.createElement('span');
-        spanModificar.classList.add('modificar'); 
+        spanModificar.classList.add('modificar');
         spanModificar.textContent = 'Modificar';
         spanModificar.style.cursor = 'pointer';
         spanModificar.onclick = () => abrirModal(documento);
@@ -296,7 +297,7 @@ if (formEditarDocumento) {
 
         try {
             const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`, {
-                method: "POST", 
+                method: "POST",
                 body: formData
             });
 
@@ -308,7 +309,7 @@ if (formEditarDocumento) {
 
             alert(resultado.mensaje);
             cerrarModal();
-            await cargarDocumentos(); 
+            await cargarDocumentos();
 
         } catch (error) {
             console.error(error);
@@ -316,3 +317,89 @@ if (formEditarDocumento) {
         }
     });
 }
+
+async function cargarResultadosEncuesta() {
+    try {
+        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php?todas=1');
+        const encuestas = await response.json();
+
+        if (!response.ok) {
+            throw new Error(encuestas.error || "No se pudieron cargar las encuestas.");
+        }
+
+        renderizarTodasLasEncuestas(encuestas);
+    } catch (error) {
+        console.error("Error al cargar encuestas:", error);
+    }
+}
+
+function renderizarTodasLasEncuestas(encuestas) {
+    const contenedor = document.getElementById('contenedorResultados');
+    if (!contenedor) return;
+
+    contenedor.innerHTML = '';
+
+    if (!encuestas || encuestas.length === 0) {
+        const p = document.createElement('p');
+        p.textContent = "No hay encuestas registradas.";
+        contenedor.appendChild(p);
+        return;
+    }
+
+    encuestas.forEach(encuesta => {
+        const cardEncuesta = document.createElement('div');
+        cardEncuesta.classList.add('card');
+        cardEncuesta.dataset.categoria = encuesta.ID_Categoria;
+
+        const h4Titulo = document.createElement('h4');
+        h4Titulo.textContent = encuesta.Titulo_Encuesta || 'Encuesta';
+        cardEncuesta.appendChild(h4Titulo);
+
+        const spanCat = document.createElement('span');
+        spanCat.classList.add('azul');
+        spanCat.textContent = encuesta.Categoria_Nombre || 'Categoría';
+        cardEncuesta.appendChild(spanCat);
+
+        if (encuesta.preguntas && encuesta.preguntas.length > 0) {
+            encuesta.preguntas.forEach(pregunta => {
+                const pPregunta = document.createElement('p');
+                pPregunta.classList.add('encuesta-pregunta');
+                pPregunta.textContent = pregunta.Texto;
+                cardEncuesta.appendChild(pPregunta);
+
+                if (pregunta.respuestas && pregunta.respuestas.length > 0) {
+                    pregunta.respuestas.forEach(respuesta => {
+                        const pOpcion = document.createElement('p');
+                        pOpcion.classList.add('encuesta-opcion');
+
+                        const strong = document.createElement('strong');
+                        strong.textContent = `${respuesta.Texto}: `;
+
+                        pOpcion.appendChild(strong);
+                        pOpcion.append(`${respuesta.Cantidad_Votos} votos`);
+                        cardEncuesta.appendChild(pOpcion);
+                    });
+                }
+            });
+        }
+
+        contenedor.appendChild(cardEncuesta);
+    });
+}
+
+document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('btn-filtro-encuesta')) {
+        const categoriaSeleccionada = e.target.dataset.categoria;
+        const cards = document.querySelectorAll('#contenedorResultados .card');
+
+        cards.forEach((card) => {
+            const categoriaCard = card.dataset.categoria;
+
+            if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
+});

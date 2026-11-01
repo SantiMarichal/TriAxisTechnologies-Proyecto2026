@@ -355,9 +355,39 @@ textarea {
 }
 
 #btnCerrarModal {
-    background: #C0392B; 
-    color: white; 
-    padding: 10px; 
-    border: none; 
+    background: #C0392B;
+    color: white;
+    padding: 10px;
+    border: none;
     cursor: pointer;
+}
+
+.encuesta-pregunta {
+    font-weight: bold;
+    margin-top: 15px;
+    margin-bottom: 5px;
+    color: #ffffff;
+}
+
+
+.encuesta-opcion {
+    margin-left: 15px;
+    margin-bottom: 4px;
+    color: #cecccc;
+}
+
+.resultados-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.btn-filtro-encuesta {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    background-color: #2563eb;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
 }

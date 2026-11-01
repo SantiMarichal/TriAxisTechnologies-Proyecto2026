@@ -8,8 +8,15 @@ $metodo = $_SERVER['REQUEST_METHOD'];
 try {
     switch ($metodo) {
         case 'GET':
+            if (isset($_GET['todas'])) {
+                $resultados = $Encuesta->listarTodasConResultados();
+                http_response_code(200);
+                echo json_encode($resultados);
+                exit;
+            }
+
             $idCategoria = isset($_GET['categoria']) ? $_GET['categoria'] : 1;
-            
+
             $datosEncuesta = $Encuesta->obtenerPorCategoria($idCategoria);
 
             if ($datosEncuesta) {

@@ -46,6 +46,20 @@ class Encuesta
         return $encuesta;
     }
 
+    public function obtenerResultadosEncuesta(int $idEncuesta): array
+    {
+        $sql = "SELECT p.ID_Pregunta, p.Texto AS Pregunta, r.ID_Respuesta, r.Texto AS Res_Texto, r.Cantidad_Votos 
+            FROM Preguntas p
+            JOIN Respuestas r ON p.ID_Encuesta = r.ID_Encuesta AND p.ID_Pregunta = r.ID_Pregunta
+            WHERE p.ID_Encuesta = :id_encuesta";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id_encuesta', $idEncuesta, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     private function procesarRespuestaIndividual(int $idPregunta, int $idRespuesta): bool
     {
         $sql = "UPDATE Respuestas 
@@ -71,5 +85,29 @@ class Encuesta
         }
 
         return true;
+    }
+
+    public function listarTodasConResultados(): array
+    {
+        $sql = "SELECT e.ID_Encuesta, e.Titulo AS Titulo_Encuesta, e.ID_Categoria, c.Nombre AS Categoria_Nombre 
+                FROM Encuesta e
+                INNER JOIN Categorias c ON e.ID_Categoria = c.ID_Categoria";
+
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute();
+        $encuestas = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        foreach ($encuestas as &$encuesta) {
+            $idEncuesta = $encuesta['ID_Encuesta'];
+            $preguntas = $this->preguntaModel->obtenerPorEncuesta($idEncuesta);
+
+            foreach ($preguntas as &$pregunta) {
+                $pregunta['respuestas'] = $this->respuestaModel->obtenerPorPregunta($idEncuesta, $pregunta['ID_Pregunta']);
+            }
+
+            $encuesta['preguntas'] = $preguntas;
+        }
+
+        return $encuestas;
     }
 }

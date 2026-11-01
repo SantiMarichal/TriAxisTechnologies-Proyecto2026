@@ -1,4 +1,10 @@
 <?php
+// Configuración para docker-compose
+/*define('SERVERNAME', 'db'); // database es el nombre del servicio en docker-compose
+define('USERNAME', 'root'); // Nombre de usuario definido en docker-compose
+define('PASSWORD', ''); // Contraseña definida en docker-compose
+define('DBNAME', 'Proyecto2026'); // Nombre de la base de datos definido en
+*/
 // Configuración para xampp
 define('SERVERNAME', 'localhost'); // database es el nombre del servicio en docker-compose
 define('USERNAME', 'root'); // Nombre de usuario definido en docker-compose

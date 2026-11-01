@@ -122,7 +122,21 @@
                 <h3>Visualizar PDF</h3>
                 <iframe id="visorPDF" width="100%" height="600" hidden class="iframe"></iframe>
             </div>
-            <!-- Modal de Edición -->
+
+            <div class="documentos">
+                <h3>Resultados de Encuestas</h3>
+                <div id="filtrosEncuestas" class="filtros">
+                    <button class="btn-filtro-encuesta" data-categoria="todos">Todos</button>
+                    <button class="btn-filtro-encuesta" data-categoria="1">Atencion</button>
+                    <button class="btn-filtro-encuesta" data-categoria="2">Limpieza</button>
+                    <button class="btn-filtro-encuesta" data-categoria="3">Instalaciones</button>
+                    <button class="btn-filtro-encuesta" data-categoria="4">Personal</button>
+                    <button class="btn-filtro-encuesta" data-categoria="5">Servicios</button>
+                </div>
+                <div id="contenedorResultados" class="resultados-container">
+                </div>
+            </div>
+
             <div id="modalEditar" class="modal">
                 <div class="modal-content">
                     <h3>Modificar Documento</h3>
