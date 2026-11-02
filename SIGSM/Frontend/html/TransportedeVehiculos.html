@@ -49,7 +49,10 @@
             <div class="crear">
                 <h2>Control y seguimiento de traslados</h2>
                 <button type="button" id="btnNuevo" class="btn">Crear solicitud de traslado</button>
+                <button type="button" id="btnAbrirModalPaciente" class="btn">Registrar nuevo paciente</button>
             </div>
+
+
             <br>
             <div class="tabla-container">
                 <table>
@@ -67,6 +70,8 @@
                             <th>Matricula</th>
                             <th>ID del destino</th>
                             <th>Nombre del destino</th>
+                            <th>Piso Retiro</th>
+                            <th>Habitación Retiro</th>
                             <th>Tipo de camilla</th>
                             <th>Aislamiento</th>
                             <th>Accesorio necesario</th>
@@ -147,6 +152,16 @@
                             <select id="idDestino" name="idDestino" required>
                                 <option value="">Seleccione un destino</option>
                             </select>
+                        </div>
+
+                        <div class="campo">
+                            <label for="pisoRetiro">Piso de retiro</label>
+                            <input type="number" id="pisoRetiro" name="pisoRetiro" min="1" required>
+                        </div>
+
+                        <div class="campo">
+                            <label for="habitacionRetiro">Habitación de retiro</label>
+                            <input type="number" id="habitacionRetiro" name="habitacion_retiro" min="1" required>
                         </div>
 
                         <div id="camposPaciente" class="campo" style="display: none;">
@@ -271,6 +286,16 @@
                             </select>
                         </div>
 
+                        <div class="campo">
+                            <label>Piso de Retiro</label>
+                            <input type="number" id="editarPisoRetiro" name="piso_retiro" required min="1">
+                        </div>
+
+                        <div class="campo">
+                            <label>Habitación de Retiro</label>
+                            <input type="number" id="editarHabitacionRetiro" name="habitacion_retiro" required min="1">
+                        </div>
+
                         <div id="editarcamposPaciente" class="campo" style="display: none;">
                             <label for="editarcedulaPaciente">Paciente:</label>
                             <select id="editarcedulaPaciente" name="editarcedulaPaciente"></select>
@@ -310,6 +335,28 @@
                         <div class="modal-acciones">
                             <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
                             <button type="submit" class="btn-crear">Modificar traslado</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="modalNuevoPaciente" class="modal" style="display: none;">
+                <div class="modal-contenido">
+                    <h3>Registrar Nuevo Paciente</h3>
+                    <form id="formNuevoPaciente">
+                        <div class="campo">
+                        <label for="nuevoPacienteCI">Cédula (CI):</label>
+                        <input type="text" id="nuevoPacienteCI" name="ci" required placeholder="Ej: 12345678">
+                        </div>
+
+                        <div class="campo">
+                        <label for="nuevoPacienteNombre">Nombre Completo:</label>
+                        <input type="text" id="nuevoPacienteNombre" name="nombre" required placeholder="Ej: Juan Pérez">
+                        </div>
+
+                        <div class="modal-botones">
+                            <button type="submit" class="btn-guardar">Guardar Paciente</button>
+                            <button type="button" id="btnCerrarModalPaciente" class="btn-cancelar">Cancelar</button>
                         </div>
                     </form>
                 </div>

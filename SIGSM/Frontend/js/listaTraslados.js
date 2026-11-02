@@ -254,6 +254,14 @@ function renderizarTraslados(listaTraslados) {
         tdNombreDestino.textContent = traslado.Nombre_Destino;
         tr.appendChild(tdNombreDestino);
 
+        const tdPisoRetiro = document.createElement('td');
+        tdPisoRetiro.textContent = traslado.Piso_Retiro || '-';
+        tr.appendChild(tdPisoRetiro);
+
+        const tdHabitacionRetiro = document.createElement('td');
+        tdHabitacionRetiro.textContent = traslado.Habitacion_Retiro || '-';
+        tr.appendChild(tdHabitacionRetiro);
+
         const esPaciente = Boolean(traslado.CI_Paciente);
 
         const tdCamilla = document.createElement('td');
@@ -366,6 +374,8 @@ function abrirModalEditar(traslado) {
     document.getElementById('editarCedulaEnfermero').value = traslado.Cedula_Enfermero || '';
     document.getElementById('editarMatricula').value = traslado.Matricula || '';
     document.getElementById('editarIdDestino').value = traslado.ID_Destino || '';
+    document.getElementById('editarPisoRetiro').value = traslado.Piso_Retiro || '';
+    document.getElementById('editarHabitacionRetiro').value = traslado.Habitacion_Retiro || '';
 
     if (traslado.CI_Paciente) {
         document.getElementById('editarTipoCarga').value = 'paciente';
@@ -407,7 +417,9 @@ async function crearTraslado(event) {
         cedula_chofer: document.getElementById('cedulaChofer').value,
         cedula_enfermero: document.getElementById('cedulaEnfermero').value,
         matricula: document.getElementById('matricula').value,
-        id_destino: document.getElementById('idDestino').value
+        id_destino: document.getElementById('idDestino').value,
+        piso_retiro: document.getElementById('pisoRetiro').value,
+        habitacion_retiro: document.getElementById('habitacionRetiro').value,
     };
 
     if (tipoCarga === 'elemento') {
@@ -419,7 +431,7 @@ async function crearTraslado(event) {
         datos.camilla = document.getElementById('camilla').value;
         datos.oxigeno = parseInt(document.getElementById('oxigeno').value) || 0;
         datos.aislamiento = parseInt(document.getElementById('aislamiento').value) || 0;
-        datos.accesorio = document.getElementById('accesorio').value; 
+        datos.accesorio = document.getElementById('accesorio').value;
     }
 
     try {
@@ -466,7 +478,9 @@ if (formEditarTraslado) {
             cedula_chofer: document.getElementById('editarCedulaChofer').value,
             cedula_enfermero: document.getElementById('editarCedulaEnfermero').value,
             matricula: document.getElementById('editarMatricula').value,
-            id_destino: document.getElementById('editarIdDestino').value
+            id_destino: document.getElementById('editarIdDestino').value,
+            piso_retiro: document.getElementById('editarPisoRetiro').value,
+            habitacion_retiro: document.getElementById('editarHabitacionRetiro').value
         };
 
         if (tipoCarga === 'elemento') {
@@ -508,4 +522,59 @@ async function actualizarTraslado(idTraslado, datosActualizados) {
     } catch (error) {
         console.error('Error en la petición PUT:', error);
     }
+}
+
+const modalPaciente = document.getElementById('modalNuevoPaciente');
+const btnAbrirModal = document.getElementById('btnAbrirModalPaciente');
+const btnCerrarModalPaciente = document.getElementById('btnCerrarModalPaciente');
+const formNuevoPaciente = document.getElementById('formNuevoPaciente');
+
+if (btnAbrirModal) {
+    btnAbrirModal.addEventListener('click', () => {
+        modalPaciente.style.display = 'block';
+    });
+}
+
+
+if (btnCerrarModalPaciente) {
+    btnCerrarModalPaciente.addEventListener('click', () => {
+        modalPaciente.style.display = 'none';
+        formNuevoPaciente.reset();
+    });
+}
+
+if (formNuevoPaciente) {
+    formNuevoPaciente.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const ci = document.getElementById('nuevoPacienteCI').value.trim();
+        const nombre = document.getElementById('nuevoPacienteNombre').value.trim();
+
+        try {
+            const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/pacientes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ ci, nombre })
+            });
+
+            const resultado = await response.json();
+
+            if (response.ok) {
+                alert('Paciente registrado exitosamente');
+                modalPaciente.style.display = 'none';
+                formNuevoPaciente.reset();
+
+                
+                cargarOpcionesSelects();
+                cargarOpcionesSelectsEdicion();
+            } else {
+                alert('Error: ' + (resultado.error || 'No se pudo registrar el paciente'));
+            }
+        } catch (error) {
+            console.error('Error en la petición:', error);
+            alert('Ocurrió un error de conexión.');
+        }
+    });
 }

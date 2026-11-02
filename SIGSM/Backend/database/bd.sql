@@ -189,10 +189,21 @@ CREATE TABLE Destino(
     Ruta VARCHAR (100) NOT NULL
 );
 
-CREATE TABLE Trasladable(
+CREATE TABLE Paciente (
+    CI VARCHAR(10) PRIMARY KEY NOT NULL,
+    Nombre VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE Trasladable (
     ID_Trasladable INT AUTO_INCREMENT PRIMARY KEY NOT NULL, 
     Piso_Retiro INT NOT NULL,
-    Habitacion_Retiro INT NOT NULL
+    Habitacion_Retiro INT NOT NULL,
+    CI VARCHAR(10) NULL, 
+    Camilla ENUM('De emergencia', 'Normal') NULL, 
+    Oxigeno BOOLEAN DEFAULT FALSE,
+    Aislamiento BOOLEAN DEFAULT FALSE,
+    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NULL,
+    FOREIGN KEY (CI) REFERENCES Paciente(CI) ON DELETE CASCADE
 );
 
 CREATE TABLE Traslado(
@@ -210,17 +221,6 @@ CREATE TABLE Traslado(
     FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero) ON DELETE CASCADE,
     FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
     FOREIGN KEY (ID_Destino) REFERENCES Destino(ID_Destino)
-);
-
-CREATE TABLE Paciente(
-    ID_Trasladable INT PRIMARY KEY NOT NULL,
-    CI VARCHAR(10) NOT NULL,
-    Nombre VARCHAR (20) NOT NULL,
-    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
-    Camilla ENUM('De emergencia', 'Normal') NOT NULL, 
-    Oxigeno BOOLEAN DEFAULT FALSE NOT NULL,
-    Aislamiento BOOLEAN DEFAULT FALSE NOT NULL,
-    FOREIGN KEY (ID_Trasladable) REFERENCES Trasladable(ID_Trasladable)
 );
 
 CREATE TABLE Elemento(
@@ -276,28 +276,31 @@ VALUES
 ('DEST004', 'Hospital Pereira Rossell', 'Bvar. Artigas 1550', 'Ruta 4'),
 ('DEST005', 'Hospital Español', 'Av. Gral. Flores 1529', 'Ruta 5');
 
-INSERT INTO Trasladable
-(Piso_Retiro, Habitacion_Retiro)
+INSERT INTO Paciente (CI, Nombre)
 VALUES
-(1, 101),
-(2, 205),
-(3, 310),
-(4, 402),
-(5, 515),
-(1, 110),
-(2, 215),
-(3, 320),
-(4, 425),
-(5, 530);
+('12345678', 'Juan Perez'),
+('23456789', 'Ana Gomez'),
+('34567890', 'Luis Rodriguez'),
+('45678901', 'Maria Fernandez'),
+('56789012', 'Carlos Martinez');
 
-INSERT INTO Paciente
-(ID_Trasladable, CI, Nombre, Accesorio, Camilla, Oxigeno, Aislamiento)
+INSERT INTO Trasladable (Piso_Retiro, Habitacion_Retiro, CI, Camilla, Oxigeno, Aislamiento, Accesorio)
 VALUES
-(1, '12345678', 'Juan Perez', 'Bastón', 'De emergencia', FALSE, FALSE),
-(2, '23456789', 'Ana Gomez', 'Silla de ruedas', 'Normal', FALSE, FALSE),
-(3, '34567890', 'Luis Rodriguez', 'Bastón', 'Normal', FALSE, FALSE),
-(4, '45678901', 'Maria Fernandez', 'Ninguno', 'De emergencia', TRUE, TRUE),
-(5, '56789012', 'Carlos Martinez', 'Silla de ruedas', 'Normal', TRUE, FALSE);
+-- Traslados de Pacientes (IDs 1 al 5)
+(1, 101, '12345678', 'De emergencia', FALSE, FALSE, 'Bastón'),
+(2, 205, '23456789', 'Normal', FALSE, FALSE, 'Silla de ruedas'),
+(3, 310, '34567890', 'Normal', FALSE, FALSE, 'Bastón'),
+(4, 402, '45678901', 'De emergencia', TRUE, TRUE, 'Ninguno'),
+(5, 515, '56789012', 'Normal', TRUE, FALSE, 'Silla de ruedas'),
+(1, 110, NULL, NULL, NULL, NULL, NULL),
+(2, 220, NULL, NULL, NULL, NULL, NULL),
+(3, 330, NULL, NULL, NULL, NULL, NULL),
+(4, 440, NULL, NULL, NULL, NULL, NULL),
+(5, 550, NULL, NULL, NULL, NULL, NULL),
+(2, 215, NULL, NULL, NULL, NULL, NULL),
+(3, 320, NULL, NULL, NULL, NULL, NULL),
+(4, 425, NULL, NULL, NULL, NULL, NULL),
+(5, 530, NULL, NULL, NULL, NULL, NULL);
 
 INSERT INTO Elemento
 (ID_Trasladable, Nombre, Descripcion, Tipo_Elemento)

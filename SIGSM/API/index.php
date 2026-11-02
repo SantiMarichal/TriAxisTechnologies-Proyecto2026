@@ -80,6 +80,9 @@ switch ($resource) {
     case 'encuestas':
         require_once __DIR__ . '/encuestas/encuestas.php';
         exit;
+    case 'pacientes':
+        require_once __DIR__ . '/pacientes/pacientes.php';
+        exit;
     default:
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');

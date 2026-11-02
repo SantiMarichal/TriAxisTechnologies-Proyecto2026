@@ -46,6 +46,9 @@ try {
             $Matricula = $datos['matricula'] ?? '';
             $ID_Destino = $datos['id_destino'] ?? '';
 
+            $Piso_Retiro = isset($datos['piso_retiro']) ? (int) $datos['piso_retiro'] : 1;
+            $Habitacion_Retiro = isset($datos['habitacion_retiro']) ? (int) $datos['habitacion_retiro'] : 1;
+
             if ($tipoCarga === 'elemento') {
                 $Nombre = $datos['nombre'] ?? '';
                 $Descripcion = $datos['descripcion'] ?? '';
@@ -69,7 +72,9 @@ try {
                     $ID_Destino,
                     $Nombre,
                     $Descripcion,
-                    $TipoElemento
+                    $TipoElemento,
+                    $Piso_Retiro,
+                    $Habitacion_Retiro
                 );
             } else {
                 $CI_Paciente = trim($datos['CI_Paciente'] ?? '');
@@ -98,7 +103,9 @@ try {
                     $Camilla,
                     $Oxigeno,
                     $Aislamiento,
-                    $Accesorio
+                    $Accesorio,
+                    $Piso_Retiro,
+                    $Habitacion_Retiro
                 );
             }
 
@@ -135,6 +142,8 @@ try {
             $Cedula_Enfermero = $datos['cedula_enfermero'] ?? null;
             $Matricula = $datos['matricula'] ?? null;
             $ID_Destino = $datos['id_destino'] ?? null;
+            $Piso_Retiro = isset($datos['piso_retiro']) ? (int) $datos['piso_retiro'] : 1;
+            $Habitacion_Retiro = isset($datos['habitacion_retiro']) ? (int) $datos['habitacion_retiro'] : 1;
 
             if (is_null($Fecha) || is_null($Hora_Salida) || is_null($Hora_Llegada) || is_null($Estado) || is_null($Lugar_Origen) || is_null($Cedula_Chofer) || is_null($Cedula_Enfermero) || is_null($Matricula) || is_null($ID_Destino)) {
                 http_response_code(400);
@@ -166,7 +175,9 @@ try {
                     $ID_Destino,
                     $Nombre,
                     $Descripcion,
-                    $TipoElemento
+                    $TipoElemento,
+                    $Piso_Retiro,
+                    $Habitacion_Retiro
                 );
             } else {
                 $CI_Paciente = trim($datos['CI_Paciente'] ?? '');
@@ -196,7 +207,9 @@ try {
                     $Camilla,
                     $Oxigeno,
                     $Aislamiento,
-                    $Accesorio
+                    $Accesorio,
+                    $Piso_Retiro,
+                    $Habitacion_Retiro
                 );
             }
             if ($resultado) {
