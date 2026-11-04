@@ -340,23 +340,24 @@
                 </div>
             </div>
 
-            <div id="modalNuevoPaciente" class="modal" style="display: none;">
+            <div id="modalNuevoPaciente" class="modal">
                 <div class="modal-contenido">
                     <h3>Registrar Nuevo Paciente</h3>
                     <form id="formNuevoPaciente">
                         <div class="campo">
-                        <label for="nuevoPacienteCI">Cédula (CI):</label>
-                        <input type="text" id="nuevoPacienteCI" name="ci" required placeholder="Ej: 12345678">
+                            <label for="nuevoPacienteCI">Cédula (CI):</label>
+                            <input type="text" id="nuevoPacienteCI" name="ci" required placeholder="Ej: 12345678">
                         </div>
 
                         <div class="campo">
-                        <label for="nuevoPacienteNombre">Nombre Completo:</label>
-                        <input type="text" id="nuevoPacienteNombre" name="nombre" required placeholder="Ej: Juan Pérez">
+                            <label for="nuevoPacienteNombre">Nombre Completo:</label>
+                            <input type="text" id="nuevoPacienteNombre" name="nombre" required
+                                placeholder="Ej: Juan Pérez">
                         </div>
 
                         <div class="modal-botones">
                             <button type="submit" class="btn-guardar">Guardar Paciente</button>
-                            <button type="button" id="btnCerrarModalPaciente" class="btn-cancelar">Cancelar</button>
+                            <button type="button" id="btnCerrarModalPaciente" class="btn-crear">Cancelar</button>
                         </div>
                     </form>
                 </div>

@@ -531,7 +531,7 @@ const formNuevoPaciente = document.getElementById('formNuevoPaciente');
 
 if (btnAbrirModal) {
     btnAbrirModal.addEventListener('click', () => {
-        modalPaciente.style.display = 'block';
+        modalPaciente.style.display = 'flex';
     });
 }
 
