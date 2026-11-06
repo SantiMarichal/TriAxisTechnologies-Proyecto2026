@@ -227,7 +227,7 @@ try {
                 echo json_encode(['error' => 'Debe proporcionar el ID del traslado.']);
                 exit;
             }
-            $resultado = $traslado->eliminar($id);
+            $resultado = $traslado->eliminarTraslado($id);
             if ($resultado) {
                 http_response_code(200);
                 echo json_encode(["mensaje" => "Traslado eliminado correctamente"]);

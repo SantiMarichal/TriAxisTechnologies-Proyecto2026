@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarTraslados();
     cargarOpcionesSelects();
     cargarOpcionesSelectsEdicion();
+    cargarDatosTablas();
 });
 
 async function cargarTraslados() {
@@ -306,6 +307,188 @@ function renderizarTraslados(listaTraslados) {
     });
 }
 
+function renderizarChoferes(listaChoferes) {
+    const tbody = document.getElementById('tablaChoferes');
+    tbody.innerHTML = '';
+
+    listaChoferes.forEach(chofer => {
+        const idFila = chofer.Cedula_Chofer;
+        const tr = document.createElement('tr');
+
+        const tdCedula = document.createElement('td');
+        tdCedula.textContent = chofer.Cedula_Chofer;
+        tr.appendChild(tdCedula);
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = chofer.Nombre_Chofer;
+        tr.appendChild(tdNombre);
+
+        const tdApellido = document.createElement('td');
+        tdApellido.textContent = chofer.Apellido_Chofer;
+        tr.appendChild(tdApellido);
+
+        const tdTelefono = document.createElement('td');
+        tdTelefono.textContent = chofer.Telefono;
+        tr.appendChild(tdTelefono);
+
+        // Acciones
+        const tdAcciones = document.createElement('td');
+
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditarChofer(chofer); // Implementar modal/función si requieres edición
+        tdAcciones.appendChild(btnEditar);
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.onclick = () => eliminarChofer(idFila);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
+    });
+}
+
+function renderizarVehiculos(listaVehiculos) {
+    const tbody = document.getElementById('tablaVehiculos');
+    tbody.innerHTML = '';
+
+    listaVehiculos.forEach(vehiculo => {
+        const idFila = vehiculo.Matricula;
+        const tr = document.createElement('tr');
+
+        const tdMatricula = document.createElement('td');
+        tdMatricula.textContent = vehiculo.Matricula;
+        tr.appendChild(tdMatricula);
+
+        const tdModelo = document.createElement('td');
+        tdModelo.textContent = vehiculo.Modelo;
+        tr.appendChild(tdModelo);
+
+        const tdCapacidad = document.createElement('td');
+        tdCapacidad.textContent = vehiculo.Capacidad;
+        tr.appendChild(tdCapacidad);
+
+        const tdTipo = document.createElement('td');
+        tdTipo.textContent = vehiculo.Tipo_Vehiculo;
+        tr.appendChild(tdTipo);
+
+        // Acciones
+        const tdAcciones = document.createElement('td');
+
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditarVehiculo(vehiculo);
+        tdAcciones.appendChild(btnEditar);
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.onclick = () => eliminarVehiculo(idFila);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
+    });
+}
+
+function renderizarDestinos(listaDestinos) {
+    const tbody = document.getElementById('tablaDestinos');
+    tbody.innerHTML = '';
+
+    listaDestinos.forEach(destino => {
+        const idFila = destino.ID_Destino;
+        const tr = document.createElement('tr');
+
+        const tdId = document.createElement('td');
+        tdId.textContent = destino.ID_Destino;
+        tr.appendChild(tdId);
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = destino.Nombre;
+        tr.appendChild(tdNombre);
+
+        const tdDireccion = document.createElement('td');
+        tdDireccion.textContent = destino.Direccion;
+        tr.appendChild(tdDireccion);
+
+        const tdRuta = document.createElement('td');
+        tdRuta.textContent = destino.Ruta;
+        tr.appendChild(tdRuta);
+
+        // Acciones
+        const tdAcciones = document.createElement('td');
+
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditarDestino(destino);
+        tdAcciones.appendChild(btnEditar);
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.onclick = () => eliminarDestino(idFila);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
+    });
+}
+
+function renderizarPacientes(listaPacientes) {
+    const tbody = document.getElementById('tablaPacientes');
+    tbody.innerHTML = '';
+
+    listaPacientes.forEach(paciente => {
+        const idFila = paciente.CI;
+        const tr = document.createElement('tr');
+
+        const tdCI = document.createElement('td');
+        tdCI.textContent = paciente.CI;
+        tr.appendChild(tdCI);
+
+        const tdNombre = document.createElement('td');
+        tdNombre.textContent = paciente.Nombre;
+        tr.appendChild(tdNombre);
+
+        // Acciones
+        const tdAcciones = document.createElement('td');
+
+        const btnEditar = document.createElement('button');
+        btnEditar.textContent = 'Editar';
+        btnEditar.onclick = () => abrirModalEditarPaciente(paciente);
+        tdAcciones.appendChild(btnEditar);
+
+        const btnEliminar = document.createElement('button');
+        btnEliminar.textContent = 'Eliminar';
+        btnEliminar.onclick = () => eliminarPaciente(idFila);
+        tdAcciones.appendChild(btnEliminar);
+
+        tr.appendChild(tdAcciones);
+        tbody.appendChild(tr);
+    });
+}
+
+async function cargarDatosTablas() {
+    try {
+        // Cargar Choferes
+        const resChoferes = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes');
+        if (resChoferes.ok) renderizarChoferes(await resChoferes.json());
+
+        // Cargar Vehículos
+        const resVehiculos = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos');
+        if (resVehiculos.ok) renderizarVehiculos(await resVehiculos.json());
+
+        // Cargar Destinos
+        const resDestinos = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos');
+        if (resDestinos.ok) renderizarDestinos(await resDestinos.json());
+
+        // Cargar Pacientes
+        const resPacientes = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes');
+        if (resPacientes.ok) renderizarPacientes(await resPacientes.json());
+    } catch (error) {
+        console.error('Error al cargar los catálogos en las tablas:', error);
+    }
+}
+
 async function eliminarTraslado(id) {
     if (!confirm('¿Desea eliminar este traslado?')) {
         return;
@@ -330,6 +513,103 @@ async function eliminarTraslado(id) {
         console.error(error);
     }
 }
+
+async function eliminarChofer(cedula) {
+    if (!confirm('¿Desea eliminar este chofer?')) {
+        return;
+    }
+    try {
+        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/choferes/${cedula}`, {
+            method: 'DELETE'
+        });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+        cargarDatosTablas();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function eliminarChofer(cedula) {
+    if (!confirm('¿Desea eliminar este chofer?')) {
+        return;
+    }
+    try {
+        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/choferes/${cedula}`, {
+            method: 'DELETE'
+        });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+        cargarDatosTablas();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function eliminarDestino(id) {
+    if (!confirm('¿Desea eliminar este destino?')) {
+        return;
+    }
+    try {
+        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/destinos/${id}`, {
+            method: 'DELETE'
+        });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+        cargarDatosTablas();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function eliminarPaciente(cedula) {
+    if (!confirm('¿Desea eliminar este paciente?')) {
+        return;
+    }
+    try {
+        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/pacientes/${cedula}`, {
+            method: 'DELETE'
+        });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+        cargarDatosTablas();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
 
 const modalNuevo = document.getElementById('modalNuevo');
 const modalEditar = document.getElementById('modalEditar');
@@ -524,57 +804,66 @@ async function actualizarTraslado(idTraslado, datosActualizados) {
     }
 }
 
-const modalPaciente = document.getElementById('modalNuevoPaciente');
-const btnAbrirModal = document.getElementById('btnAbrirModalPaciente');
-const btnCerrarModalPaciente = document.getElementById('btnCerrarModalPaciente');
-const formNuevoPaciente = document.getElementById('formNuevoPaciente');
+const selectTipoEntidad = document.getElementById('tipoEntidad');
+const modalRegistro = document.getElementById('modalNuevoRegistro');
+const btnAbrirRegistro = document.getElementById('btnAbrirModalRegistro');
+const btnCerrarRegistro = document.getElementById('btnCerrarModalRegistro');
+const btnCancelarRegistro = document.getElementById('btnCancelarRegistro');
 
-if (btnAbrirModal) {
-    btnAbrirModal.addEventListener('click', () => {
-        modalPaciente.style.display = 'flex';
+btnAbrirRegistro.addEventListener('click', () => modalRegistro.classList.add('mostrar'));
+btnCerrarRegistro.addEventListener('click', () => modalRegistro.classList.remove('mostrar'));
+btnCancelarRegistro.addEventListener('click', () => modalRegistro.classList.remove('mostrar'));
+
+selectTipoEntidad.addEventListener('change', (e) => {
+    const valor = e.target.value;
+
+    // Ocultar todos los grupos de campos y quitarles el 'required' interno
+    document.querySelectorAll('.grupo-campos').forEach(grupo => {
+        grupo.style.display = 'none';
+        grupo.querySelectorAll('input, select').forEach(input => input.required = false);
     });
-}
 
-
-if (btnCerrarModalPaciente) {
-    btnCerrarModalPaciente.addEventListener('click', () => {
-        modalPaciente.style.display = 'none';
-        formNuevoPaciente.reset();
-    });
-}
-
-if (formNuevoPaciente) {
-    formNuevoPaciente.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        const ci = document.getElementById('nuevoPacienteCI').value.trim();
-        const nombre = document.getElementById('nuevoPacienteNombre').value.trim();
-
-        try {
-            const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/pacientes', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ ci, nombre })
-            });
-
-            const resultado = await response.json();
-
-            if (response.ok) {
-                alert('Paciente registrado exitosamente');
-                modalPaciente.style.display = 'none';
-                formNuevoPaciente.reset();
-
-                
-                cargarOpcionesSelects();
-                cargarOpcionesSelectsEdicion();
-            } else {
-                alert('Error: ' + (resultado.error || 'No se pudo registrar el paciente'));
-            }
-        } catch (error) {
-            console.error('Error en la petición:', error);
-            alert('Ocurrió un error de conexión.');
+    // Mostrar el grupo seleccionado y activar sus 'required'
+    if (valor) {
+        const grupoActivo = document.getElementById(valor === 'paciente' ? 'camposNuevoPaciente' : `campos${valor.charAt(0).toUpperCase() + valor.slice(1)}`); if (grupoActivo) {
+            grupoActivo.style.display = 'block';
+            grupoActivo.querySelectorAll('input, select').forEach(input => input.required = true);
         }
-    });
-}
+    }
+});
+
+document.getElementById('formNuevoRegistro').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const formData = new FormData(e.target);
+    const tipo = selectTipoEntidad.value;
+
+    let urlAPI = '';
+    if (tipo === 'paciente') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes';
+    else if (tipo === 'chofer') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes';
+    else if (tipo === 'vehiculo') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos';
+    else if (tipo === 'destino') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos';
+
+    try {
+        const response = await fetch(urlAPI, {
+            method: 'POST',
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        const resultado = await response.json();
+
+        if (response.ok && (resultado.success || resultado.mensaje)) {
+            alert('¡Registro guardado con éxito!');
+            modalRegistro.classList.remove('mostrar');
+            e.target.reset();
+            document.querySelectorAll('.grupo-campos').forEach(g => g.style.display = 'none');
+            cargarOpcionesSelects();
+            cargarOpcionesSelectsEdicion();
+        } else {
+            document.getElementById('mensajeRegistro').textContent = resultado.error || 'Ocurrió un error al guardar.';
+        }
+    } catch (error) {
+        console.error('Error en la petición:', error);
+    }
+});

@@ -44,16 +44,16 @@
             </div>
         </aside>
 
-
         <main class="main-container">
             <div class="crear">
                 <h2>Control y seguimiento de traslados</h2>
                 <button type="button" id="btnNuevo" class="btn">Crear solicitud de traslado</button>
-                <button type="button" id="btnAbrirModalPaciente" class="btn">Registrar nuevo paciente</button>
+                <button type="button" id="btnAbrirModalRegistro" class="btn">Registrar nuevo elemento</button>
             </div>
 
-
             <br>
+
+            <h3>Traslados Registrados</h3>
             <div class="tabla-container">
                 <table>
                     <thead>
@@ -79,25 +79,91 @@
                             <th>Acciones</th>
                         </tr>
                     </thead>
-
                     <tbody id="tablaTraslados"></tbody>
                 </table>
             </div>
 
+            <br>
+            <hr><br>
+
+            <h3>Gestión de Choferes</h3>
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Cédula Chofer</th>
+                            <th>Nombre</th>
+                            <th>Apellido</th>
+                            <th>Teléfono</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaChoferes"></tbody>
+                </table>
+            </div>
+
+            <br>
+
+            <h3>Gestión de Vehículos</h3>
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Matrícula</th>
+                            <th>Modelo</th>
+                            <th>Capacidad</th>
+                            <th>Tipo de Vehículo</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaVehiculos"></tbody>
+                </table>
+            </div>
+
+            <br>
+
+            <h3>Gestión de Destinos</h3>
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID Destino</th>
+                            <th>Nombre</th>
+                            <th>Dirección</th>
+                            <th>Ruta</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaDestinos"></tbody>
+                </table>
+            </div>
+
+            <h3>Gestión de Pacientes</h3>
+            <div class="tabla-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>CI</th>
+                            <th>Nombre</th>
+                            <th>Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaPacientes"></tbody>
+                </table>
+            </div>
+
+            <!-- MODALES -->
             <div id="modalNuevo" class="modal">
                 <div class="modal-contenido">
-
                     <div class="modal-header">
                         <div>
                             <h2>Nuevo traslado</h2>
                             <p>Complete los datos del nuevo traslado</p>
                         </div>
-
                         <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
                     </div>
 
                     <form id="formNuevoTraslado">
-
                         <div class="campo">
                             <label for="tipoCarga">Tipo de carga</label>
                             <select id="tipoCarga" name="tipoCarga" required>
@@ -204,9 +270,7 @@
                             <button type="button" id="btnCancelar" class="btn-secundario">Cancelar</button>
                             <button type="submit" class="btn-crear">Crear traslado</button>
                         </div>
-
                     </form>
-
                 </div>
             </div>
 
@@ -340,24 +404,101 @@
                 </div>
             </div>
 
-            <div id="modalNuevoPaciente" class="modal">
+            <div id="modalNuevoRegistro" class="modal">
                 <div class="modal-contenido">
-                    <h3>Registrar Nuevo Paciente</h3>
-                    <form id="formNuevoPaciente">
+                    <div class="modal-header">
+                        <div>
+                            <h2>Nuevo Registro</h2>
+                            <p>Seleccione el tipo de elemento que desea registrar en el sistema</p>
+                        </div>
+                        <button type="button" id="btnCerrarModalRegistro" class="btn-cerrar">&times;</button>
+                    </div>
+
+                    <form id="formNuevoRegistro">
                         <div class="campo">
-                            <label for="nuevoPacienteCI">Cédula (CI):</label>
-                            <input type="text" id="nuevoPacienteCI" name="ci" required placeholder="Ej: 12345678">
+                            <label for="tipoEntidad">Tipo de registro</label>
+                            <select id="tipoEntidad" name="tipoEntidad" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="paciente">Paciente</option>
+                                <option value="chofer">Chofer</option>
+                                <option value="vehiculo">Vehículo</option>
+                                <option value="destino">Destino</option>
+                            </select>
                         </div>
 
-                        <div class="campo">
-                            <label for="nuevoPacienteNombre">Nombre Completo:</label>
-                            <input type="text" id="nuevoPacienteNombre" name="nombre" required
-                                placeholder="Ej: Juan Pérez">
+                        <div id="camposNuevoPaciente" class="grupo-campos" style="display: none;">
+                            <div class="campo">
+                                <label for="pacienteCI">Cédula (CI):</label>
+                                <input type="text" id="pacienteCI" name="ci" maxlength="10" placeholder="Ej: 12345678">
+                            </div>
+                            <div class="campo">
+                                <label for="pacienteNombre">Nombre Completo:</label>
+                                <input type="text" id="pacienteNombre" name="nombre" maxlength="50"
+                                    placeholder="Ej: Juan Pérez">
+                            </div>
                         </div>
 
-                        <div class="modal-botones">
-                            <button type="submit" class="btn-guardar">Guardar Paciente</button>
-                            <button type="button" id="btnCerrarModalPaciente" class="btn-crear">Cancelar</button>
+                        <div id="camposChofer" class="grupo-campos" style="display: none;">
+                            <div class="campo">
+                                <label for="choferCI">Cédula:</label>
+                                <input type="text" id="choferCI" name="cedula_chofer" maxlength="10">
+                            </div>
+                            <div class="campo">
+                                <label for="choferNombre">Nombre:</label>
+                                <input type="text" id="choferNombre" name="nombre_chofer" maxlength="20">
+                            </div>
+                            <div class="campo">
+                                <label for="choferApellido">Apellido:</label>
+                                <input type="text" id="choferApellido" name="apellido_chofer" maxlength="20">
+                            </div>
+                            <div class="campo">
+                                <label for="choferTelefono">Teléfono:</label>
+                                <input type="text" id="choferTelefono" name="telefono" maxlength="10">
+                            </div>
+                        </div>
+
+                        <div id="camposVehiculo" class="grupo-campos" style="display: none;">
+                            <div class="campo">
+                                <label for="vehiculoMatricula">Matrícula:</label>
+                                <input type="text" id="vehiculoMatricula" name="matricula" maxlength="10">
+                            </div>
+                            <div class="campo">
+                                <label for="vehiculoModelo">Modelo:</label>
+                                <input type="text" id="vehiculoModelo" name="modelo" maxlength="10">
+                            </div>
+                            <div class="campo">
+                                <label for="vehiculoCapacidad">Capacidad:</label>
+                                <input type="number" id="vehiculoCapacidad" name="capacidad" min="1">
+                            </div>
+                            <div class="campo">
+                                <label for="vehiculoTipo">Tipo de Vehículo:</label>
+                                <select id="vehiculoTipo" name="tipo_vehiculo">
+                                    <option value="Ambulancia">Ambulancia</option>
+                                    <option value="Otro">Otro</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div id="camposDestino" class="grupo-campos" style="display: none;">
+                            <div class="campo">
+                                <label for="destinoNombre">Nombre:</label>
+                                <input type="text" id="destinoNombre" name="nombre_destino" maxlength="20">
+                            </div>
+                            <div class="campo">
+                                <label for="destinoDireccion">Dirección:</label>
+                                <input type="text" id="destinoDireccion" name="direccion" maxlength="100">
+                            </div>
+                            <div class="campo">
+                                <label for="destinoRuta">Ruta:</label>
+                                <input type="text" id="destinoRuta" name="ruta" maxlength="100">
+                            </div>
+                        </div>
+
+                        <p id="mensajeRegistro"></p>
+
+                        <div class="modal-acciones">
+                            <button type="button" id="btnCancelarRegistro" class="btn-secundario">Cancelar</button>
+                            <button type="submit" class="btn-crear">Guardar Registro</button>
                         </div>
                     </form>
                 </div>

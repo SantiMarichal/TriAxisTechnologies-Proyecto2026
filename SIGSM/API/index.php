@@ -80,9 +80,26 @@ switch ($resource) {
     case 'encuestas':
         require_once __DIR__ . '/encuestas/encuestas.php';
         exit;
-    case 'pacientes':
-        require_once __DIR__ . '/pacientes/pacientes.php';
-        exit;
+    case 'entidades':
+        if ($id === 'choferes') {
+            require_once __DIR__ . '/entidades/choferes.php';
+            exit;
+        }
+
+        if ($id === 'destinos') {
+            require_once __DIR__ . '/entidades/destinos.php';
+            exit;
+        }
+
+        if ($id === 'pacientes') {
+            require_once __DIR__ . '/entidades/pacientes.php';
+            exit;
+        }
+
+        if ($id === 'vehiculos') {
+            require_once __DIR__ . '/entidades/vehiculos.php';
+            exit;
+        }
     default:
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');

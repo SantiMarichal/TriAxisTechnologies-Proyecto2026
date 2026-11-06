@@ -183,7 +183,7 @@ CREATE TABLE Vehiculo(
 );
 
 CREATE TABLE Destino(
-    ID_Destino VARCHAR (10) PRIMARY KEY NOT NULL,
+    ID_Destino INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     Nombre VARCHAR (20) NOT NULL,
     Direccion VARCHAR (100) NOT NULL,
     Ruta VARCHAR (100) NOT NULL
@@ -216,7 +216,7 @@ CREATE TABLE Traslado(
     Cedula_Chofer VARCHAR (10) NOT NULL,
     Cedula_Enfermero VARCHAR (10) NOT NULL,
     Matricula VARCHAR (10) NOT NULL,
-    ID_Destino VARCHAR (10) NOT NULL,
+    ID_Destino INT NOT NULL,
     FOREIGN KEY (Cedula_Chofer) REFERENCES Chofer(Cedula_Chofer),
     FOREIGN KEY (Cedula_Enfermero) REFERENCES Enfermero(Cedula_Enfermero) ON DELETE CASCADE,
     FOREIGN KEY (Matricula) REFERENCES Vehiculo(Matricula),
@@ -270,11 +270,11 @@ VALUES
 INSERT INTO Destino
 (ID_Destino, Nombre, Direccion, Ruta)
 VALUES
-('DEST001', 'Hospital Clinicas', 'Av. Italia 2870', 'Ruta 1'),
-('DEST002', 'Hospital Maciel', '25 de Mayo 174', 'Ruta 2'),
-('DEST003', 'Hospital Pasteur', 'Av. Gral. Flores 1621', 'Ruta 3'),
-('DEST004', 'Hospital Pereira Rossell', 'Bvar. Artigas 1550', 'Ruta 4'),
-('DEST005', 'Hospital Español', 'Av. Gral. Flores 1529', 'Ruta 5');
+(1, 'Hospital Clinicas', 'Av. Italia 2870', 'Ruta 1'),
+(2, 'Hospital Maciel', '25 de Mayo 174', 'Ruta 2'),
+(3, 'Hospital Pasteur', 'Av. Gral. Flores 1621', 'Ruta 3'),
+(4, 'Hospital Pereira Rossell', 'Bvar. Artigas 1550', 'Ruta 4'),
+(5, 'Hospital Español', 'Av. Gral. Flores 1529', 'Ruta 5');
 
 INSERT INTO Paciente (CI, Nombre)
 VALUES
@@ -314,9 +314,11 @@ VALUES
 INSERT INTO Traslado
 (Fecha, Hora_Salida, Hora_Llegada, Estado, Lugar_Origen, Cedula_Chofer, Cedula_Enfermero, Matricula, ID_Destino)
 VALUES
-('2026-08-01', '08:00:00', '08:30:00', 'Aprobado', 'Hospital Clinicas', '66666666', '11111111', 'ABC1234', 'DEST001'),
-('2026-08-05', '09:15:00', '09:50:00', 'Aprobado', 'Hospital Maciel', '77777777', '22222222', 'DEF5678', 'DEST002'),
-('2026-08-10', '10:00:00', '10:40:00', 'Aprobado', 'Hospital Pasteur', '88888888', '33333333', 'GHI9012', 'DEST003');
+('2026-08-01', '08:00:00', '08:30:00', 'Aprobado', 'Hospital Clinicas', '66666666', '11111111', 'ABC1234', 1),
+('2026-08-05', '09:15:00', '09:50:00', 'Aprobado', 'Hospital Maciel', '77777777', '22222222', 'DEF5678', 2),
+('2026-08-10', '10:00:00', '10:40:00', 'Aprobado', 'Hospital Pasteur', '88888888', '33333333', 'GHI9012', 3),
+('2026-08-15', '11:30:00', '12:10:00', 'Aprobado', 'Hospital Pereira Rossell', '99999999', '44444444', 'JKL3456', 4),
+('2026-08-20', '14:00:00', '14:45:00', 'Aprobado', 'Hospital Español', '10101010', '55555555', 'MNO7890', 5);
 
 INSERT INTO Transporta (ID_Traslado, ID_Trasladable) VALUES
 (1, 1),

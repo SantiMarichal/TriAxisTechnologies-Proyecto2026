@@ -139,6 +139,38 @@ class Traslado
         return $sentencia->execute();
     }
 
+    public function crearChofer($cedula, $nombre, $apellido, $telefono): bool
+    {
+        $sql = "INSERT INTO Chofer (Cedula_Chofer, Nombre_Chofer, Apellido_Chofer, Telefono) VALUES (:cedula, :nombre, :apellido, :telefono)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':cedula', $cedula);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':telefono', $telefono);
+        return $stmt->execute();
+    }
+
+    public function crearVehiculo($matricula, $modelo, $capacidad, $tipo): bool
+    {
+        $sql = "INSERT INTO Vehiculo (Matricula, Modelo, Capacidad, Tipo_Vehiculo) VALUES (:matricula, :modelo, :capacidad, :tipo)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':matricula', $matricula);
+        $stmt->bindParam(':modelo', $modelo);
+        $stmt->bindParam(':capacidad', $capacidad);
+        $stmt->bindParam(':tipo', $tipo);
+        return $stmt->execute();
+    }
+
+    public function crearDestino($nombre, $direccion, $ruta): bool
+    {
+        $sql = "INSERT INTO Destino (Nombre, Direccion, Ruta) VALUES (:nombre, :direccion, :ruta)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':direccion', $direccion);
+        $stmt->bindParam(':ruta', $ruta);
+        return $stmt->execute();
+    }
+
     // Obtener todos los usuarios
     public function obtenerTodos(): array
     {
@@ -194,6 +226,29 @@ class Traslado
             'camillas' => $this->conexion->query('SELECT DISTINCT Camilla FROM Trasladable')->fetchAll(PDO::FETCH_ASSOC),
             'tipo_elementos' => $this->conexion->query('SELECT DISTINCT Tipo_Elemento FROM Elemento')->fetchAll(PDO::FETCH_ASSOC) //Distinct permite evitar duplicados en el select de tipo de elemento
         ];
+    }
+
+    public function obtenerPacientes()
+    {
+        $stmt = $this->conexion->query("SELECT * FROM Paciente");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+    public function obtenerChoferes()
+    {
+        $stmt = $this->conexion->query("SELECT * FROM Chofer");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerVehiculos()
+    {
+        $stmt = $this->conexion->query("SELECT * FROM Vehiculo");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function obtenerDestinos()
+    {
+        $stmt = $this->conexion->query("SELECT * FROM Destino");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Modificar usuario
@@ -329,9 +384,57 @@ class Traslado
     }
 
     // Eliminar usuario
-    public function eliminar(string $id): bool
+    public function eliminarTraslado(string $id): bool
     {
         $sql = "DELETE FROM Traslado WHERE ID_Traslado = :id";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":id", $id);
+
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function eliminarChofer(string $id): bool
+    {
+        $sql = "DELETE FROM Chofer WHERE Cedula_Chofer = :id";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":id", $id);
+
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function eliminarVehiculo(string $id): bool
+    {
+        $sql = "DELETE FROM Vehiculo WHERE Matricula = :id";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":id", $id);
+
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function eliminarDestino(string $id): bool
+    {
+        $sql2 = "DELETE FROM Destino WHERE ID_Destino = :id";
+        $sentencia2 = $this->conexion->prepare($sql2);
+        $sentencia2->bindParam(":id", $id);
+
+        if ($sentencia2->execute()) {
+            return $sentencia2->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function eliminarPaciente(string $id): bool
+    {
+        $sql = "DELETE FROM Paciente WHERE CI_Paciente = :id";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":id", $id);
 
