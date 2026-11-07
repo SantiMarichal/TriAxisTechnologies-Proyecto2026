@@ -100,6 +100,9 @@ switch ($resource) {
             require_once __DIR__ . '/entidades/vehiculos.php';
             exit;
         }
+    case 'categorias':
+        require_once __DIR__ . '/categorias/categorias.php';
+        exit;
     default:
         http_response_code(404);
         header('Content-Type: application/json; charset=utf-8');

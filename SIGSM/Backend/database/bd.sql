@@ -15,7 +15,7 @@ CREATE TABLE Administrativo (
 
 CREATE TABLE Categorias (
     ID_Categoria INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    Nombre VARCHAR (20) NOT NULL
+    Nombre VARCHAR (50) NOT NULL
 );
 
 CREATE TABLE Encuesta (
@@ -99,48 +99,18 @@ INSERT INTO Preguntas (ID_Encuesta, Texto) VALUES
 (5, '¿Utilizaría nuevamente los servicios de este centro?');
 
 INSERT INTO Respuestas (ID_Pregunta, ID_Encuesta, Texto, Cantidad_Votos) VALUES
-(1, 1, 'Muy Bueno', 0),
-(1, 1, 'Bueno', 0),
-(1, 1, 'Regular', 0),
-(1, 1, 'Malo', 0),
-(2, 1, 'Muy Bueno', 0),
-(2, 1, 'Bueno', 0),
-(2, 1, 'Regular', 0),
-(2, 1, 'Malo', 0),
-(3, 2, 'Muy Bueno', 0),
-(3, 2, 'Bueno', 0),
-(3, 2, 'Regular', 0),
-(3, 2, 'Malo', 0),
-(4, 2, 'Muy Bueno', 0),
-(4, 2, 'Bueno', 0),
-(4, 2, 'Regular', 0),
-(4, 2, 'Malo', 0),
-(5, 2, 'Muy Bueno', 0),
-(5, 2, 'Bueno', 0),
-(5, 2, 'Regular', 0),
-(5, 2, 'Malo', 0),
-(1, 3, 'Muy Bueno', 0),
-(1, 3, 'Bueno', 0),
-(1, 3, 'Regular', 0),
-(1, 3, 'Malo', 0),
-(2, 3, 'Muy Bueno', 0),
-(2, 3, 'Bueno', 0),
-(2, 3, 'Regular', 0),
-(2, 3, 'Malo', 0),
-(1, 4, 'Muy Bueno', 0),
-(1, 4, 'Bueno', 0),
-(1, 4, 'Regular', 0),
-(1, 4, 'Malo', 0),
-(2, 4, 'Muy Bueno', 0),
-(2, 4, 'Bueno', 0),
-(2, 4, 'Regular', 0),
-(2, 4, 'Malo', 0),
-(1, 5, 'Muy Bueno', 0),
-(1, 5, 'Bueno', 0),
-(1, 5, 'Regular', 0),
-(1, 5, 'Malo', 0),
-(2, 5, 'Sí', 0),
-(2, 5, 'No', 0);
+-- Encuesta 1 (Preguntas 1 y 2)
+(1, 1, 'Muy Bueno', 0), (1, 1, 'Bueno', 0), (1, 1, 'Regular', 0), (1, 1, 'Malo', 0),
+(2, 1, 'Muy Bueno', 0), (2, 1, 'Bueno', 0), (2, 1, 'Regular', 0), (2, 1, 'Malo', 0),
+(3, 2, 'Muy Bueno', 0), (3, 2, 'Bueno', 0), (3, 2, 'Regular', 0), (3, 2, 'Malo', 0),
+(4, 2, 'Muy Bueno', 0), (4, 2, 'Bueno', 0), (4, 2, 'Regular', 0), (4, 2, 'Malo', 0),
+(5, 2, 'Muy Bueno', 0), (5, 2, 'Bueno', 0), (5, 2, 'Regular', 0), (5, 2, 'Malo', 0),
+(6, 3, 'Muy Bueno', 0), (6, 3, 'Bueno', 0), (6, 3, 'Regular', 0), (6, 3, 'Malo', 0),
+(7, 3, 'Muy Bueno', 0), (7, 3, 'Bueno', 0), (7, 3, 'Regular', 0), (7, 3, 'Malo', 0),
+(8, 4, 'Muy Bueno', 0), (8, 4, 'Bueno', 0), (8, 4, 'Regular', 0), (8, 4, 'Malo', 0),
+(9, 4, 'Muy Bueno', 0), (9, 4, 'Bueno', 0), (9, 4, 'Regular', 0), (9, 4, 'Malo', 0),
+(10, 5, 'Muy Bueno', 0), (10, 5, 'Bueno', 0), (10, 5, 'Regular', 0), (10, 5, 'Malo', 0),
+(11, 5, 'Sí', 0), (11, 5, 'No', 0);
 
 INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado, Nombre_archivo, Ruta_archivo) VALUES
 (1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado', 'reglamento.pdf', '/uploads/pdf/2026/a6f0d5463ddd2c268c488f7b9b2b732f.pdf'),

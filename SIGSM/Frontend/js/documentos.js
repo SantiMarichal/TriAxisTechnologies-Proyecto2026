@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     cargarDocumentos();
     cargarResultadosEncuesta();
+    actualizarListasCategorias();
 });
 
 const usuarioCI = localStorage.getItem('usuario_ci');
@@ -197,22 +198,6 @@ function verPDF(id) {
     });
 }
 
-document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('btn-filtro')) {
-        const categoriaSeleccionada = e.target.dataset.categoria;
-        const cards = document.querySelectorAll('#ListaDocumentos .card');
-
-        cards.forEach((card) => {
-            const categoriaCard = card.dataset.categoria;
-
-            if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
-                card.style.display = '';
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    }
-});
 
 // Funcionalidad eliminar PDF. DELETE /api/documentos/${id}
 async function eliminarDocumento(id) {
@@ -387,6 +372,110 @@ function renderizarTodasLasEncuestas(encuestas) {
     });
 }
 
+const modal = document.getElementById('modalCategoria');
+const btnAbrir = document.getElementById('btnAbrirModal');
+const btnCerrar = document.getElementById('btnCerrarModal');
+const btnCancelar = document.getElementById('btnCancelar');
+const form = document.getElementById('formModalCategoria');
+
+btnAbrir.addEventListener('click', () => {
+    modal.style.display = 'flex';
+});
+
+function cerrarModal() {
+    modal.style.display = 'none';
+    form.reset();
+}
+
+btnCerrar.addEventListener('click', cerrarModal);
+btnCancelar.addEventListener('click', cerrarModal);
+
+form.addEventListener('submit', async function (e) {
+    e.preventDefault();
+
+    const nombreInput = document.getElementById('nombreCategoriaModal');
+    const nombre = nombreInput.value.trim();
+
+    if (!nombre) return;
+
+    try {
+        const response = await fetch('/API/categorias/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ nombre: nombre })
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok) {
+            alert(resultado.mensaje || '¡Categoría creada exitosamente!');
+            cerrarModal();
+            cargarDocumentos();
+
+        } else {
+            alert('Error: ' + (resultado.mensaje || 'No se pudo crear la categoría.'));
+        }
+    } catch (error) {
+        console.error('Error de red:', error);
+        alert('Hubo un error al conectar con el servidor.');
+    }
+});
+
+async function actualizarListasCategorias() {
+    try {
+        const response = await fetch('/API/categorias');
+        const categorias = await response.json(); 
+
+        if (!response.ok) {
+            throw new Error(categorias.error || "No se pudieron cargar las categorías.");
+        }
+
+        // Actualizar el <select> de documentos
+        const selectDocumentos = document.getElementById('categoria');
+        if (selectDocumentos) {
+            selectDocumentos.innerHTML = '<option value="">Seleccione una categoría...</option>';
+            categorias.forEach(cat => {
+                const option = document.createElement('option');
+                option.value = cat.ID_Categoria;
+                option.textContent = cat.Nombre;
+                selectDocumentos.appendChild(option);
+            });
+        }
+
+        // Actualizar los filtros de Documentos
+        const contenedorFiltros = document.getElementById('filtros');
+        if (contenedorFiltros) {
+            contenedorFiltros.innerHTML = `<button class="btn-filtro" data-categoria="todos">Todos</button>`;
+
+            categorias.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-filtro';
+                btn.setAttribute('data-categoria', cat.ID_Categoria);
+                btn.textContent = cat.Nombre;
+                contenedorFiltros.appendChild(btn);
+            });
+        }
+
+        // Actualizar los filtros de Encuestas
+        const contenedorFiltros2 = document.getElementById('filtrosEncuestas');
+        if (contenedorFiltros2) {
+            contenedorFiltros2.innerHTML = `<button class="btn-filtro-encuesta" data-categoria="todos">Todos</button>`;
+
+            categorias.forEach(cat => {
+                const btn = document.createElement('button');
+                btn.className = 'btn-filtro-encuesta';
+                btn.setAttribute('data-categoria', cat.ID_Categoria);
+                btn.textContent = cat.Nombre;
+                contenedorFiltros2.appendChild(btn);
+            });
+        }
+    } catch (error) {
+        console.error('Error al actualizar las listas de categorías:', error);
+    }
+}
+
 document.addEventListener('click', (e) => {
     if (e.target.classList.contains('btn-filtro-encuesta')) {
         const categoriaSeleccionada = e.target.dataset.categoria;
@@ -394,7 +483,20 @@ document.addEventListener('click', (e) => {
 
         cards.forEach((card) => {
             const categoriaCard = card.dataset.categoria;
+            if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
+                card.style.display = '';
+            } else {
+                card.style.display = 'none';
+            }
+        });
+    }
 
+    if (e.target.classList.contains('btn-filtro')) {
+        const categoriaSeleccionada = e.target.dataset.categoria;
+        const cards = document.querySelectorAll('#ListaDocumentos .card');
+
+        cards.forEach((card) => {
+            const categoriaCard = card.dataset.categoria;
             if (categoriaSeleccionada === 'todos' || categoriaSeleccionada === categoriaCard) {
                 card.style.display = '';
             } else {

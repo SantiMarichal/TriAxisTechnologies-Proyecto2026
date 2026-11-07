@@ -10,6 +10,14 @@ class Categoria
         $this->conexion = Database::getInstancia()->getConexion();
     }
 
+    public function crear(string $nombre): bool
+    {
+        $sql = "INSERT INTO Categorias (Nombre) VALUES (:nombre)";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre, PDO::PARAM_STR);
+        return $stmt->execute();
+    }
+
     public function obtenerTodas(): array
     {
         $sql = "SELECT * FROM Categorias";

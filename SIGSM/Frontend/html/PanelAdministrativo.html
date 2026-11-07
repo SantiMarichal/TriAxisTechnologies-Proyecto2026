@@ -58,7 +58,7 @@
                     <label>Descripción</label>
                     <textarea name="descripcion" required></textarea>
                     <label>Categoría</label>
-                    <select name="id_categoria" required>
+                    <select id="categoria" name="id_categoria" required>
                         <option value="1">Atencion</option>
                         <option value="2">Limpieza</option>
                         <option value="3">Instalaciones</option>
@@ -76,6 +76,9 @@
 
             <div class="documentos">
                 <h3>Documentos cargados</h3>
+                <button type="button" id="btnAbrirModal" class="btn-filtro">
+                    Agregar Nueva Categoría
+                </button>
                 <div id="filtros" class="filtros">
                     <button class="btn-filtro" data-categoria="todos">
                         Todos
@@ -169,6 +172,27 @@
                             <button type="button" id="btnCerrarModal" class="btn">Cancelar</button>
                         </div>
                     </form>
+                </div>
+            </div>
+            <div id="modalCategoria" class="modal-overlay" style="display: none;">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3>Crear Nueva Categoría</h3>
+                        <button type="button" id="btnCerrarModal" class="btn-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formModalCategoria">
+                            <div class="form-group">
+                                <label for="nombreCategoriaModal">Nombre de la Categoría</label>
+                                <input type="text" id="nombreCategoriaModal" class="form-control"
+                                    placeholder="Ej. Laboratorio" maxlength="20" required>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
+                                <button type="submit" class="btn-primary">Guardar Categoría</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </main>
