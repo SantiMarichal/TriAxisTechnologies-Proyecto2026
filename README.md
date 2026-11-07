@@ -41,6 +41,12 @@ SIGSM/
 |    |       └── pacientes.php
 |    ├── traslados/
 |    |       └── traslados.php
+|    ├── entidades/
+|    |       ├── choferes.php
+|    |       ├── destinos.php
+|    |       ├── pacientes.php
+|    |       └── vehiculos.php
+|    |
 │    ├── index.php
 |    ├── login.php
 |    ├── .htaccess
@@ -131,7 +137,7 @@ SIGSM/
    - Ubica la carpeta `SIGSM` dentro del directorio de tu servidor local (`htdocs` para XAMPP o `www` para WampServer/Apache).
    - Ajusta las credenciales de conexión en `backend/config/Database.php`.
 4. **Acceso al sistema:**
-   - Navega en tu navegador a `http://localhost/SIGSM/Frontend/html/index.html`.
+   - Navega en tu navegador a `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html`.
 
 ---
 

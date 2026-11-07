@@ -44,27 +44,37 @@ try {
             }
             break;
         case 'DELETE':
-            $id = $_GET['id'] ?? null;
-            if ($id === null) {
+            $datos = json_decode(file_get_contents('php://input'), true);
+            $id = trim($datos['id'] ?? '');
+
+            if (empty($id)) {
                 http_response_code(400);
-                echo json_encode(['error' => 'Debe proporcionar el ID del paciente en la URL']);
+                echo json_encode(['error' => 'Identificador no proporcionado']);
                 exit;
             }
-            $resultado = $traslado->eliminarPaciente($id);
-            if ($resultado) {
-                http_response_code(200);
-                echo json_encode(['mensaje' => 'Paciente eliminado correctamente']);
-            } else {
-                http_response_code(500);
-                echo json_encode(['error' => 'No se pudo eliminar el paciente']);
+
+            try {
+                $resultado = $traslado->eliminarPaciente($id);
+
+                if ($resultado) {
+                    echo json_encode(['mensaje' => 'Registro eliminado correctamente']);
+                } else {
+                    http_response_code(500);
+                    echo json_encode(['error' => 'No se pudo eliminar el registro']);
+                }
+            } catch (Exception $e) {
+                http_response_code(400); 
+                echo json_encode(['error' => $e->getMessage()]);
+                
             }
+            exit;
             break;
         default:
             http_response_code(405);
             echo json_encode(['error' => 'Método no permitido']);
             break;
     }
-}catch (Exception $e) { 
+} catch (Exception $e) {
     http_response_code(500);
     echo json_encode(['error' => 'Error general: ' . $e->getMessage()]);
 }

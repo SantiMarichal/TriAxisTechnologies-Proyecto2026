@@ -396,51 +396,72 @@ class Traslado
         return false;
     }
 
-    public function eliminarChofer(string $id): bool
+    public function eliminarChofer($cedula): bool
     {
-        $sql = "DELETE FROM Chofer WHERE Cedula_Chofer = :id";
-        $sentencia = $this->conexion->prepare($sql);
-        $sentencia->bindParam(":id", $id);
+        // 1. Comprobar si tiene traslados asociados
+        $sql = "SELECT COUNT(*) FROM Traslado WHERE Cedula_Chofer = :cedula";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([':cedula' => $cedula]);
+        $cantidad = $stmt->fetchColumn();
 
-        if ($sentencia->execute()) {
-            return $sentencia->rowCount() > 0;
+        if ($cantidad > 0) {
+            // puedes lanzar una excepción personalizada
+            throw new Exception("No se puede eliminar el chofer porque está asociado a uno o más traslados.");
         }
-        return false;
+
+        // 2. Si no tiene dependencias, proceder con el borrado
+        $sql2 = "DELETE FROM Chofer WHERE Cedula_Chofer = :cedula";
+        $stmt2 = $this->conexion->prepare($sql2);
+        return $stmt2->execute([':cedula' => $cedula]);
     }
 
-    public function eliminarVehiculo(string $id): bool
+    public function eliminarVehiculo($matricula): bool
     {
-        $sql = "DELETE FROM Vehiculo WHERE Matricula = :id";
-        $sentencia = $this->conexion->prepare($sql);
-        $sentencia->bindParam(":id", $id);
+        $sql = "SELECT COUNT(*) FROM Traslado WHERE Matricula = :matricula";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->execute([':matricula' => $matricula]);
 
-        if ($sentencia->execute()) {
-            return $sentencia->rowCount() > 0;
+        if ($stmt->fetchColumn() > 0) {
+            throw new Exception("No se puede eliminar el vehículo porque tiene traslados registrados.");
         }
-        return false;
+
+        $sql2 = "DELETE FROM Vehiculo WHERE Matricula = :matricula";
+        $stmt2 = $this->conexion->prepare($sql2);
+        $stmt2->bindParam(':matricula', $matricula);
+        return $stmt2->execute();
     }
 
-    public function eliminarDestino(string $id): bool
+    public function eliminarDestino($idDestino): bool
     {
-        $sql2 = "DELETE FROM Destino WHERE ID_Destino = :id";
-        $sentencia2 = $this->conexion->prepare($sql2);
-        $sentencia2->bindParam(":id", $id);
+        $sql = "SELECT COUNT(*) FROM Traslado WHERE ID_Destino = :idDestino";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':idDestino', $idDestino);
+        $stmt->execute();
 
-        if ($sentencia2->execute()) {
-            return $sentencia2->rowCount() > 0;
+        if ($stmt->fetchColumn() > 0) {
+            throw new Exception("No se puede eliminar el destino porque está asignado a traslados existentes.");
         }
-        return false;
+
+        $sql2 = "DELETE FROM Destino WHERE ID_Destino = :idDestino";
+        $stmt2 = $this->conexion->prepare($sql2);
+        $stmt2->bindParam(':idDestino', $idDestino);
+        return $stmt2->execute();
     }
 
-    public function eliminarPaciente(string $id): bool
+    public function eliminarPaciente($ci): bool
     {
-        $sql = "DELETE FROM Paciente WHERE CI_Paciente = :id";
-        $sentencia = $this->conexion->prepare($sql);
-        $sentencia->bindParam(":id", $id);
+        $sql = "SELECT COUNT(*) FROM Trasladable WHERE CI = :ci";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':ci', $ci);
+        $stmt->execute();
 
-        if ($sentencia->execute()) {
-            return $sentencia->rowCount() > 0;
+        if ($stmt->fetchColumn() > 0) {
+            throw new Exception("No se puede eliminar el paciente porque posee registros de traslado asociados.");
         }
-        return false;
+
+        $sql2 = "DELETE FROM Paciente WHERE CI = :ci";
+        $stmt2 = $this->conexion->prepare($sql2);
+        $stmt2->bindParam(':ci', $ci);
+        return $stmt2->execute();
     }
 }

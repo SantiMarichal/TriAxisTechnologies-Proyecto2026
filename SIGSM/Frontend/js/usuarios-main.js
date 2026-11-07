@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', cargarSesion);
 async function cargarUsuarios() {
     try {
         const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios');
-        const  listaUsuarios= await response.json();
+        const listaUsuarios = await response.json();
 
         renderizarTabla(listaUsuarios);
     } catch (error) {
@@ -15,17 +15,21 @@ async function cargarUsuarios() {
 
 // 2. Armar los elementos visuales en el HTML
 function renderizarTabla(listaUsuarios) {
-    
+
     const ciLogueada = document.getElementById('ciUsuario').textContent.trim();
 
     const tbody = document.getElementById('tablaUsuarios');
     tbody.innerHTML = '';
 
     listaUsuarios.forEach(usuario => {
+
         const ciFila = usuario.Cedula_Administrador || usuario.Cedula_Administrativo || usuario.Cedula_Enfermero || usuario.ci;
+        const estadoFila = usuario.Estado || usuario.estado;
 
         const tr = document.createElement('tr');
-
+        // Agrega esto temporalmente en tu bucle que recorre los usuarios
+        console.log("Fila actual:", usuario);
+        console.log("Cédula:", ciFila, "Estado:", usuario.Estado);
         // Celdas de información
         const tdCi = document.createElement('td');
         tdCi.textContent = ciFila;
@@ -51,10 +55,17 @@ function renderizarTabla(listaUsuarios) {
         tdAcciones.appendChild(btnEditar);
 
         if (ciFila !== ciLogueada) {
-            const btnEliminar = document.createElement('button');
-            btnEliminar.textContent = 'Eliminar';
-            btnEliminar.onclick = () => eliminarUsuario(ciFila);
-            tdAcciones.appendChild(btnEliminar);
+            if (estadoFila === 'Activo') {
+                const btnEliminar = document.createElement('button');
+                btnEliminar.textContent = 'Deshabilitar';
+                btnEliminar.onclick = () => deshabilitarUsuario(ciFila);
+                tdAcciones.appendChild(btnEliminar);
+            } else {
+                const btnHabilitar = document.createElement('button');
+                btnHabilitar.textContent = 'Habilitar';
+                btnHabilitar.onclick = () => habilitarUsuario(ciFila);
+                tdAcciones.appendChild(btnHabilitar);
+            }
         }
 
         tr.appendChild(tdAcciones);
@@ -63,8 +74,8 @@ function renderizarTabla(listaUsuarios) {
 }
 
 
-async function eliminarUsuario(ci) {
-    if (!confirm('¿Desea eliminar este usuario?')) {
+async function deshabilitarUsuario(ci) {
+    if (!confirm('¿Desea deshabilitar este usuario?')) {
         return;
     }
 
@@ -72,6 +83,33 @@ async function eliminarUsuario(ci) {
         const response =
             await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${ci}`, {
                 method: 'DELETE'
+            });
+
+        const datos = await response.json();
+
+        if (!response.ok) {
+            alert(datos.error);
+            return;
+        }
+
+        alert(datos.mensaje);
+
+        cargarUsuarios();
+
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+async function habilitarUsuario(ci) {
+    if (!confirm('¿Desea habilitar este usuario?')) {
+        return;
+    }
+
+    try {
+        const response =
+            await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${ci}`, {
+                method: 'PUT'
             });
 
         const datos = await response.json();

@@ -25,6 +25,7 @@ try {
                 'apellido' => $administrativo['Apellido_Administrativo'],
                 'cargo' => $administrativo['Cargo'],
                 'pass' => $administrativo['Contrasena'],
+                'estado' => $administrativo['Estado'],
                 'rolBase' => 'Administrativo'
             ];
         }
@@ -36,6 +37,7 @@ try {
                 'apellido' => $enfermero['Apellido_Enfermero'],
                 'cargo' => $enfermero['Cargo'],
                 'pass' => $enfermero['Contrasena'],
+                'estado' => $enfermero['Estado'],
                 'rolBase' => 'Enfermero'
             ];
         }
@@ -47,6 +49,7 @@ try {
                 'apellido' => $administrador['Apellido_Administrador'],
                 'cargo' => $administrador['Cargo'],
                 'pass' => $administrador['Contrasena'],
+                'estado' => $administrador['Estado'],
                 'rolBase' => 'Administrador'
             ];
         }
@@ -71,6 +74,26 @@ try {
             echo json_encode(['mensaje' => 'Usuario creado correctamente']);
         } else {
             echo json_encode(['error' => 'No se pudo crear el usuario']);
+        }
+        exit;
+    }
+    if ($metodo === 'PUT') {
+        $ci = $id ?? $resource2;
+
+        if (!$ci) {
+            http_response_code(400);
+            echo json_encode(['error' => 'Cédula no proporcionada']);
+            exit;
+        }
+
+        $habilitado = $administrativo->habilitar($ci) || $enfermero->habilitar($ci) || $administrador->habilitar($ci);
+
+        if ($habilitado) {
+            http_response_code(200);
+            echo json_encode(['mensaje' => 'Usuario habilitado correctamente']);
+        } else {
+            http_response_code(404);
+            echo json_encode(['error' => 'No se encontró ningún usuario con esa cédula para habilitar']);
         }
         exit;
     }

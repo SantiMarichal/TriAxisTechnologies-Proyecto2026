@@ -5,12 +5,14 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarDatosTablas();
 });
 
+let todosLosTraslados = [];
+
 async function cargarTraslados() {
     try {
         const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados');
-        const listaTraslados = await response.json();
+        todosLosTraslados = await response.json();
 
-        renderizarTraslados(listaTraslados);
+        renderizarTraslados(todosLosTraslados);
     } catch (error) {
         console.error('Error al cargar la lista de traslados:', error);
     }
@@ -21,74 +23,161 @@ async function cargarOpcionesSelects() {
         const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?recursos=true');
         const datos = await response.json();
 
+        // 1. Cargar Choferes (Formulario)
         const selectChofer = document.getElementById('cedulaChofer');
-        datos.choferes.forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c.Cedula_Chofer;
-            opt.textContent = `${c.Nombre_Chofer} (${c.Cedula_Chofer})`;
-            selectChofer.appendChild(opt);
-        });
+        if (selectChofer && datos.choferes) {
+            selectChofer.innerHTML = '<option value="">-- Seleccione un chofer --</option>';
+            datos.choferes.forEach(c => {
+                const opt = document.createElement('option');
+                opt.value = c.Cedula_Chofer;
+                opt.textContent = `${c.Nombre_Chofer} (${c.Cedula_Chofer})`;
+                selectChofer.appendChild(opt);
+            });
+        }
 
+        // 2. Cargar Enfermeros (Formulario)
         const selectEnfermero = document.getElementById('cedulaEnfermero');
-        datos.enfermeros.forEach(e => {
-            const opt = document.createElement('option');
-            opt.value = e.Cedula_Enfermero;
-            opt.textContent = `${e.Nombre_Enfermero} (${e.Cedula_Enfermero})`;
-            selectEnfermero.appendChild(opt);
-        });
+        if (selectEnfermero && datos.enfermeros) {
+            selectEnfermero.innerHTML = '<option value="">-- Seleccione un enfermero --</option>';
+            datos.enfermeros.forEach(e => {
+                const opt = document.createElement('option');
+                opt.value = e.Cedula_Enfermero;
+                opt.textContent = `${e.Nombre_Enfermero} (${e.Cedula_Enfermero})`;
+                selectEnfermero.appendChild(opt);
+            });
+        }
 
+        // 3. Cargar Vehículos (Formulario)
         const selectVehiculo = document.getElementById('matricula');
-        datos.vehiculos.forEach(v => {
-            const opt = document.createElement('option');
-            opt.value = v.Matricula;
-            opt.textContent = `${v.Matricula} - ${v.Tipo_Vehiculo}`;
-            selectVehiculo.appendChild(opt);
-        });
+        if (selectVehiculo && datos.vehiculos) {
+            selectVehiculo.innerHTML = '<option value="">-- Seleccione un vehículo --</option>';
+            datos.vehiculos.forEach(v => {
+                const opt = document.createElement('option');
+                opt.value = v.Matricula;
+                opt.textContent = `${v.Matricula} - ${v.Tipo_Vehiculo}`;
+                selectVehiculo.appendChild(opt);
+            });
+        }
 
+        // 4. Cargar Destinos (Formulario)
         const selectDestino = document.getElementById('idDestino');
-        datos.destinos.forEach(d => {
-            const opt = document.createElement('option');
-            opt.value = d.ID_Destino;
-            opt.textContent = d.Nombre;
-            selectDestino.appendChild(opt);
-        });
+        if (selectDestino && datos.destinos) {
+            selectDestino.innerHTML = '<option value="">-- Seleccione un destino --</option>';
+            datos.destinos.forEach(d => {
+                const opt = document.createElement('option');
+                opt.value = d.ID_Destino;
+                opt.textContent = d.Nombre;
+                selectDestino.appendChild(opt);
+            });
+        }
 
+        // 5. Cargar Pacientes (Formulario de nuevo traslado)
         const selectPaciente = document.getElementById('cedulaPaciente');
-        datos.pacientes.forEach(p => {
-            const opt = document.createElement('option');
-            opt.value = p.CI;
-            opt.textContent = `${p.Nombre} (${p.CI})`;
-            selectPaciente.appendChild(opt);
-        });
+        if (selectPaciente && datos.pacientes) {
+            selectPaciente.innerHTML = '<option value="">-- Seleccione un paciente --</option>';
+            datos.pacientes.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.CI;
+                opt.textContent = `${p.Nombre} (${p.CI})`;
+                selectPaciente.appendChild(opt);
+            });
+        }
 
+        // 6. Cargar Camillas
         const selectCamilla = document.getElementById('camilla');
-        datos.camillas.forEach(c => {
-            const opt = document.createElement('option');
-            opt.value = c.Camilla;
-            opt.textContent = `${c.Camilla}`;
-            selectCamilla.appendChild(opt);
-        });
+        if (selectCamilla && datos.camillas) {
+            selectCamilla.innerHTML = '<option value="">-- Seleccione camilla --</option>';
+            datos.camillas.forEach(c => {
+                if (c.Camilla !== "") {
+                    const opt = document.createElement('option');
+                    opt.value = c.Camilla;
+                    opt.textContent = c.Camilla;
+                    selectCamilla.appendChild(opt);
+                }
+            });
+        }
 
+        // 7. Cargar Accesorios
         const selectAccesorio = document.getElementById('accesorio');
-        datos.accesorios.forEach(a => {
-            const opt = document.createElement('option');
-            opt.value = a.Accesorio;
-            opt.textContent = `${a.Accesorio}`;
-            selectAccesorio.appendChild(opt);
-        });
+        if (selectAccesorio && datos.accesorios) {
+            selectAccesorio.innerHTML = '<option value="">-- Seleccione accesorio --</option>';
+            datos.accesorios.forEach(a => {
+                if (a.Accesorio !== "") {
+                    const opt = document.createElement('option');
+                    opt.value = a.Accesorio;
+                    opt.textContent = a.Accesorio;
+                    selectAccesorio.appendChild(opt);
+                }
+            });
+        }
 
+        // 8. Cargar Tipo de Elemento
         const selectTipoElemento = document.getElementById('tipoElemento');
-        datos.tipo_elementos.forEach(t => {
-            const opt = document.createElement('option');
-            opt.value = t.Tipo_Elemento;
-            opt.textContent = t.Tipo_Elemento;
-            selectTipoElemento.appendChild(opt);
-        });
+        if (selectTipoElemento && datos.tipo_elementos) {
+            selectTipoElemento.innerHTML = '<option value="">-- Seleccione tipo --</option>';
+            datos.tipo_elementos.forEach(t => {
+                const opt = document.createElement('option');
+                opt.value = t.Tipo_Elemento;
+                opt.textContent = t.Tipo_Elemento;
+                selectTipoElemento.appendChild(opt);
+            });
+        }
 
+        // --- FILTROS DE LA TABLA ---
+        
+        // A. Poblar Select de Filtro por Paciente
+        const filtroPaciente = document.getElementById('filtroPaciente');
+        if (filtroPaciente && datos.pacientes) {
+            filtroPaciente.innerHTML = '<option value="">-- Todos los pacientes --</option>';
+            datos.pacientes.forEach(p => {
+                const opt = document.createElement('option');
+                opt.value = p.CI; // Coincide con 'CI' del JSON
+                opt.textContent = `${p.Nombre} (${p.CI})`;
+                filtroPaciente.appendChild(opt);
+            });
+            // Evitar duplicación de eventos al recargar opciones
+            filtroPaciente.removeEventListener('change', aplicarFiltros);
+            filtroPaciente.addEventListener('change', aplicarFiltros);
+        }
+
+        // B. Poblar Select de Filtro por Vehículo
+        const filtroVehiculo = document.getElementById('filtroVehiculo');
+        if (filtroVehiculo && datos.vehiculos) {
+            filtroVehiculo.innerHTML = '<option value="">-- Todos los vehículos --</option>';
+            datos.vehiculos.forEach(v => {
+                const opt = document.createElement('option');
+                opt.value = v.Matricula; // Coincide con 'Matricula' del JSON
+                opt.textContent = `${v.Matricula} - ${v.Tipo_Vehiculo}`;
+                filtroVehiculo.appendChild(opt);
+            });
+            filtroVehiculo.removeEventListener('change', aplicarFiltros);
+            filtroVehiculo.addEventListener('change', aplicarFiltros);
+        }
 
     } catch (error) {
-        console.error('Error al cargar las opciones:', error);
+        console.error('Error al cargar las opciones de los selects:', error);
     }
+}
+
+// Función de filtrado interactivo
+function aplicarFiltros() {
+    const ciPacienteSeleccionado = document.getElementById('filtroPaciente').value;
+    const matriculaSeleccionada = document.getElementById('filtroVehiculo').value;
+
+    let trasladosFiltrados = todosLosTraslados;
+
+    // Filtrar por Paciente (asumiendo que en tu tabla de traslados la columna de paciente guarda la cédula como CI_Paciente)
+    if (ciPacienteSeleccionado !== "") {
+        trasladosFiltrados = trasladosFiltrados.filter(t => t.CI_Paciente === ciPacienteSeleccionado);
+    }
+
+    // Filtrar por Vehículo
+    if (matriculaSeleccionada !== "") {
+        trasladosFiltrados = trasladosFiltrados.filter(t => t.Matricula === matriculaSeleccionada);
+    }
+
+    // Renderizar la tabla con los resultados filtrados
+    renderizarTraslados(trasladosFiltrados);
 }
 
 async function cargarOpcionesSelectsEdicion() {
@@ -496,8 +585,11 @@ async function eliminarTraslado(id) {
 
     try {
         const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${id}`, {
-            method: 'DELETE'
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id })
         });
+
 
         const datos = await response.json();
 
@@ -519,8 +611,10 @@ async function eliminarChofer(cedula) {
         return;
     }
     try {
-        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/choferes/${cedula}`, {
-            method: 'DELETE'
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: cedula })
         });
 
         const datos = await response.json();
@@ -538,13 +632,15 @@ async function eliminarChofer(cedula) {
     }
 }
 
-async function eliminarChofer(cedula) {
-    if (!confirm('¿Desea eliminar este chofer?')) {
+async function eliminarVehiculo(matricula) {
+    if (!confirm('¿Desea eliminar este vehículo?')) {
         return;
     }
     try {
-        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/choferes/${cedula}`, {
-            method: 'DELETE'
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: matricula })
         });
 
         const datos = await response.json();
@@ -567,8 +663,10 @@ async function eliminarDestino(id) {
         return;
     }
     try {
-        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/destinos/${id}`, {
-            method: 'DELETE'
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: id })
         });
 
         const datos = await response.json();
@@ -591,8 +689,10 @@ async function eliminarPaciente(cedula) {
         return;
     }
     try {
-        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/pacientes/${cedula}`, {
-            method: 'DELETE'
+        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes', {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: cedula })
         });
 
         const datos = await response.json();
@@ -825,7 +925,8 @@ selectTipoEntidad.addEventListener('change', (e) => {
 
     // Mostrar el grupo seleccionado y activar sus 'required'
     if (valor) {
-        const grupoActivo = document.getElementById(valor === 'paciente' ? 'camposNuevoPaciente' : `campos${valor.charAt(0).toUpperCase() + valor.slice(1)}`); if (grupoActivo) {
+        const grupoActivo = document.getElementById(valor === 'paciente' ? 'camposNuevoPaciente' : `campos${valor.charAt(0).toUpperCase() + valor.slice(1)}`);
+        if (grupoActivo) {
             grupoActivo.style.display = 'block';
             grupoActivo.querySelectorAll('input, select').forEach(input => input.required = true);
         }
@@ -860,6 +961,7 @@ document.getElementById('formNuevoRegistro').addEventListener('submit', async (e
             document.querySelectorAll('.grupo-campos').forEach(g => g.style.display = 'none');
             cargarOpcionesSelects();
             cargarOpcionesSelectsEdicion();
+            cargarDatosTablas();
         } else {
             document.getElementById('mensajeRegistro').textContent = resultado.error || 'Ocurrió un error al guardar.';
         }

@@ -9,7 +9,8 @@ CREATE TABLE Administrativo (
     Nombre_Administrativo VARCHAR (20) NOT NULL, 
     Apellido_Administrativo VARCHAR (20) NOT NULL,
     Contrasena VARCHAR (20) NOT NULL,
-    Cargo VARCHAR (20) NOT NULL
+    Cargo VARCHAR (20) NOT NULL,
+    Estado ENUM('Activo', 'Inactivo') NOT NULL
 );
 
 CREATE TABLE Categorias (
@@ -142,12 +143,12 @@ INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
 (41, 2, 5, 'Sí'),
 (42, 2, 5, 'No');
 
-INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado) VALUES
-(1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado'),
-(2, '2222222', 'Protocolo', 'Protocolo de atencion al paciente.', 2, 'Aprobado'),
-(3, '3333333', 'Normativa', 'Normativa interna del hospital.', 3, 'Aprobado'),
-(4, '4444444', 'Horarios', 'Horarios de atencion de los servicios.', 4, 'Aprobado'),
-(5, '5555555', 'Informacion', 'Informacion general para los pacientes.', 5, 'Aprobado');
+INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado, Nombre_archivo, Ruta_archivo) VALUES
+(1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado', 'reglamento.pdf', '/uploads/pdf/2026/a6f0d5463ddd2c268c488f7b9b2b732f.pdf'),
+(2, '2222222', 'Protocolo', 'Protocolo de atencion al paciente.', 2, 'Aprobado', 'protocolo.pdf', '/uploads/pdf/2026/b105a7e79b2c86da2696605d49430f36.pdf'),
+(3, '3333333', 'Normativa', 'Normativa interna del hospital.', 3, 'Aprobado', 'normativa.pdf', '/uploads/pdf/2026/e0fd8bfa6ae12f08d43037086692603f.pdf'),
+(4, '4444444', 'Horarios', 'Horarios de atencion de los servicios.', 4, 'Aprobado', 'horarios.pdf', '/uploads/pdf/2026/e874aa59711a1d39fab3306a87cbf984.pdf'),
+(5, '5555555', 'Informacion', 'Informacion general para los pacientes.', 5, 'Aprobado', 'informacion.pdf', '/uploads/pdf/2026/1cf4ada41a8c8173e749c292cfe4483e.pdf');
 
 INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
 ('12345678', 1, '2026-08-30 09:30:00'),
@@ -165,7 +166,8 @@ CREATE TABLE Enfermero(
     Nombre_Enfermero VARCHAR (20) NOT NULL,
     Apellido_Enfermero VARCHAR (20) NOT NULL,
     Contrasena VARCHAR (20) NOT NULL,
-    Cargo VARCHAR (20) NOT NULL
+    Cargo VARCHAR (20) NOT NULL,
+    Estado ENUM('Activo', 'Inactivo') NOT NULL
 );
 
 CREATE TABLE Chofer(
@@ -199,10 +201,10 @@ CREATE TABLE Trasladable (
     Piso_Retiro INT NOT NULL,
     Habitacion_Retiro INT NOT NULL,
     CI VARCHAR(10) NULL, 
-    Camilla ENUM('De emergencia', 'Normal') NULL, 
+    Camilla ENUM('De emergencia', 'Normal') NOT NULL, 
     Oxigeno BOOLEAN DEFAULT FALSE,
     Aislamiento BOOLEAN DEFAULT FALSE,
-    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NULL,
+    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
     FOREIGN KEY (CI) REFERENCES Paciente(CI) ON DELETE CASCADE
 );
 
@@ -331,7 +333,8 @@ CREATE TABLE Administrador(
     Nombre_Administrador VARCHAR (20) NOT NULL, 
     Apellido_Administrador VARCHAR (20) NOT NULL,
     Contrasena VARCHAR (20) NOT NULL,
-    Cargo VARCHAR (20) NOT NULL
+    Cargo VARCHAR (20) NOT NULL,
+    Estado ENUM('Activo', 'Inactivo') NOT NULL
 );
 
 INSERT INTO Administrador

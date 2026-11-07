@@ -78,7 +78,18 @@ class Enfermero
     // Eliminar usuario
     public function eliminar(string $ci): bool
     {
-        $sql = "DELETE FROM Enfermero WHERE Cedula_Enfermero = :ci";
+        $sql = "UPDATE Enfermero SET Estado = 'Inactivo' WHERE Cedula_Enfermero = :ci";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0; // Devuelve true si se borro alguna fila
+        }
+        return false;
+    }
+
+    public function habilitar(string $ci): bool
+    {
+        $sql = "UPDATE Enfermero SET Estado = 'Activo' WHERE Cedula_Enfermero = :ci";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":ci", $ci);
         if ($sentencia->execute()) {

@@ -84,7 +84,20 @@ class Administrador
     public function eliminar(string $ci): bool
     {
 
-        $sql = "DELETE FROM Administrador WHERE Cedula_Administrador = :ci";
+        $sql = "UPDATE Administrador SET Estado = 'Inactivo' WHERE Cedula_Administrador = :ci";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
+
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function habilitar(string $ci): bool
+    {
+
+        $sql = "UPDATE Administrador SET Estado = 'Activo' WHERE Cedula_Administrador = :ci";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":ci", $ci);
 

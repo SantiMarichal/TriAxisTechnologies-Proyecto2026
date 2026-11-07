@@ -54,6 +54,20 @@
             <br>
 
             <h3>Traslados Registrados</h3>
+            <div class="filtros-container">
+                <label for="filtroPaciente">Filtrar por Paciente:</label>
+                <div class="campo">
+                    <select id="filtroPaciente">
+                        <option value="">-- Todos los pacientes --</option>
+                    </select>
+                </div>
+                <label for="filtroVehiculo">Filtrar por Vehículo:</label>
+                <div class="campo">
+                    <select id="filtroVehiculo">
+                        <option value="">-- Todos los vehículos --</option>
+                    </select>
+                </div>
+            </div>
             <div class="tabla-container">
                 <table>
                     <thead>
@@ -163,10 +177,11 @@
                         <button type="button" id="btnCerrarModal" class="btn-cerrar">&times;</button>
                     </div>
 
-                    <form id="formNuevoTraslado">
+                    <form id="formNuevoTraslado" class="modal-grid">
                         <div class="campo">
                             <label for="tipoCarga">Tipo de carga</label>
                             <select id="tipoCarga" name="tipoCarga" required>
+                                <option value="">Seleccione una opción</option>
                                 <option value="paciente">Paciente</option>
                                 <option value="elemento">Elemento / Órgano</option>
                             </select>

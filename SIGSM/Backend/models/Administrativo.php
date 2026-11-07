@@ -83,12 +83,19 @@ class Administrativo
     // Eliminar usuario
     public function eliminar(string $ci): bool
     {
-        $sqlDocs = "DELETE FROM Carga WHERE Cedula_Administrativo = :ci";
-        $sentenciaDocs = $this->conexion->prepare($sqlDocs);
-        $sentenciaDocs->bindParam(":ci", $ci);
-        $sentenciaDocs->execute();
+        $sql = "UPDATE Administrativo SET Estado = 'Inactivo' WHERE Cedula_Administrativo = :ci";
+        $sentencia = $this->conexion->prepare($sql);
+        $sentencia->bindParam(":ci", $ci);
 
-        $sql = "DELETE FROM Administrativo WHERE Cedula_Administrativo = :ci";
+        if ($sentencia->execute()) {
+            return $sentencia->rowCount() > 0;
+        }
+        return false;
+    }
+
+    public function habilitar(string $ci): bool
+    {
+        $sql = "UPDATE Administrativo SET Estado = 'Activo' WHERE Cedula_Administrativo = :ci";
         $sentencia = $this->conexion->prepare($sql);
         $sentencia->bindParam(":ci", $ci);
 
