@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Panel administrativo</title>
     <link rel="icon" href="../assets/icons/HospitalDeClinicas.ico">
-    <link rel="stylesheet" href="../style/style-PanelAdministrativoRestringido.css">
+    <link rel="stylesheet" href="../style/style-PanelAdministrativo.css">
 </head>
 
 <body>
@@ -23,6 +23,20 @@
     </header>
     <div class="layout">
         <aside class="sidebar">
+            <ul class="menu">
+                <a href="../html/TransportedeVehiculos.html" class="menu-link">
+                    <li class="menu-item">
+                        <img src="../assets/img/ambulance.svg" alt="Icono Ambulancia" class="menu-icon">
+                        <span class="menu-text">Gestión de ambulancias</span>
+                    </li>
+                </a>
+                <a href="../html/usuarios.html" class="menu-link">
+                    <li class="menu-item">
+                        <img src="../assets/img/file-text.svg" alt="Icono lista" class="menu-icon">
+                        <span class="menu-text">Gestión de usuarios</span>
+                    </li>
+                </a>
+            </ul>
             <div class="usuario">
                 <img src="../assets/img/user-round.svg" alt="Usuario" class="user-icon">
                 <div class="user-info">
@@ -162,8 +176,8 @@
     <footer class="footer">
         <p>© 2026 TriAxis Technologies. Todos los derechos reservados.</p>
     </footer>
-    <script src="../js/sesion.js"></script>
-    <script src="../js/documentos.js"></script>
 </body>
+<script src="../js/sesion.js"></script>
+<script src="../js/documentos.js"></script>
 
 </html>

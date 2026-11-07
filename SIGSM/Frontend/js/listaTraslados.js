@@ -264,7 +264,7 @@ if (selectTipoCargaNuevo) {
 const selectTipoCargaEditar = document.getElementById('editarTipoCarga');
 if (selectTipoCargaEditar) {
     selectTipoCargaEditar.addEventListener('change', (e) => {
-        CamposCarga(e.target.value, 'editarCamposPaciente', 'editarCamposElemento');
+        CamposCarga(e.target.value, 'editarcamposPaciente', 'editarcamposElemento');
     });
 }
 
