@@ -27,10 +27,9 @@ CREATE TABLE Encuesta (
 );
 
 CREATE TABLE Preguntas (
-    ID_Pregunta INT AUTO_INCREMENT NOT NULL,
+    ID_Pregunta INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
     ID_Encuesta INT NOT NULL,
     Texto VARCHAR (200) NOT NULL,
-    PRIMARY KEY (ID_Pregunta, ID_Encuesta),
     FOREIGN KEY (ID_Encuesta) REFERENCES Encuesta(ID_Encuesta)
 );
 
@@ -40,7 +39,7 @@ CREATE TABLE Respuestas (
     ID_Encuesta INT NOT NULL,
     Texto VARCHAR(200) NOT NULL,
     Cantidad_Votos INT DEFAULT 0 NOT NULL,
-    FOREIGN KEY (ID_Encuesta, ID_Pregunta) REFERENCES Preguntas(ID_Encuesta, ID_Pregunta)
+    FOREIGN KEY (ID_Pregunta) REFERENCES Preguntas(ID_Pregunta)
 );
 
 CREATE TABLE Documentos (
@@ -65,12 +64,12 @@ CREATE TABLE Carga (
 );
 
 -- DML:
-INSERT INTO Administrativo (Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo) VALUES
-('12345678', 'Juan', 'Perez', '123456', 'Administrativo'),
-('23456789', 'Ana', 'Gomez', '234567', 'Administrativo'),
-('34567890', 'Carlos', 'Rodriguez', '345678', 'Administrativo'),
-('45678901', 'Maria', 'Fernandez', '456789', 'Administrativo'),
-('56789012', 'Luis', 'Martinez', '567890', 'Administrativo');
+INSERT INTO Administrativo (Cedula_Administrativo, Nombre_Administrativo, Apellido_Administrativo, Contrasena, Cargo, Estado) VALUES
+('12345678', 'Juan', 'Perez', '123456', 'Administrativo', 'Activo'),
+('23456789', 'Ana', 'Gomez', '234567', 'Administrativo', 'Activo'),
+('34567890', 'Carlos', 'Rodriguez', '345678', 'Administrativo', 'Activo'),
+('45678901', 'Maria', 'Fernandez', '456789', 'Administrativo', 'Activo'),
+('56789012', 'Luis', 'Martinez', '567890', 'Administrativo','Activo' );
 
 INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
 (1, 'Atencion'),
@@ -79,69 +78,69 @@ INSERT INTO Categorias (ID_Categoria, Nombre) VALUES
 (4, 'Personal'),
 (5, 'Servicios');
 
-INSERT INTO Encuesta (ID_Encuesta, Titulo, Descripcion, ID_Categoria) VALUES
-(1, 'Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 1),
-(2, 'Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 2),
-(3, 'Instalaciones', 'Evaluacion del estado de las instalaciones.', 3),
-(4, 'Personal', 'Evaluacion del trato recibido por el personal.', 4),
-(5, 'Servicios', 'Evaluacion general de los servicios ofrecidos.', 5);
+INSERT INTO Encuesta (Titulo, Descripcion, ID_Categoria) VALUES
+('Atencion recibida', 'Evaluacion de la atencion recibida en el hospital.', 1),
+('Limpieza', 'Evaluacion de la limpieza de las instalaciones.', 2),
+('Instalaciones', 'Evaluacion del estado de las instalaciones.', 3),
+('Personal', 'Evaluacion del trato recibido por el personal.', 4),
+('Servicios', 'Evaluacion general de los servicios ofrecidos.', 5);
 
-INSERT INTO Preguntas (ID_Pregunta, ID_Encuesta, Texto) VALUES
-(1, 1, '¿Que opinas de la limpieza?'),
-(2, 1, '¿Que opinas de la atención al cliente?'),
-(3, 2, '¿Que opinas de la instalación?'),
-(4, 2, '¿Que opinas de la documentación digital?'),
-(5, 2, '¿Que opinas de los enfermeros?'),
-(1, 3, '¿Cómo califica el estado general de las instalaciones?'),
-(2, 3, '¿Las áreas comunes se encontraban accesibles y señalizadas?'),
-(1, 4, '¿Cómo evalúa la amabilidad y el trato del personal?'),
-(2, 4, '¿El personal respondió a sus inquietudes con claridad?'),
-(1, 5, '¿Cómo califica la eficiencia de los servicios ofrecidos?'),
-(2, 5, '¿Utilizaría nuevamente los servicios de este centro?');
+INSERT INTO Preguntas (ID_Encuesta, Texto) VALUES
+(1, '¿Que opinas de la limpieza?'),
+(1, '¿Que opinas de la atención al cliente?'),
+(2, '¿Que opinas de la instalación?'),
+(2, '¿Que opinas de la documentación digital?'),
+(2, '¿Que opinas de los enfermeros?'),
+(3, '¿Cómo califica el estado general de las instalaciones?'),
+(3, '¿Las áreas comunes se encontraban accesibles y señalizadas?'),
+(4, '¿Cómo evalúa la amabilidad y el trato del personal?'),
+(4, '¿El personal respondió a sus inquietudes con claridad?'),
+(5, '¿Cómo califica la eficiencia de los servicios ofrecidos?'),
+(5, '¿Utilizaría nuevamente los servicios de este centro?');
 
-INSERT INTO Respuestas (ID_Respuesta, ID_Pregunta, ID_Encuesta, Texto) VALUES
-(1, 1, 1, 'Muy Bueno'),
-(2, 1, 1, 'Bueno'),
-(3, 1, 1, 'Regular'),
-(4, 1, 1, 'Malo'),
-(5, 2, 1, 'Muy Bueno'),
-(6, 2, 1, 'Bueno'),
-(7, 2, 1, 'Regular'),
-(8, 2, 1, 'Malo'),
-(9, 3, 2, 'Muy Bueno'),
-(10, 3, 2, 'Bueno'),
-(11, 3, 2, 'Regular'),
-(12, 3, 2, 'Malo'),
-(13, 4, 2, 'Muy Bueno'),
-(14, 4, 2, 'Bueno'),
-(15, 4, 2, 'Regular'),
-(16, 4, 2, 'Malo'),
-(17, 5, 2, 'Muy Bueno'),
-(18, 5, 2, 'Bueno'),
-(19, 5, 2, 'Regular'),
-(20, 5, 2, 'Malo'),
-(21, 1, 3, 'Muy Bueno'),
-(22, 1, 3, 'Bueno'),
-(23, 1, 3, 'Regular'),
-(24, 1, 3, 'Malo'),
-(25, 2, 3, 'Muy Bueno'),
-(26, 2, 3, 'Bueno'),
-(27, 2, 3, 'Regular'),
-(28, 2, 3, 'Malo'),
-(29, 1, 4, 'Muy Bueno'),
-(30, 1, 4, 'Bueno'),
-(31, 1, 4, 'Regular'),
-(32, 1, 4, 'Malo'),
-(33, 2, 4, 'Muy Bueno'),
-(34, 2, 4, 'Bueno'),
-(35, 2, 4, 'Regular'),
-(36, 2, 4, 'Malo'),
-(37, 1, 5, 'Muy Bueno'),
-(38, 1, 5, 'Bueno'),
-(39, 1, 5, 'Regular'),
-(40, 1, 5, 'Malo'),
-(41, 2, 5, 'Sí'),
-(42, 2, 5, 'No');
+INSERT INTO Respuestas (ID_Pregunta, ID_Encuesta, Texto, Cantidad_Votos) VALUES
+(1, 1, 'Muy Bueno', 0),
+(1, 1, 'Bueno', 0),
+(1, 1, 'Regular', 0),
+(1, 1, 'Malo', 0),
+(2, 1, 'Muy Bueno', 0),
+(2, 1, 'Bueno', 0),
+(2, 1, 'Regular', 0),
+(2, 1, 'Malo', 0),
+(3, 2, 'Muy Bueno', 0),
+(3, 2, 'Bueno', 0),
+(3, 2, 'Regular', 0),
+(3, 2, 'Malo', 0),
+(4, 2, 'Muy Bueno', 0),
+(4, 2, 'Bueno', 0),
+(4, 2, 'Regular', 0),
+(4, 2, 'Malo', 0),
+(5, 2, 'Muy Bueno', 0),
+(5, 2, 'Bueno', 0),
+(5, 2, 'Regular', 0),
+(5, 2, 'Malo', 0),
+(1, 3, 'Muy Bueno', 0),
+(1, 3, 'Bueno', 0),
+(1, 3, 'Regular', 0),
+(1, 3, 'Malo', 0),
+(2, 3, 'Muy Bueno', 0),
+(2, 3, 'Bueno', 0),
+(2, 3, 'Regular', 0),
+(2, 3, 'Malo', 0),
+(1, 4, 'Muy Bueno', 0),
+(1, 4, 'Bueno', 0),
+(1, 4, 'Regular', 0),
+(1, 4, 'Malo', 0),
+(2, 4, 'Muy Bueno', 0),
+(2, 4, 'Bueno', 0),
+(2, 4, 'Regular', 0),
+(2, 4, 'Malo', 0),
+(1, 5, 'Muy Bueno', 0),
+(1, 5, 'Bueno', 0),
+(1, 5, 'Regular', 0),
+(1, 5, 'Malo', 0),
+(2, 5, 'Sí', 0),
+(2, 5, 'No', 0);
 
 INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado, Nombre_archivo, Ruta_archivo) VALUES
 (1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado', 'reglamento.pdf', '/uploads/pdf/2026/a6f0d5463ddd2c268c488f7b9b2b732f.pdf'),
@@ -163,17 +162,17 @@ INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
 -- DDL:
 CREATE TABLE Enfermero(
     Cedula_Enfermero VARCHAR (10) PRIMARY KEY NOT NULL,
-    Nombre_Enfermero VARCHAR (20) NOT NULL,
-    Apellido_Enfermero VARCHAR (20) NOT NULL,
+    Nombre_Enfermero VARCHAR (50) NOT NULL,
+    Apellido_Enfermero VARCHAR (50) NOT NULL,
     Contrasena VARCHAR (20) NOT NULL,
-    Cargo VARCHAR (20) NOT NULL,
+    Cargo VARCHAR (50) NOT NULL,
     Estado ENUM('Activo', 'Inactivo') NOT NULL
 );
 
 CREATE TABLE Chofer(
     Cedula_Chofer VARCHAR (10) PRIMARY KEY NOT NULL,
-    Nombre_Chofer VARCHAR (20) NOT NULL,
-    Apellido_Chofer VARCHAR (20) NOT NULL,
+    Nombre_Chofer VARCHAR (50) NOT NULL,
+    Apellido_Chofer VARCHAR (50) NOT NULL,
     Telefono VARCHAR (10) NOT NULL
 );
 
@@ -186,7 +185,7 @@ CREATE TABLE Vehiculo(
 
 CREATE TABLE Destino(
     ID_Destino INT AUTO_INCREMENT PRIMARY KEY NOT NULL,
-    Nombre VARCHAR (20) NOT NULL,
+    Nombre VARCHAR (50) NOT NULL,
     Direccion VARCHAR (100) NOT NULL,
     Ruta VARCHAR (100) NOT NULL
 );
@@ -201,10 +200,10 @@ CREATE TABLE Trasladable (
     Piso_Retiro INT NOT NULL,
     Habitacion_Retiro INT NOT NULL,
     CI VARCHAR(10) NULL, 
-    Camilla ENUM('De emergencia', 'Normal') NOT NULL, 
+    Camilla ENUM('De emergencia', 'Normal') NULL, 
     Oxigeno BOOLEAN DEFAULT FALSE,
     Aislamiento BOOLEAN DEFAULT FALSE,
-    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NOT NULL,
+    Accesorio ENUM('Bastón', 'Silla de ruedas', 'Otro', 'Ninguno') NULL,
     FOREIGN KEY (CI) REFERENCES Paciente(CI) ON DELETE CASCADE
 );
 
@@ -243,13 +242,13 @@ CREATE TABLE Transporta(
 
 -- DML:
 INSERT INTO Enfermero
-(Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero, Contrasena, Cargo)
+(Cedula_Enfermero, Nombre_Enfermero, Apellido_Enfermero, Contrasena, Cargo, Estado)
 VALUES
-('11111111', 'Pedro', 'Gonzalez', '123455', 'Enfermero'),
-('22222222', 'Laura', 'Martinez', '123458', 'Enfermero'),
-('33333333', 'Sofia', 'Rodriguez', '1234346', 'Enfermero'),
-('44444444', 'Diego', 'Fernandez', '123453', 'Enfermero'),
-('55555555', 'Valentina', 'Lopez', '123455', 'Enfermero');
+('11111111', 'Pedro', 'Gonzalez', '123455', 'Enfermero', 'Activo'),
+('22222222', 'Laura', 'Martinez', '123458', 'Enfermero', 'Activo'),
+('33333333', 'Sofia', 'Rodriguez', '1234346', 'Enfermero', 'Activo'),
+('44444444', 'Diego', 'Fernandez', '123453', 'Enfermero', 'Activo'),
+('55555555', 'Valentina', 'Lopez', '123455', 'Enfermero', 'Activo');
 
 INSERT INTO Chofer
 (Cedula_Chofer, Nombre_Chofer, Apellido_Chofer, Telefono)
@@ -338,10 +337,10 @@ CREATE TABLE Administrador(
 );
 
 INSERT INTO Administrador
-(Cedula_Administrador, Nombre_Administrador, Apellido_Administrador, Contrasena, Cargo)
+(Cedula_Administrador, Nombre_Administrador, Apellido_Administrador, Contrasena, Cargo, Estado)
 VALUES
-('90876533', 'Kenia', 'Kronberg', '1234', 'Administrador'),
-('90876534', 'Santiago', 'da Rosa', '123', 'Administrador'),
-('90876536', 'Joaquin', 'Estefan', '12344', 'Administrador'),
-('90876535', 'Gennaro', 'Rodriguez', '12345', 'Administrador'),
-('90876530', 'Valentina', 'Garcia', '12346', 'Administrador');
+('90876533', 'Kenia', 'Kronberg', '1234', 'Administrador', 'Activo'),
+('90876534', 'Santiago', 'da Rosa', '123', 'Administrador', 'Activo'),
+('90876536', 'Joaquin', 'Estefan', '12344', 'Administrador', 'Activo'),
+('90876535', 'Gennaro', 'Rodriguez', '12345', 'Administrador', 'Activo'),
+('90876530', 'Valentina', 'Garcia', '12346', 'Administrador', 'Activo');
