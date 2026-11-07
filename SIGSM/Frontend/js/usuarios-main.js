@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', cargarSesion);
 
 async function cargarUsuarios() {
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios');
+        const response = await fetch('/API/usuarios');
         const listaUsuarios = await response.json();
 
         renderizarTabla(listaUsuarios);
@@ -81,7 +81,7 @@ async function deshabilitarUsuario(ci) {
 
     try {
         const response =
-            await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${ci}`, {
+            await fetch(`/API/usuarios/${ci}`, {
                 method: 'DELETE'
             });
 
@@ -108,7 +108,7 @@ async function habilitarUsuario(ci) {
 
     try {
         const response =
-            await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${ci}`, {
+            await fetch(`/API/usuarios/${ci}`, {
                 method: 'PUT'
             });
 
@@ -168,7 +168,7 @@ async function crearUsuario(event) {
     };
 
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/', {
+        const response = await fetch('/API/usuarios/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -258,7 +258,7 @@ document.getElementById('formEditarUsuario').addEventListener('submit', async (e
         endpoint = 'enfermeros';
     }
 
-    const url = `/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/${endpoint}/${ci}`;
+    const url = `/API/usuarios/${endpoint}/${ci}`;
 
     try {
         const response = await fetch(url, {

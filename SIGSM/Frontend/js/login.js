@@ -31,11 +31,11 @@ formulario.addEventListener('submit', async (e) => {
         }
 
         if (datos.usuario.Cargo === 'Administrador' && datos.usuario.Estado === 'Activo') {
-            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModulo.html';
+            window.location.href = '/Frontend/html/EleccionDeModulo.html';
         } else if (datos.usuario.Cargo === 'Administrativo' && datos.usuario.Estado === 'Activo') {
-            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloAdmin.html';
+            window.location.href = '/Frontend/html/EleccionDeModuloAdmin.html';
         } else if (datos.usuario.Cargo === 'Enfermero' && datos.usuario.Estado === 'Activo') {
-            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/html/EleccionDeModuloEnfermero.html';
+            window.location.href = '/Frontend/html/EleccionDeModuloEnfermero.html';
         }else{
             mensaje.textContent = 'Usuario inactivo. Por favor, contacte al administrador.';
         }

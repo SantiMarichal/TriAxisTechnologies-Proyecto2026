@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Enfermero.php';
+require_once __DIR__ . '/../../Backend/models/Enfermero.php';
 
 $enfermero = new Enfermero();
 

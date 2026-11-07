@@ -44,7 +44,7 @@ if (formulario) {
 
             mostrarMensaje("Subiendo archivo...", true);
 
-            const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos', {
+            const respuesta = await fetch('/API/documentos', {
                 method: "POST",
                 body: formData
             });
@@ -86,7 +86,7 @@ function mostrarMensaje(texto, correcto) {
 // Listar documentos. GET /api/documentos
 async function cargarDocumentos() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos');
+        const response = await fetch('/API/documentos');
         const listaDocumentos = await response.json();
 
         if (!response.ok) {
@@ -187,7 +187,7 @@ function renderizarDocumentos(listaDocumentos) {
 function verPDF(id) {
     if (!visorPDF) return;
     // La API devuelve el archivo PDF, no un JSON.
-    visorPDF.src = `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`;
+    visorPDF.src = `/API/documentos/${id}`;
 
     visorPDF.hidden = false;
 
@@ -222,7 +222,7 @@ async function eliminarDocumento(id) {
 
     try {
         const response = await fetch(
-            `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`,
+            `/API/documentos/${id}`,
             {
                 method: 'DELETE'
             }
@@ -296,7 +296,7 @@ if (formEditarDocumento) {
         formData.append("_method", "PUT");
 
         try {
-            const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`, {
+            const respuesta = await fetch(`/API/documentos/${id}`, {
                 method: "POST",
                 body: formData
             });
@@ -320,7 +320,7 @@ if (formEditarDocumento) {
 
 async function cargarResultadosEncuesta() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php?todas=1');
+        const response = await fetch('/API/encuestas/encuestas.php?todas=1');
         const encuestas = await response.json();
 
         if (!response.ok) {

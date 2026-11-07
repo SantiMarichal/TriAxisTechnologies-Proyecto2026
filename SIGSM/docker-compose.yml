@@ -1,0 +1,38 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: SIGSM
+    ports:
+      - "8080:80"
+    volumes:
+      - uploads:/var/www/html/uploads
+    depends_on:
+      - database
+    networks:
+      - sigsm
+
+  database:
+    image: mysql:latest
+    container_name: BDMontajeDirecto
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234
+      MYSQL_DATABASE: Proyecto2026
+      MYSQL_USER: usuario
+      MYSQL_PASSWORD: usupass
+    ports:
+      - "6464:3306"
+    volumes:
+      - BaseDeDatos:/var/lib/mysql
+      - ./Backend/database/bd.sql:/docker-entrypoint-initdb.d/bd.sql
+    networks:
+      - sigsm
+
+volumes:
+  BaseDeDatos:
+  uploads:
+
+networks:
+  sigsm:
+    driver: bridge

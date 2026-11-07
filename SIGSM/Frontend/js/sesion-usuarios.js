@@ -3,11 +3,11 @@ document.getElementById('btnLogout').addEventListener('click', logout);
 
 async function cargarSesion() {
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/sesion');
+        const response = await fetch('/API/sesion');
         const datos = await response.json();
 
         if (!datos.autenticado) {
-            window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
+            window.location.href = '/Frontend/index.html';
             return;
         }
 
@@ -25,11 +25,11 @@ async function cargarSesion() {
 
 async function logout() {
     try {
-        await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/logout', {
+        await fetch('/API/logout', {
             method: 'POST'
         });
 
-        window.location.href = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html';
+        window.location.href = '/Frontend/index.html';
 
     } catch (error) {
         console.error('Error al cerrar sesión:', error);

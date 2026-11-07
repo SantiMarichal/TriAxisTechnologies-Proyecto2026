@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../backend/models/Traslado.php';
+require_once __DIR__ . '/../../Backend/models/Traslado.php';
 
 header('Content-Type: application/json');
 $metodo = $_SERVER['REQUEST_METHOD'];

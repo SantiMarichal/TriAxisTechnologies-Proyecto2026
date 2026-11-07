@@ -9,7 +9,7 @@ let todosLosTraslados = [];
 
 async function cargarTraslados() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados');
+        const response = await fetch('/API/traslados');
         todosLosTraslados = await response.json();
 
         renderizarTraslados(todosLosTraslados);
@@ -20,7 +20,7 @@ async function cargarTraslados() {
 
 async function cargarOpcionesSelects() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?recursos=true');
+        const response = await fetch('/API/traslados?recursos=true');
         const datos = await response.json();
 
         // 1. Cargar Choferes (Formulario)
@@ -182,7 +182,7 @@ function aplicarFiltros() {
 
 async function cargarOpcionesSelectsEdicion() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados?recursos=true');
+        const response = await fetch('/API/traslados?recursos=true');
         const datos = await response.json();
 
         const selectChofer = document.getElementById('editarCedulaChofer');
@@ -425,7 +425,7 @@ function renderizarChoferes(listaChoferes) {
 
         const btnEditar = document.createElement('button');
         btnEditar.textContent = 'Editar';
-        btnEditar.onclick = () => abrirModalEditarChofer(chofer); // Implementar modal/función si requieres edición
+        btnEditar.onclick = () => abrirModalEditarChofer(chofer); 
         tdAcciones.appendChild(btnEditar);
 
         const btnEliminar = document.createElement('button');
@@ -559,19 +559,19 @@ function renderizarPacientes(listaPacientes) {
 async function cargarDatosTablas() {
     try {
         // Cargar Choferes
-        const resChoferes = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes');
+        const resChoferes = await fetch('/API/entidades/choferes');
         if (resChoferes.ok) renderizarChoferes(await resChoferes.json());
 
         // Cargar Vehículos
-        const resVehiculos = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos');
+        const resVehiculos = await fetch('/API/entidades/vehiculos');
         if (resVehiculos.ok) renderizarVehiculos(await resVehiculos.json());
 
         // Cargar Destinos
-        const resDestinos = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos');
+        const resDestinos = await fetch('/API/entidades/destinos');
         if (resDestinos.ok) renderizarDestinos(await resDestinos.json());
 
         // Cargar Pacientes
-        const resPacientes = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes');
+        const resPacientes = await fetch('/API/entidades/pacientes');
         if (resPacientes.ok) renderizarPacientes(await resPacientes.json());
     } catch (error) {
         console.error('Error al cargar los catálogos en las tablas:', error);
@@ -584,7 +584,7 @@ async function eliminarTraslado(id) {
     }
 
     try {
-        const response = await fetch(`/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${id}`, {
+        const response = await fetch(`/API/traslados/${id}`, {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: id })
@@ -611,7 +611,7 @@ async function eliminarChofer(cedula) {
         return;
     }
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes', {
+        const response = await fetch('/API/entidades/choferes', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: cedula })
@@ -637,7 +637,7 @@ async function eliminarVehiculo(matricula) {
         return;
     }
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos', {
+        const response = await fetch('/API/entidades/vehiculos', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: matricula })
@@ -663,7 +663,7 @@ async function eliminarDestino(id) {
         return;
     }
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos', {
+        const response = await fetch('/API/entidades/destinos', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: id })
@@ -689,7 +689,7 @@ async function eliminarPaciente(cedula) {
         return;
     }
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes', {
+        const response = await fetch('/API/entidades/pacientes', {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ id: cedula })
@@ -815,7 +815,7 @@ async function crearTraslado(event) {
     }
 
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados', {
+        const response = await fetch('/API/traslados', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -881,7 +881,7 @@ if (formEditarTraslado) {
 
 async function actualizarTraslado(idTraslado, datosActualizados) {
     try {
-        const respuesta = await fetch(`http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/traslados/${idTraslado}`, {
+        const respuesta = await fetch(`/API/traslados/${idTraslado}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
@@ -939,10 +939,10 @@ document.getElementById('formNuevoRegistro').addEventListener('submit', async (e
     const tipo = selectTipoEntidad.value;
 
     let urlAPI = '';
-    if (tipo === 'paciente') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/pacientes';
-    else if (tipo === 'chofer') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/choferes';
-    else if (tipo === 'vehiculo') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/vehiculos';
-    else if (tipo === 'destino') urlAPI = '/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/entidades/destinos';
+    if (tipo === 'paciente') urlAPI = '/API/entidades/pacientes';
+    else if (tipo === 'chofer') urlAPI = '/API/entidades/choferes';
+    else if (tipo === 'vehiculo') urlAPI = '/API/entidades/vehiculos';
+    else if (tipo === 'destino') urlAPI = '/API/entidades/destinos';
 
     try {
         const response = await fetch(urlAPI, {

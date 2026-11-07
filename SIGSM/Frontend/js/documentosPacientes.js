@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarDocumentos() {
     try {
-        const response = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos');
+        const response = await fetch('/API/documentos');
         const listaDocumentos = await response.json();
 
         renderizarDocumentos(listaDocumentos);
@@ -79,7 +79,7 @@ function renderizarDocumentos(listaDocumentos) {
 function verPDF(id) {
     if (!visorPDF) return;
     // La API devuelve el archivo PDF, no un JSON.
-    visorPDF.src = `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/documentos/${id}`;
+    visorPDF.src = `/API/documentos/${id}`;
 
     visorPDF.hidden = false;
 

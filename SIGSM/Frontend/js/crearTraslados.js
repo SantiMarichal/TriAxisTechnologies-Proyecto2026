@@ -9,7 +9,7 @@ async function crearUsuario(event) {
     };
 
     try {
-        const response = await fetch('/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/usuarios/', {
+        const response = await fetch('/API/usuarios/', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

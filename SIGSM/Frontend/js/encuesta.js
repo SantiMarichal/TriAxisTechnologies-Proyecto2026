@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 async function cargarEncuesta(idCategoria) {
     try {
-        const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php?categoria=' + idCategoria);
+        const respuesta = await fetch('/API/encuestas/encuestas.php?categoria=' + idCategoria);
         const encuesta = await respuesta.json();
 
         document.getElementById('tituloEncuesta').textContent = encuesta.Titulo;
@@ -85,7 +85,7 @@ formulario.addEventListener('submit', async (e) => {
     });
 
     try {
-        const respuesta = await fetch('http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/API/encuestas/encuestas.php', {
+        const respuesta = await fetch('/API/encuestas/encuestas.php', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ respuestas: respuestas })

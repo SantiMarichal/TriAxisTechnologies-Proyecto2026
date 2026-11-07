@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Administrativo.php';
-require_once __DIR__ . '/../../backend/models/Enfermero.php';
-require_once __DIR__ . '/../../backend/models/Administrador.php';
+require_once __DIR__ . '/../../Backend/models/Administrativo.php';
+require_once __DIR__ . '/../../Backend/models/Enfermero.php';
+require_once __DIR__ . '/../../Backend/models/Administrador.php';
 
 $administrativo = new Administrativo();
 $enfermero = new Enfermero();
@@ -109,7 +109,7 @@ try {
 
         if ($borrado) {
             http_response_code(200);
-            echo json_encode(['mensaje' => 'Usuario eliminado correctamente']);
+            echo json_encode(['mensaje' => 'Usuario deshabilitado correctamente']);
         } else {
             http_response_code(404);
             echo json_encode(['error' => 'No se encontró ningún usuario con esa cédula para eliminar']);

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Traslado.php';
+require_once __DIR__ . '/../../Backend/models/Traslado.php';
 
 $traslado = new Traslado();
 

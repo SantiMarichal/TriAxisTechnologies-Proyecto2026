@@ -1,8 +1,8 @@
 <?php
 
-require_once __DIR__ . '/../backend/models/Administrativo.php';
-require_once __DIR__ . '/../backend/models/Enfermero.php';
-require_once __DIR__ . '/../backend/models/Administrador.php';
+require_once __DIR__ . '/../Backend/models/Administrativo.php';
+require_once __DIR__ . '/../Backend/models/Enfermero.php';
+require_once __DIR__ . '/../Backend/models/Administrador.php';
 
 header('Content-Type: application/json; charset=utf-8');
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Administrador.php';
+require_once __DIR__ . '/../../Backend/models/Administrador.php';
 
 $administrador = new Administrador();
 

@@ -1,6 +1,6 @@
 <?php
 
-require_once __DIR__ . '/../../backend/models/Encuesta.php';
+require_once __DIR__ . '/../../Backend/models/Encuesta.php';
 
 $Encuesta = new Encuesta();
 $metodo = $_SERVER['REQUEST_METHOD'];

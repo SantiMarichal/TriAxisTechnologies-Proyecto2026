@@ -28,7 +28,10 @@ class Database
         $dsn = "mysql:host=$host;dbname=$db;charset=$charset";
 
         try {
-            $this->conexion = new PDO($dsn, $user, $pass);
+            $this->conexion = new PDO($dsn, $user, $pass, [
+                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8mb4 COLLATE utf8mb4_unicode_ci"
+            ]);
         } catch (PDOException $e) {
             throw new PDOException($e->getMessage(), $e->getCode());
         }

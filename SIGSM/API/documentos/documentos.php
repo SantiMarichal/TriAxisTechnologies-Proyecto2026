@@ -2,7 +2,7 @@
 
 header("X-Content-Type-Options: nosniff");
 
-require_once __DIR__ . '/../../backend/models/Documento.php';
+require_once __DIR__ . '/../../Backend/models/Documento.php';
 
 $documento = new Documento();
 $raizProyecto = dirname(__DIR__);

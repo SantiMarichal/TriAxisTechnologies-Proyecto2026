@@ -1,5 +1,5 @@
 <?php
-require_once __DIR__ . '/../../backend/models/Administrativo.php';
+require_once __DIR__ . '/../../Backend/models/Administrativo.php';
 
 $administrativo = new Administrativo();
 
