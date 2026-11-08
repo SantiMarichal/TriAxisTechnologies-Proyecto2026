@@ -79,6 +79,9 @@
                 <button type="button" id="btnAbrirModal" class="btn-filtro">
                     Agregar Nueva Categoría
                 </button>
+                <button type="button" id="btnAbrirModalEliminar" class="btn-filtro">
+                    Eliminar Categoría
+                </button>
                 <div id="filtros" class="filtros">
                     <button class="btn-filtro" data-categoria="todos">
                         Todos
@@ -190,6 +193,28 @@
                             <div class="modal-footer">
                                 <button type="button" id="btnCancelar" class="btn-secondary">Cancelar</button>
                                 <button type="submit" class="btn-primary">Guardar Categoría</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div id="modalCategoriaEliminar" class="modal-overlay" style="display: none;">
+                <div class="modal-container">
+                    <div class="modal-header">
+                        <h3>Eliminar Categoría</h3>
+                        <button type="button" id="btnCerrarModalEliminar" class="btn-close">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form id="formModalCategoriaEliminar">
+                            <div class="form-group">
+                                <select id="selectCategoria">
+                                    <option value="">--Seleccione una categoria--</option>
+
+                                </select> 
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" id="btnCancelarEliminar" class="btn-secondary">Cancelar</button>
+                                <button type="submit" class="btn-primary">Eliminar Categoría</button>
                             </div>
                         </form>
                     </div>

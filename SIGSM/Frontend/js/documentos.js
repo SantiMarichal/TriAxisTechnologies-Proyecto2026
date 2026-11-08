@@ -413,6 +413,7 @@ form.addEventListener('submit', async function (e) {
             alert(resultado.mensaje || '¡Categoría creada exitosamente!');
             cerrarModal();
             cargarDocumentos();
+            actualizarListasCategorias();
 
         } else {
             alert('Error: ' + (resultado.mensaje || 'No se pudo crear la categoría.'));
@@ -426,7 +427,7 @@ form.addEventListener('submit', async function (e) {
 async function actualizarListasCategorias() {
     try {
         const response = await fetch('/API/categorias');
-        const categorias = await response.json(); 
+        const categorias = await response.json();
 
         if (!response.ok) {
             throw new Error(categorias.error || "No se pudieron cargar las categorías.");
@@ -503,5 +504,87 @@ document.addEventListener('click', (e) => {
                 card.style.display = 'none';
             }
         });
+    }
+});
+
+const modalEliminar = document.getElementById('modalCategoriaEliminar');
+const btnAbrirModalEliminar = document.getElementById('btnAbrirModalEliminar'); 
+const btnCerrarModalEliminar = document.getElementById('btnCerrarModalEliminar');
+const btnCancelarEliminar = document.getElementById('btnCancelarEliminar');
+const formEliminarCategoria = document.getElementById('formModalCategoriaEliminar');
+const selectCategoriaAEliminar = document.getElementById('selectCategoria');
+
+async function abrirModalEliminar() {
+    try {
+        const response = await fetch('/API/categorias');
+        const categorias = await response.json();
+
+        if (!response.ok) {
+            throw new Error(categorias.error || "No se pudieron cargar las categorías.");
+        }
+
+        selectCategoriaAEliminar.innerHTML = '<option value="">--Seleccione una categoria--</option>';
+        categorias.forEach(cat => {
+            const option = document.createElement('option');
+            option.value = cat.ID_Categoria;
+            option.textContent = cat.Nombre;
+            selectCategoriaAEliminar.appendChild(option);
+        });
+
+        modalEliminar.style.display = 'flex';
+    } catch (error) {
+        console.error('Error al cargar categorías para eliminar:', error);
+    }
+}
+
+function cerrarModalEliminar() {
+    modalEliminar.style.display = 'none';
+    formEliminarCategoria.reset();
+}
+
+if (btnAbrirModalEliminar) {
+    btnAbrirModalEliminar.addEventListener('click', abrirModalEliminar);
+}
+
+if (btnCerrarModalEliminar) {
+    btnCerrarModalEliminar.addEventListener('click', cerrarModalEliminar);
+}
+
+if (btnCancelarEliminar) {
+    btnCancelarEliminar.addEventListener('click', cerrarModalEliminar);
+}
+
+formEliminarCategoria.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const idCategoria = selectCategoriaAEliminar.value;
+
+    if (!idCategoria) {
+        alert('Por favor, seleccione una categoría para eliminar.');
+        return;
+    }
+    if (!confirm('¿Estás seguro de que deseas eliminar esta categoría?')) {
+        return;
+    }
+
+    try {
+        const response = await fetch(`/API/categorias/${idCategoria}`, {
+            method: 'DELETE'
+        });
+
+        const resultado = await response.json();
+
+        if (response.ok) {
+            alert(resultado.mensaje || 'Categoría eliminada con éxito');
+
+            cerrarModalEliminar();
+            actualizarListasCategorias();
+            cargarDocumentos();
+        } else {
+            alert(resultado.mensaje || 'Hubo un error al eliminar la categoría.');
+        }
+    } catch (error) {
+        console.error('Error en la petición DELETE:', error);
+        alert('Error de conexión o de respuesta del servidor: ' + error.message);
     }
 });

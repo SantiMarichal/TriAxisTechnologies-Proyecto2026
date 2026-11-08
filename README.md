@@ -1,11 +1,11 @@
-# 🚑 SIGSM - Sistema de Gestión de Servicios Médicos
+# 🚑 SIGSM - Sistema Informatico de Gestión de Servicios Médicos
 
 **SIGSM** es una solución web integral diseñada para la coordinación, control y seguimiento en tiempo real de traslados de pacientes y transporte de elementos u órganos dentro y fuera del **Hospital de Clínicas**.
 El proyecto fue desarrollado como parte del proyecto académico de la carrera **Tecnólogo en Informática (TriAxis Technologies / UTU ISBO, 2026)**.
 
 ---
 
-## 🎯 Objetivo del Proyecto
+##  Objetivo del Proyecto
 
 Optimizar la logística intra y extrahospitalaria mediante una plataforma centralizada que permite:
 - Gestionar solicitudes de traslado para pacientes y elementos/órganos.
@@ -15,17 +15,17 @@ Optimizar la logística intra y extrahospitalaria mediante una plataforma centra
 
 ---
 
-## 🧠 Tecnologías Utilizadas
+##  Tecnologías Utilizadas
 
 - **Frontend:** HTML5, CSS3 (Flexbox/Grid), JavaScript (vanilla con Fetch API)
 - **Backend:** PHP 8.x (POO y PDO)
-- **Base de Datos:** MySQL / MariaDB (Arquitectura Relacional con Restricciones de Integridad y Claves Foráneas)
+- **Base de Datos:** MySQL  (Arquitectura Relacional con Restricciones de Integridad y Claves Foráneas)
 - **Servidor:** Apache (XAMPP / Entorno Web)
 - **Control de Versiones:** Git y GitHub
 
 ---
 
-## 🏗️ Estructura del Proyecto
+##  Estructura del Proyecto
 
 La aplicación se organiza bajo una arquitectura limpia modular orientada a APIs RESTful en PHP y gestión independiente del cliente web.
 
@@ -137,7 +137,7 @@ SIGSM/
 
 ---
 
-## ⚙️ Despliegue e Instalación
+##  Despliegue e Instalación con XAMPP
 
 1. **Clonar el repositorio:**
    ```bash
@@ -151,9 +151,21 @@ SIGSM/
 4. **Acceso al sistema:**
    - Navega en tu navegador a `http://localhost/Prog/TriAxisTechnologies-Proyecto2026/SIGSM/Frontend/index.html`.
 
+## Despliegue e Instalación con Docker
+
+1. **Clonar el repositorio:**
+   ```bash
+   git clone [https://github.com/SantiMarichal/TriAxisTechnologies-Proyecto2026.git](https://github.com/SantiMarichal/TriAxisTechnologies-Proyecto2026.git)
+   cd TriAxisTechnologies-Proyecto2026/SIGSM
+2. **Configurar la Base de Datos:**
+   - Asegurate de que las credenciales en el archivo `Backend/config/Database.php` apunten al host correcto.
+3. **Servidor Web:**
+   - Para levantar el contenedor se utiliza el comando: `docker compose up -d --build`
+4. **Acceso al sistema:**
+   - En tu navegador se ingresa `http://192.168.1.22:8080/Frontend/index.html`
 ---
 
-## 👨‍💻 Equipo de Desarrollo - TriAxis Technologies
+##  Equipo de Desarrollo - TriAxis Technologies
 
 | Integrante            | GitHub                                                     |
 | --------------------- | -----------------------------------------------------------|
@@ -164,6 +176,6 @@ SIGSM/
 
 ---
 
-## 📖 Licencia
+##  Licencia
 
 Este proyecto ha sido desarrollado con fines puramente **académicos y educativos** para el Hospital de Clínicas. Todos los derechos sobre marcas e imágenes institucionales pertenecen a sus respectivos organismos.

@@ -35,4 +35,15 @@ class Categoria
         $resultado = $stmt->fetch(PDO::FETCH_ASSOC);
         return $resultado ? $resultado : null;
     }
+
+    public function eliminar(int $id): bool
+    {
+        $sql = "DELETE FROM Categorias WHERE ID_Categoria = :id";
+        $stmt = $this->conexion->prepare($sql);
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return $stmt->rowCount() > 0;
+        }
+        return false;
+    }
 }

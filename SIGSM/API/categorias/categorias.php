@@ -22,6 +22,25 @@ try {
                 echo json_encode(['mensaje' => 'Error al crear la categoría']);
             }
             break;
+        case 'DELETE':
+            if ($id) {
+                $resultado = $categoria->eliminar((int) $id);
+                if ($resultado) {
+                    http_response_code(200);
+                    echo json_encode(['mensaje' => 'Categoría eliminada exitosamente']);
+                } else {
+                    http_response_code(400);
+                    echo json_encode(['mensaje' => 'No se pudo eliminar la categoría o no existe']);
+                }
+            } else {
+                http_response_code(400);
+                echo json_encode(['mensaje' => 'ID de categoría no proporcionado en la ruta']);
+            }
+            break;
+        default:
+            http_response_code(405);
+            echo json_encode(['mensaje' => 'Método no permitido']);
+            break;
     }
 } catch (Exception $e) {
     http_response_code(500);

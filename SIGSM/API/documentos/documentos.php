@@ -5,7 +5,7 @@ header("X-Content-Type-Options: nosniff");
 require_once __DIR__ . '/../../Backend/models/Documento.php';
 
 $documento = new Documento();
-$raizProyecto = dirname(__DIR__);
+$raizProyecto = dirname(__DIR__, 2);
 $tamañoMaximo = 10 * 1024 * 1024; // 10 MB de tamaño máximo
 
 // Se estandariza response con función
@@ -422,9 +422,9 @@ switch ($metodo) {
             ], 404);
         }
 
-        if (isset($documentoInfo["ruta_archivo"]) && !empty($documentoInfo["ruta_archivo"])) {
+        if (isset($documentoInfo["Ruta_archivo"]) && !empty($documentoInfo["Ruta_archivo"])) {
             $rutaFisica = resolverRutaArchivo(
-                $documentoInfo["ruta_archivo"],
+                $documentoInfo["Ruta_archivo"],
                 $raizProyecto
             );
 

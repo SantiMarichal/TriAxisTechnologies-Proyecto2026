@@ -7,6 +7,7 @@ services:
     ports:
       - "8080:80"
     volumes:
+      - .:/var/www/html
       - uploads:/var/www/html/uploads
     depends_on:
       - database
