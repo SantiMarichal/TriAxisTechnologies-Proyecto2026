@@ -47,6 +47,8 @@ SIGSM/
 |    |       ├── pacientes.php
 |    |       └── vehiculos.php
 |    |
+|    ├── categorias/
+|    |       └── categorias.php
 │    ├── index.php
 |    ├── login.php
 |    ├── .htaccess
@@ -59,9 +61,9 @@ SIGSM/
 │   │   └── Database.php      # Patrón Singleton para la conexión PDO a MySQL.
 │   │
 │   ├── models/
-│   |    ├── Administrador.php      # Gestión del catálogo maestro de pacientes.
-│   |    ├── Administrativo.php      # Modelo de traslados, asignación de vehículos y elementos.
-│   |    ├── Categoria.php       # Gestión de autenticación, roles y usuarios.
+│   |    ├── Administrador.php     
+│   |    ├── Administrativo.php      
+│   |    ├── Categoria.php       
 |   |    ├── Documento.php
 |   |    ├── Encuesta.php
 |   |    ├── Enfermero.php
@@ -92,8 +94,8 @@ SIGSM/
 │   │   └── usuarios.html
 │   │
 │   ├── js/
-│   │   ├── listaTraslados.js # Lógica de modales, consumo de API, tablas y formularios.
-│   │   ├── sesion.js         # Control de sesión activa y cierre de sesión.
+│   │   ├── listaTraslados.js 
+│   │   ├── sesion.js        
 │   │   ├── crearTraslado.js
 │   │   ├── documentos.js
 │   │   ├── documentosPacientes.js
@@ -121,6 +123,16 @@ SIGSM/
 |   └── index.html
 │
 └── README.md
+│
+│
+└── scripts
+      ├── firewall.sh
+      ├── grupos.sh
+      ├── logs.sh
+      ├── MenuScripts.sh
+      ├── red.sh
+      ├── respaldos.sh
+      └── usuarios.sh
 ```
 
 ---
