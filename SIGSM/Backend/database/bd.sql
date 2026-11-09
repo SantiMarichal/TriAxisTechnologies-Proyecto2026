@@ -113,11 +113,11 @@ INSERT INTO Respuestas (ID_Pregunta, ID_Encuesta, Texto, Cantidad_Votos) VALUES
 (11, 5, 'Sí', 0), (11, 5, 'No', 0);
 
 INSERT INTO Documentos (ID_Documento, CI_Usuario, Titulo, Descripcion, ID_Categoria, Estado, Nombre_archivo, Ruta_archivo) VALUES
-(1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado', 'reglamento.pdf', '/uploads/pdf/2026/a6f0d5463ddd2c268c488f7b9b2b732f.pdf'),
-(2, '2222222', 'Protocolo', 'Protocolo de atencion al paciente.', 2, 'Aprobado', 'protocolo.pdf', '/uploads/pdf/2026/b105a7e79b2c86da2696605d49430f36.pdf'),
-(3, '3333333', 'Normativa', 'Normativa interna del hospital.', 3, 'Aprobado', 'normativa.pdf', '/uploads/pdf/2026/e0fd8bfa6ae12f08d43037086692603f.pdf'),
-(4, '4444444', 'Horarios', 'Horarios de atencion de los servicios.', 4, 'Aprobado', 'horarios.pdf', '/uploads/pdf/2026/e874aa59711a1d39fab3306a87cbf984.pdf'),
-(5, '5555555', 'Informacion', 'Informacion general para los pacientes.', 5, 'Aprobado', 'informacion.pdf', '/uploads/pdf/2026/1cf4ada41a8c8173e749c292cfe4483e.pdf');
+(1, '1111111', 'Reglamento', 'Reglamento general del hospital.', 1, 'Aprobado', 'reglamento.pdf', 'uploads/pdf/2026/0ebe4ce13da582c86e9b3bcfbfef2705.pdf'),
+(2, '2222222', 'Protocolo', 'Protocolo de atencion al paciente.', 2, 'Aprobado', 'protocolo.pdf', 'uploads/pdf/2026/1e2d4c5b4c4c96c49e118eac477cc951.pdf'),
+(3, '3333333', 'Normativa', 'Normativa interna del hospital.', 3, 'Aprobado', 'normativa.pdf', 'uploads/pdf/2026/2f2da38d8884f29498ce8da09255ee97.pdf'),
+(4, '4444444', 'Horarios', 'Horarios de atencion de los servicios.', 4, 'Aprobado', 'horarios.pdf', 'uploads/pdf/2026/c7362202974162012ea8a1b319eff515.pdf'),
+(5, '5555555', 'Informacion', 'Informacion general para los pacientes.', 5, 'Aprobado', 'informacion.pdf', 'uploads/pdf/2026/50428713d7f98e5ba53ac60d5b3bff20.pdf');
 
 INSERT INTO Carga (Cedula_Administrativo, ID_Documento, HoraYFecha) VALUES
 ('12345678', 1, '2026-08-30 09:30:00'),
@@ -294,7 +294,10 @@ VALUES
 INSERT INTO Transporta (ID_Traslado, ID_Trasladable) VALUES
 (1, 1),
 (2, 2),
-(3, 3);
+(3, 3),
+(4, 9),
+(5, 10);
+
 
 -- Tabla Administrador
 CREATE TABLE Administrador(

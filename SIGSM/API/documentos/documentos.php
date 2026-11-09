@@ -23,11 +23,15 @@ function responderJson(array $datos, int $codigo = 200): void
 
 function resolverRutaArchivo(string $rutaRelativa, string $raizProyecto): ?string
 {
-    $raizUploads = realpath($raizProyecto . "/uploads/pdf");
+    // Apuntamos a la base de la carpeta pdf dentro de API
+    $raizUploads = realpath($raizProyecto . "/API/uploads/pdf");
 
     if ($raizUploads === false) {
         return null;
     }
+
+    $rutaRelativa = stripslashes($rutaRelativa);
+    $rutaRelativa = ltrim(trim($rutaRelativa), '/\\');
 
     $rutaRelativa = str_replace(
         ["\\", "/"],
@@ -35,7 +39,7 @@ function resolverRutaArchivo(string $rutaRelativa, string $raizProyecto): ?strin
         $rutaRelativa
     );
 
-    $rutaFisica = realpath($raizProyecto . DIRECTORY_SEPARATOR . $rutaRelativa);
+    $rutaFisica = realpath($raizProyecto . DIRECTORY_SEPARATOR . "API" . DIRECTORY_SEPARATOR . $rutaRelativa);
 
     if ($rutaFisica === false) {
         return null;
@@ -194,8 +198,9 @@ switch ($metodo) {
         $anio = date("Y");
 
         $carpetaRelativa = "uploads/pdf/" . $anio;
+        $rutaRelativa = ltrim($carpetaRelativa . "/" . $nombreServidor, '/');
 
-        $carpetaFisica = $raizProyecto . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, $carpetaRelativa);
+        $carpetaFisica = $raizProyecto . DIRECTORY_SEPARATOR . "API" . DIRECTORY_SEPARATOR . str_replace("/", DIRECTORY_SEPARATOR, $carpetaRelativa);
 
         if (!is_dir($carpetaFisica) && !mkdir($carpetaFisica, 0777, true) && !is_dir($carpetaFisica)) {
             responderJson([
@@ -203,10 +208,6 @@ switch ($metodo) {
             ], 500);
         }
         // Se crea la carpeta con el año, si es que ya no existe ---FIN-------------------
-
-
-        // El archivo queda en el srv en uploads/pdf/año/
-        $rutaRelativa = $carpetaRelativa . "/" . $nombreServidor;
 
         $rutaFisica = $carpetaFisica . DIRECTORY_SEPARATOR . $nombreServidor;
 

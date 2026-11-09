@@ -540,6 +540,7 @@ async function abrirModalEliminar() {
 function cerrarModalEliminar() {
     modalEliminar.style.display = 'none';
     formEliminarCategoria.reset();
+    cargarDocumentos();
 }
 
 if (btnAbrirModalEliminar) {

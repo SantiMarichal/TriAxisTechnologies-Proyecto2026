@@ -38,6 +38,15 @@ class Categoria
 
     public function eliminar(int $id): bool
     {
+        $stmtCheck = $this->conexion->prepare("SELECT COUNT(*) FROM Documentos WHERE ID_Categoria = :id");
+        $stmtCheck->execute([':id' => $id]);
+        $tieneDocumentos = $stmtCheck->fetchColumn();
+
+        if ($tieneDocumentos > 0) {
+            http_response_code(400);
+            echo json_encode(['mensaje' => 'No se puede eliminar la categoría porque tiene documentos asociados.']);
+            exit;
+        }
         $sql = "DELETE FROM Categorias WHERE ID_Categoria = :id";
         $stmt = $this->conexion->prepare($sql);
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
