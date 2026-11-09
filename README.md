@@ -1,7 +1,7 @@
 # 🚑 SIGSM - Sistema Informatico de Gestión de Servicios Médicos
 
 **SIGSM** es una solución web integral diseñada para la coordinación, control y seguimiento en tiempo real de traslados de pacientes y transporte de elementos u órganos dentro y fuera del **Hospital de Clínicas**.
-El proyecto fue desarrollado como parte del proyecto académico del bachillerato en **Tecnologias de la Información (TriAxis Technologies / UTU ISBO, 2026)**.
+El proyecto fue desarrollado como parte del proyecto académico del bachillerato en Tecnologias de la Información **(TriAxis Technologies / UTU ISBO, 2026)**.
 
 ---
 
